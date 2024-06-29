@@ -1,0 +1,22 @@
+experiment_date: 09/03/2024
+hf_repo: meta-llama/Llama-2-7b-chat-hf
+kwargs:
+  max_new_tokens: 512
+  repetition_penalty: 1.03
+  temperature: 0.01
+  top_k: 10
+  top_p: 0.95
+  typical_p: 0.95
+name: Chat LLaMa-2 Small
+properties:
+  access_space:
+  - local
+  cost:
+  - power consumption
+  domain: general
+  predecessor: --
+  size: '7'
+  task: instruction
+revision: 09bd0f4
+save_dir: ''
+saved: false

@@ -1,0 +1,23 @@
+experiment_date: 09/03/2024
+hf_repo: epfl-llm/meditron-7b
+kwargs:
+  max_new_tokens: 200
+  repetition_penalty: 1.03
+  temperature: 0.01
+  top_k: 10
+  top_p: 0.95
+  typical_p: 0.95
+name: Meditron Small
+properties:
+  access_space:
+  - local
+  cost:
+  - free in price
+  - power consumption
+  domain: medical
+  predecessor: llama-7b
+  size: '7'
+  task: base LLM
+revision: d7d0a5e
+save_dir: ./storage/meditron-small
+saved: true
