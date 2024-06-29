@@ -1,6 +1,7 @@
 # Personal Files
 .storage/
 .env
+.token
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
