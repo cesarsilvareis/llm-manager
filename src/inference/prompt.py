@@ -10,6 +10,9 @@ class PromptType(Enum):
     CONTROL     = 2
     PARAMETRIC  = 3
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Prompt(str): # immutable & abstract
 
@@ -59,7 +62,7 @@ class Prompt(str): # immutable & abstract
             "name": self.name,
             "type": self.type,
             "task": self.task,
-            "content": str(self)
+            "content": repr(str(self)),
             **args
         }
         return (
@@ -154,18 +157,19 @@ class Template(Prompt):
 
         return True
     
+    @classmethod
+    def initialize(cls: type[Self], content: str, _, params) -> Self:
+        content = cls.INSTANCE.format(**params)
+        return super().initialize(content)
+    
     def __init__(self: Self, _, name: str, task: str, **params: str):
         super().__init__(_, name, PromptType.PARAMETRIC, task)
         self._params = params
-
 
     @property
     def params(this) -> dict[str, str]:
         return this._params
 
-    def __str__(self) -> str:
-        return Template.INSTANCE.format(**self.params)
-    
     def __repr__(self: Self) -> str:
         return super().__repr__(**self.params)
     
@@ -204,7 +208,7 @@ on the Internet. For each one, make a list with the topics:
     2. {{topic_B}}
     3. {{topic_C}}
 """
-    
+    print("USER")
     raw_prompt = RawPrompt(p1, "p1", "Listing Me")
     completion_prompt = CompletionPrompt(p2, "p2")
     system_prompt = SystemPrompt("p3", "Cleaning my Home", p3_s, p3_h)
@@ -216,7 +220,10 @@ on the Internet. For each one, make a list with the topics:
                                topic_C="Nonprofit Organizations in Rescue and Welfare"
     )
     
-    print(raw_prompt, completion_prompt, system_prompt, template_prompt, sep=f"\n{49*'#'}\n")
+    delimiter = f"\n{49*'#'}\n"
+    print(raw_prompt, completion_prompt, system_prompt, template_prompt, sep=delimiter)
+    print("DEV")
+    print(delimiter.join(repr(p) for p in [raw_prompt, completion_prompt, system_prompt, template_prompt]))
     
 
 if __name__ == "__main__":
