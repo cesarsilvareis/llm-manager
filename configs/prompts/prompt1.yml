@@ -1,0 +1,8 @@
+type: raw
+name: p1
+task: List Fulfillment
+content: |
+  Make me this work:
+      1. Wash dishes
+      2. Remove trash
+      3. Vacuum my house

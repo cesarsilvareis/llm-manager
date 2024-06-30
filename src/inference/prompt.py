@@ -1,6 +1,6 @@
 import re
 from enum import Enum
-from typing import Self, Type
+from typing import Self, Type, Any
 from langchain.prompts import PromptTemplate
 
 # Remediate type conflicts of the prompt hierarchy
@@ -12,6 +12,12 @@ class PromptType(Enum):
 
     def __str__(self) -> str:
         return self.name
+    
+    def __eq__(self: Self, value: Any) -> bool:
+        if isinstance(value, PromptType):
+            return super().__eq__(self, value)
+        
+        return isinstance(value, str) and self.name.lower() == value.lower()
 
 
 class Prompt(str): # immutable & abstract
@@ -73,8 +79,8 @@ class Prompt(str): # immutable & abstract
     
 class RawPrompt(Prompt):
 
-    def __init__(self: Self, _, name: str, task: str):
-        super().__init__(_, name, PromptType.RAW, task)
+    def __init__(self: Self, content: str, name: str, task: str):
+        super().__init__(content, name, PromptType.RAW, task)
 
 
 class CompletionPrompt(Prompt):
@@ -85,8 +91,8 @@ class CompletionPrompt(Prompt):
     def check_format(cls: Type[Self], content: str, name: str) -> bool:
         return super(CompletionPrompt, cls).check_format(content, name, cls.__NO_TASK__)
     
-    def __init__(self: Self, _, name: str):
-        super().__init__(_, name, PromptType.COMPLETION, CompletionPrompt.__NO_TASK__)
+    def __init__(self: Self, content: str, name: str):
+        super().__init__(content, name, PromptType.COMPLETION, CompletionPrompt.__NO_TASK__)
 
 
 class SystemPrompt(Prompt):
@@ -162,8 +168,8 @@ class Template(Prompt):
         content = cls.INSTANCE.format(**params)
         return super().initialize(content)
     
-    def __init__(self: Self, _, name: str, task: str, **params: str):
-        super().__init__(_, name, PromptType.PARAMETRIC, task)
+    def __init__(self: Self, content: str, name: str, task: str, **params: str):
+        super().__init__(content, name, PromptType.PARAMETRIC, task)
         self._params = params
 
     @property
