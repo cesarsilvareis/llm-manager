@@ -60,7 +60,8 @@ if __name__ == "__main__":
 
     parser = ArgumentParser(description="Loads a model and sets it as current active")
     parser.add_argument("-m", "--model", type=str, required=True, 
-                        help="Its your current model (YAML config file)")
+        help="It's your model configuration (a personalized YAML file in your FS)"
+    )
 
     args = parser.parse_args()
     
