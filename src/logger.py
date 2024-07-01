@@ -9,7 +9,7 @@ from src import ROOT_DIR
 
 load_dotenv(ROOT_DIR.joinpath(".env"))
 
-def setup_logging(configfile: str|Path):
+def setup_logging(configfile: str|Path=""):
 
     if isinstance(configfile, str):
         configfile = Path(configfile)
@@ -17,7 +17,7 @@ def setup_logging(configfile: str|Path):
     """Setup logging configuration"""
     if configfile.is_file():
         with configfile.open("r") as f:
-            config = yaml.safe_load(f.read())
+            config = yaml.safe_load(f)
         dictConfig(config)
     else:
         default_level = os.getenv("LOG_LEVEL")

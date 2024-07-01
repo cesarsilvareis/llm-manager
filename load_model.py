@@ -109,7 +109,7 @@ def main(model_config: dict, output_dir, overwrite: bool):
         local_dir_use_symlinks=False,
         resume_download=True,
         max_workers=4,
-        ignore_patterns=["*.png", "*safetensors*"]
+        ignore_patterns=["*.png", "*.jpg", "*safetensors*"]
     )
 
     print(f"\nModel weights stored in {downloaded_path}")

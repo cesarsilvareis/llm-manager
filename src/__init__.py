@@ -3,8 +3,7 @@ from typing import Literal
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
-
-def get_actual_path(filename: str, mode: Literal["model", "prompt", "test", "logs", "result"]) -> Path:
+def get_actual_path(fileOrDir: str, mode: Literal["model", "prompt", "test", "logs", "result", "store"]) -> Path:
     match mode:
         case "model":
             path, ext = ROOT_DIR.joinpath("configs", "models"), "yml"
@@ -12,17 +11,19 @@ def get_actual_path(filename: str, mode: Literal["model", "prompt", "test", "log
             path, ext = ROOT_DIR.joinpath("configs", "prompts"), "yml"
         # case "test":
             ...
+        case "store":
+            path, ext = ROOT_DIR.joinpath("./storage", fileOrDir), None
         case "log":
             path, ext = ROOT_DIR.joinpath("outputs", "logs"), "yml"
         case "result":
             path, ext = ROOT_DIR.joinpath("outputs", "results"), "txt"
         case _:
             raise ValueError(f"[ERROR] Unknown mode '{mode}' for getting the actual \
-                             path for the file '{filename}'.")
+                             path for the file '{fileOrDir}'.")
     
     assert path.exists(), "[ERROR] Built path is not actual as it does not exist." 
         
-    return path.joinpath(Path(f"{filename}.{ext}"))
+    return path.joinpath(Path(f"{fileOrDir}.{ext}")) if ext else path.joinpath(fileOrDir) 
 
 from src.inference import *
 # TODO: training...

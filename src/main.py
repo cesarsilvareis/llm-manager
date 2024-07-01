@@ -5,7 +5,7 @@ from src.logger import setup_logging, get_logger
 
 
 def main():
-    setup_logging("baba")
+    setup_logging()
     logger = get_logger(__name__)
     prompt = load_prompt(sys.argv[1])
 

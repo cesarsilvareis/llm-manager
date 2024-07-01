@@ -3,11 +3,16 @@ from prompt import Prompt
 from abc import ABC, abstractmethod
 from typing import Self, Optional
 from src import get_actual_path
-from transformers import AutoModel
+from src.logger import get_logger
+from src.loader import load_model_from_hf
+from transformers import Pipeline, pipeline
+
+logger = get_logger(__name__)
 
 class ModelExecution(ABC):
 
     ACTIVIVE_EXECUTIONS: set[int]=set()
+    KEY: str
 
     def __init__(self, id: int, model: ModelConfig, output_filename: str):
         assert id not in self.ACTIVIVE_EXECUTIONS
@@ -15,8 +20,7 @@ class ModelExecution(ABC):
         
         self._id = id
         self._model = model
-        self._result = None
-        self._saved = False
+        self._last_result = None
         self._output_filename = output_filename
 
     @property
@@ -26,50 +30,60 @@ class ModelExecution(ABC):
     @property
     def model(this) -> str:
         return this._model["name"]
-
+    
     @property
-    def result(this) -> Optional[str]:
-        return this._result
-
-    @property
-    def saved(this) -> bool:
-        return this._saved
+    def last_result(this) -> Optional[str]:
+        return this._last_result
     
     @property
     def output_filename(this) -> str:
-        return this._output_filename
+        return f"{this._output_filename}_{this.id}"
 
-    def run(self) -> str:
-        self.setup()
-        self.execute()
-        self.teardown()
+    def run(self, single: bool=False) -> str:
+        if (model := self._model["instances"].get(self.KEY, None)) is None:
+            load_model_from_hf(self._model)
+            model = self.setup()
+        
+        logger.info(f"Executing model '{self._model}'...")
+        self._last_result = self.execute(model)
+        
+        logger.info(f"Saving result in '{self.output_filename}'...")
+        self.save()
+
+        if single:
+            logger.info(f"Teardown execution {self.id} as single run")
+            self.teardown()
+        else:
+            logger.debug(f"Remaining a teardown in the user side for executions on model '{self._model}' (key='{self.KEY}')")
+            self._model.save_instance(model, key=self.KEY)
+            logger.info(f"Saved model instance '{self._model}' for future runs")
+
 
     @abstractmethod
-    def setup(self):
+    def setup(self) -> Pipeline:
         raise NotImplementedError
     
     @abstractmethod
-    def execute(self):
+    def execute(self, model: Pipeline) -> str:
         raise NotImplementedError
     
-    @abstractmethod
-    def teardown(self):
-        raise NotImplementedError
+    def teardown(self: Self):
+        del self._model["instances"][self.KEY]  # remove model from memory
     
     def save(self: Self):
-        assert self.result is not None
+        assert self.last_result is not None
 
         outputfile = get_actual_path(self.output_filename, mode="result")
 
         with outputfile.open("w") as o:
-            o.write(self.result.encode("utf-8"))
+            o.write(self.last_result.encode("utf-8"))
 
 
     def __repr__(self, **extra_params) -> str:
         parameters = {
             "model": self.model,
             **extra_params,
-            "saved": self.saved,
+            "last_result": self.last_result,
             "output_filename": self.output_filename
         }
         return (
@@ -77,21 +91,34 @@ class ModelExecution(ABC):
             "; ".join(f"{k}='{v}'" for k, v in parameters.items())
             + ")"
         )
-
+    
 
 class Inference(ModelExecution):
+
+    KEY = "Inf"
 
     def __init__(self, id: int, model: ModelConfig, prompt: Prompt):
         super().__init__(id, model)
         self._prompt = prompt
-        self._result: str = ""
 
     @property
     def prompt(this) -> Prompt:
         return this._prompt
     
-    def setup(self: Self):
-        return super().setup()
+    def setup(self: Self) -> Pipeline:
+        return pipeline(
+            task="text-generation",
+            model=self._model['local'],
+            num_workers=4,
+            framework="pt",
+            torch_dtype="auto",
+            trust_remote_code = False,
+            device_map="auto",
+            model_kwargs=self._model['params']
+        )
+    
+    def execute(self, model: Pipeline) -> str:
+        return model(str(self.prompt))[0]['generated_text']
 
     def __repr__(self) -> str:
         return (
