@@ -1,16 +1,10 @@
+download_status: UNINITIALIZED
 experiment_date: 09/03/2024
-name: Meditron Small
+framework: tf
 hf_repo: epfl-llm/meditron-7b
-revision: d7d0a5e
-framework: "tf"
-weightpat: "*.safetensors"
-params:
-  # max_new_tokens: 200
-  repetition_penalty: 1.03
-  temperature: 0.01
-  top_k: 10
-  top_p: 0.95
-  typical_p: 0.95
+local: ''
+name: Meditron Small
+params: null
 properties:
   access_space:
   - local, hf_api
@@ -21,5 +15,5 @@ properties:
   predecessor: llama-7b
   size: '7'
   task: base LLM
-local: ""
-download_status: UNITIALIZED
+revision: d7d0a5e
+weightpat: '*.safetensors'

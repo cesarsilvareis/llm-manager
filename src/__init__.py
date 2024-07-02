@@ -1,7 +1,10 @@
 from pathlib import Path
 from typing import Literal
+from dotenv import load_dotenv
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(ROOT_DIR.joinpath(".env"))
 
 def get_actual_path(fileOrDir: str, mode: Literal["model", "prompt", "test", "logs", "result", "store"]) -> Path:
     match mode:

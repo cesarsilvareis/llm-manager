@@ -1,9 +1,12 @@
 from src import get_actual_path
+from src.logger import get_logger
 from src.utils import BetterEnum, ImmutableMapping
 from typing import Self
 
+logger = get_logger(__name__)
+
 class DownloadStatus(BetterEnum):
-    UNITIALIZED     =0
+    UNINITIALIZED   =0
     STARTED         =1
     COMPLETED       =2
 
@@ -29,16 +32,21 @@ class ModelConfig(ImmutableMapping):
         from src.loader import update_config
         update_config(self)
 
+        logger.debug(f"Saved state for the model '{self['name']}'")
+
+
     def start_download(self):
-        assert self.status == DownloadStatus.UNITIALIZED
+        assert self.status == DownloadStatus.UNINITIALIZED
         self._store["download_status"] = str(DownloadStatus.STARTED)
         self._save()
 
     def invalidate_local(self):
-        self._store["download_status"] = str(DownloadStatus.UNITIALIZED)
+        logger.debug(f"Invalidating local for model '{self['name']}'")
+        self._store["download_status"] = str(DownloadStatus.UNINITIALIZED)
         self._save()
 
     def validate_local(self):
+        logger.debug(f"Validating local for model '{self['name']}'")
         self._store["download_status"] = str(DownloadStatus.COMPLETED)
         self._save()
 
@@ -87,6 +95,7 @@ class CurrentModel:
     def initiate(child: ModelConfig):
         assert not CurrentModel.on()
         CurrentModel.INSTANCE = CurrentModel(child)
+        logger.debug(f"Initializating current model as '{child['name']}'")
 
     @staticmethod
     def invalidate(new_modelcfg: ModelConfig):

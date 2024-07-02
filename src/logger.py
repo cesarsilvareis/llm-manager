@@ -2,10 +2,7 @@ import os, yaml, uuid
 from logging import Filter, Logger, getLogger, basicConfig 
 from logging.config import dictConfig
 from pathlib import Path
-from dotenv import load_dotenv
-from src import ROOT_DIR
 
-load_dotenv(ROOT_DIR.joinpath(".env"))
 
 class RunFilter(Filter):
     def __init__(self, delimiter, length, additional_fields=None):

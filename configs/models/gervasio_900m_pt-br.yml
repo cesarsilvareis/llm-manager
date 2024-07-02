@@ -1,15 +1,10 @@
-download_status: COMPLETED
+download_status: UNINITIALIZED
 experiment_date: 09/03/2024
 framework: tf
 hf_repo: PORTULAN/gervasio-7b-portuguese-ptpt-decoder
 local: ''
 name: "Gerv\xE1sio 7B PTPT"
-params:
-  repetition_penalty: 1.03
-  temperature: 0.01
-  top_k: 10
-  top_p: 0.95
-  typical_p: 0.95
+params: null
 properties:
   access_space:
   - local, hf_api

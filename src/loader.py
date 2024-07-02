@@ -17,16 +17,25 @@ def load_model_from_fs(filename: str) -> ModelConfig:
         model_config = yaml.safe_load(s)
 
     return ModelConfig(filename, **model_config)
-
+    
 
 def load_model_from_hf(model: ModelConfig):
+
+    if not CurrentModel.on(): # TODO improve this...
+        import os
+        allmodels = os.listdir("./configs/models/")
+        for m in allmodels:
+            cfg = load_model_from_fs(Path(m).stem)
+            if cfg.status == DownloadStatus.COMPLETED  and cfg.local == CurrentModel.LOCAL:
+                CurrentModel.initiate(cfg)
+                break
 
     destination: Path = get_actual_path(fileOrDir=model.local, mode="store")
 
     # This is enough to just download one time for correcting consequents
-    if model.status != DownloadStatus.UNITIALIZED and model.local == CurrentModel.LOCAL \
-            and CurrentModel.on() and not CurrentModel.included(model):
-        model.invalidate_local()
+    if model.status != DownloadStatus.UNINITIALIZED and model.local == CurrentModel.LOCAL \
+        and CurrentModel.on() and not CurrentModel.included(model):
+            model.invalidate_local()
     
     match model.status:
         case DownloadStatus.COMPLETED:
@@ -36,7 +45,7 @@ def load_model_from_hf(model: ModelConfig):
             assert destination.exists()
             logger.debug(f"Continuing downloading model '{model}' in destination '{destination}'...")
 
-        case DownloadStatus.UNITIALIZED:
+        case DownloadStatus.UNINITIALIZED:
             if destination.exists(): # Disk space preparation
                 shutil.rmtree(destination)
             destination.mkdir()
@@ -76,7 +85,7 @@ def load_prompt(filename: str) -> Prompt:
 
     with source.open("r", encoding="utf-8") as s:
         prompt_data = yaml.safe_load(s)
-    
+
     match prompt_data["type"]:
         case PromptType.RAW:
             return RawPrompt(prompt_data["content"], prompt_data["name"], prompt_data["task"])

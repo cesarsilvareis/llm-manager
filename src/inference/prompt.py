@@ -22,7 +22,7 @@ class Prompt(str): # immutable & abstract
 
     @classmethod
     def set_initialization(cls: Type[Self], content: str="", name: str="", *args):
-        assert cls.check_format(content, name, *args)
+        assert cls.check_format(content, name, *args), f"Invalid prompt '{name}'"
         Prompt.ACTIVE_PROMPTS.add(name)
 
     @classmethod
@@ -59,12 +59,12 @@ class Prompt(str): # immutable & abstract
             "name": self.name,
             "type": self.type,
             "task": self.task,
-            "content": repr(str(self)),
+            "content": str(self),
             **args
         }
         return (
             f"{self.__class__.__name__}(" +
-            "; ".join(f"{k}='{v}'" for k, v in parameters.items())
+            "; ".join(f"{k}={repr(v)}" for k, v in parameters.items())
             + ")"
         )
     
@@ -88,10 +88,10 @@ class CompletionPrompt(Prompt):
 
 class SystemPrompt(Prompt):
     
-    PATTERN = r"^System: {0}\n\nHuman: {1}$"
+    PATTERN = r"^System:\n{0}\n\nHuman:\n{1}$"
 
     def __new__(cls: type[Self], name: str, task: str, system_data: str, human_data: str) -> Self:
-        return super().__new__(cls, f"System: {system_data}\n\nHuman: {human_data}", 
+        return super().__new__(cls, f"System:\n{system_data}\n\nHuman:\n{human_data}", 
                                name, task, system_data, human_data)
 
     @classmethod
@@ -101,8 +101,8 @@ class SystemPrompt(Prompt):
             super(SystemPrompt, cls).check_format(content, name, task) and
             "" not in [system_data, human_data]
         ): return False
-                    
-        pattern = cls.PATTERN.format(system_data, human_data)
+        
+        pattern = cls.PATTERN.format(re.escape(system_data), re.escape(human_data))
         regex = re.compile(pattern)
         return regex.match(content) is not None
     

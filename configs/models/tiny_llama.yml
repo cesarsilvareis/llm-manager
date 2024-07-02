@@ -1,4 +1,4 @@
-download_status: UNITIALIZED
+download_status: UNINITIALIZED
 experiment_date: 09/03/2024
 framework: tf
 hf_repo: TinyLlama/TinyLlama-1.1B-Chat-v1.0

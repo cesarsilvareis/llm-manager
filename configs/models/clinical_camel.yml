@@ -1,0 +1,24 @@
+download_status: COMPLETED
+experiment_date: 09/03/2024
+framework: pt
+hf_repo: wanglab/ClinicalCamel-70B
+local: ''
+name: Clinical Camel
+params:
+  temperature: 0.1  # 'randomness' of outputs, 0.0 is the min and 1.0 the max
+  top_p: 0.15  # select from top tokens whose probability add up to 15%
+  top_k: 0  # select from top 0 tokens (because zero, relies on top_p)
+  max_new_tokens: 500  # mex number of tokens to generate in the output
+  repetition_penalty: 1.1  # without this output begins repeating
+properties:
+  access_space:
+  - local, hf_api
+  cost:
+  - free in price
+  - power consumption
+  domain: medical
+  predecessor: llama-7b
+  size: '7'
+  task: base LLM
+revision: 1670df1
+weightpat: '*.bin'

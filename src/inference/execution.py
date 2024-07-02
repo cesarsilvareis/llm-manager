@@ -111,12 +111,14 @@ class Inference(ModelExecution):
             task="text-generation",
             model=get_actual_path(self.model.local, mode="store"),
             num_workers=4,
-            # framework=self.model["framework"],
+            framework=self.model["framework"],
             torch_dtype="auto",
             trust_remote_code = False,
             device_map="auto",
-            model_kwargs=self.model['params']
+            **self.model['params']
         )
+
+    
     
     def execute(self, model: Pipeline) -> str:
         return model(str(self.prompt), do_sample=True)[0]['generated_text']
