@@ -1,23 +1,14 @@
 import re
-from enum import Enum
+from src.utils import BetterEnum
 from typing import Self, Type, Any
 from langchain.prompts import PromptTemplate
 
 # Remediate type conflicts of the prompt hierarchy
-class PromptType(Enum):
+class PromptType(BetterEnum):
     RAW         = 0
     COMPLETION  = 1
     CONTROL     = 2
     PARAMETRIC  = 3
-
-    def __str__(self) -> str:
-        return self.name
-    
-    def __eq__(self: Self, value: Any) -> bool:
-        if isinstance(value, PromptType):
-            return super().__eq__(self, value)
-        
-        return isinstance(value, str) and self.name.lower() == value.lower()
 
 
 class Prompt(str): # immutable & abstract

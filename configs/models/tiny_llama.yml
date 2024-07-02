@@ -1,0 +1,19 @@
+download_status: UNITIALIZED
+experiment_date: 09/03/2024
+framework: tf
+hf_repo: TinyLlama/TinyLlama-1.1B-Chat-v1.0
+local: ''
+name: TinyLlama-1.1B
+params: null
+properties:
+  access_space:
+  - local, hf_api
+  cost:
+  - free in price
+  - power consumption
+  domain: medical
+  predecessor: llama-7b
+  size: '1.1'
+  task: instruction
+revision: fe8a4ea
+weightpat: '*.safetensors'

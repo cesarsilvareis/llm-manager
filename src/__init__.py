@@ -12,7 +12,7 @@ def get_actual_path(fileOrDir: str, mode: Literal["model", "prompt", "test", "lo
         # case "test":
             ...
         case "store":
-            path, ext = ROOT_DIR.joinpath("./storage", fileOrDir), None
+            path, ext = ROOT_DIR.joinpath(".storage"), None
         case "log":
             path, ext = ROOT_DIR.joinpath("outputs", "logs"), "yml"
         case "result":

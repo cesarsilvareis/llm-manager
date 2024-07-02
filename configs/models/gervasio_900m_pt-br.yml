@@ -1,11 +1,10 @@
+download_status: COMPLETED
 experiment_date: 09/03/2024
-name: Meditron Small
-hf_repo: epfl-llm/meditron-7b
-revision: d7d0a5e
-framework: "tf"
-weightpat: "*.safetensors"
+framework: tf
+hf_repo: PORTULAN/gervasio-7b-portuguese-ptpt-decoder
+local: ''
+name: "Gerv\xE1sio 7B PTPT"
 params:
-  # max_new_tokens: 200
   repetition_penalty: 1.03
   temperature: 0.01
   top_k: 10
@@ -20,6 +19,6 @@ properties:
   domain: medical
   predecessor: llama-7b
   size: '7'
-  task: base LLM
-local: ""
-download_status: UNITIALIZED
+  task: instruction
+revision: 4d3c01e
+weightpat: '*.safetensors'

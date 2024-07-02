@@ -1,4 +1,17 @@
 from collections.abc import Mapping
+from typing import Self, Any
+from enum import Enum
+
+class BetterEnum(Enum):
+    def __str__(self) -> str:
+        return self.name
+    
+    def __eq__(self: Self, value: Any) -> bool:
+        if isinstance(value, BetterEnum):
+            return super().__eq__(self, value)
+        
+        return isinstance(value, str) and self.name.lower() == value.lower()
+
 
 class ImmutableMapping(Mapping):
 

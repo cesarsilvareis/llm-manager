@@ -1,20 +1,55 @@
-from pathlib import Path
-from .utils import ImmutableMapping
+from src import get_actual_path
+from src.utils import BetterEnum, ImmutableMapping
 from typing import Self
 
+class DownloadStatus(BetterEnum):
+    UNITIALIZED     =0
+    STARTED         =1
+    COMPLETED       =2
 
 class ModelConfig(ImmutableMapping):
-    def __init__(self, **kwargs):
-        self._store = {
-            **kwargs,
-            'instances': {}
-        }
+    def __init__(self, filename: str, **kwargs):
+        self._filename = filename
+        self._store = {**kwargs}
+        self._instances = {}
+
+    @property
+    def filename(this) -> str:
+        return this._filename
+    
+    @property
+    def local(this) -> str:
+        return this["local"] if this["local"] else CurrentModel.LOCAL
+
+    @property
+    def status(this) -> DownloadStatus:
+        return this._store["download_status"]
+    
+    def _save(self):
+        from src.loader import update_config
+        update_config(self)
+
+    def start_download(self):
+        assert self.status == DownloadStatus.UNITIALIZED
+        self._store["download_status"] = str(DownloadStatus.STARTED)
+        self._save()
+
+    def invalidate_local(self):
+        self._store["download_status"] = str(DownloadStatus.UNITIALIZED)
+        self._save()
+
+    def validate_local(self):
+        self._store["download_status"] = str(DownloadStatus.COMPLETED)
+        self._save()
+
+    def get_instance(self, key: str):
+        return self._instances.get(key, None)
 
     def save_instance(self, model, key: str):
-        if key in self["instances"]:
+        if key in self._instances:
             return
         
-        self._store["instances"][key] = model
+        self._instances[key] = model
 
     def __getitem__(self, key):
         return self._store[key]
@@ -55,6 +90,6 @@ class CurrentModel:
 
     @staticmethod
     def invalidate(new_modelcfg: ModelConfig):
-        CurrentModel.INSTANCE.child["local"] = ""
-        CurrentModel.INSTANCE.child = new_modelcfg
+        CurrentModel.INSTANCE._child.invalidate_local()
+        CurrentModel.INSTANCE._child = new_modelcfg
     

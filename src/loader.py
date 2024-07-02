@@ -1,6 +1,6 @@
-import yaml
+import yaml, shutil
 from src import get_actual_path
-from src.model import ModelConfig, CurrentModel
+from src.model import ModelConfig, CurrentModel, DownloadStatus
 from huggingface_hub import snapshot_download
 from pathlib import Path
 from src.logger import get_logger
@@ -16,25 +16,45 @@ def load_model_from_fs(filename: str) -> ModelConfig:
     with source.open("r", encoding="utf-8") as s:
         model_config = yaml.safe_load(s)
 
-    return ModelConfig(**model_config)
+    return ModelConfig(filename, **model_config)
 
 
 def load_model_from_hf(model: ModelConfig):
-    if model["local"] == CurrentModel.LOCAL: # It's enough just one download for correcting input locations 
-        if CurrentModel.on():
-            if not CurrentModel.included(model):
-                model["local"] = ""
-        else:
-            CurrentModel.initiate(model)
 
-    if model["local"] != "": return
+    destination: Path = get_actual_path(fileOrDir=model.local, mode="store")
+
+    # This is enough to just download one time for correcting consequents
+    if model.status != DownloadStatus.UNITIALIZED and model.local == CurrentModel.LOCAL \
+            and CurrentModel.on() and not CurrentModel.included(model):
+        model.invalidate_local()
     
-    destination: Path = get_actual_path(fileOrDir=CurrentModel.LOCAL, mode="store")
+    match model.status:
+        case DownloadStatus.COMPLETED:
+            logger.debug(f"No downloaded model '{model}' as it is present on '{destination}'")
+            return
+        case DownloadStatus.STARTED:
+            assert destination.exists()
+            logger.debug(f"Continuing downloading model '{model}' in destination '{destination}'...")
 
-    if not destination.exists():
-        destination.mkdir()
-        CurrentModel.initiate(model)
+        case DownloadStatus.UNITIALIZED:
+            if destination.exists(): # Disk space preparation
+                shutil.rmtree(destination)
+            destination.mkdir()
 
+            model.start_download()
+            
+            logger.debug(f"Cleaned directory '{destination}' for downloading model '{model}'...")
+        case _: # NEVER
+            logger.warn(f"Download status not recognized")
+
+
+    if model.local == CurrentModel.LOCAL:
+        if not CurrentModel.on():
+            CurrentModel.initiate(model)
+        else:
+            if not CurrentModel.included(model):
+                CurrentModel.invalidate(new_modelcfg=model)
+    
     logger.info(f"Downloading model '{model['name']}' from '{model['hf_repo']}'")
     downloaded_path = snapshot_download(
         repo_id=model['hf_repo'], 
@@ -44,11 +64,11 @@ def load_model_from_hf(model: ModelConfig):
         local_dir_use_symlinks=False,
         resume_download=True,
         max_workers=4,
-        ignore_patterns=["*.png", "*.jpg", "*safetensors*"]
+        allow_patterns=[model["weightpat"], "*config*", "*tokenizer*", "*json"]
     )
     logger.info(f"Model '{model['name']}' was stored in '{downloaded_path}'")
-    
-    CurrentModel.INSTANCE.invalidate(new_modelcfg=model)
+    model.validate_local()
+
 
 
 def load_prompt(filename: str) -> Prompt:
@@ -80,18 +100,25 @@ def load_executions(path: str|Path, output_filename: str|None=None) -> list[Mode
     assert path.exists()
     df = read_csv(path)
     df.set_index("execution", inplace=True)
-    df.sort_values(by="model", inplace=True)
+    groups = df.groupby(by="model", sort=False)
 
     basefilename = output_filename if output_filename is not None else path.stem
 
-    for index, row in df.iterrows():
-        if row["type"].lower() == "test":   # TODO
-            continue
+    for model, model_df in groups:
+        loaded_model = load_model_from_fs(model)
+        for index, row in model_df.iterrows():
+            if row["type"].lower() == "test":   # TODO
+                continue
 
-        executions.append(Inference(index, 
-            model=load_model_from_fs(row["model"]),
-            prompt=load_prompt(row["input"]), 
-            output_filename=f"{basefilename}_{index}"
-        ))
+            executions.append(Inference(index, 
+                model=loaded_model,
+                prompt=load_prompt(row["input"]), 
+                output_filename=f"{basefilename}_{index}"
+            ))
     
     return executions
+
+def update_config(modelcfg: ModelConfig):
+    cfg_file = get_actual_path(fileOrDir=modelcfg.filename, mode="model")
+    with cfg_file.open("w") as c:
+        yaml.dump(dict(modelcfg), c)

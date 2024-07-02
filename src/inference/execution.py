@@ -27,8 +27,8 @@ class ModelExecution(ABC):
         return this._id
     
     @property
-    def model(this) -> str:
-        return this._model["name"]
+    def model(this) -> ModelConfig:
+        return this._model
     
     @property
     def last_result(this) -> Optional[str]:
@@ -39,7 +39,7 @@ class ModelExecution(ABC):
         return this._output_filename
 
     def run(self, single: bool=False) -> str:
-        if (model := self._model["instances"].get(self.KEY, None)) is None:
+        if (model := self._model.get_instance(self.KEY)) is None:
             from src.loader import load_model_from_hf
             load_model_from_hf(self._model)
             model = self.setup()
@@ -75,14 +75,14 @@ class ModelExecution(ABC):
 
         outputfile = get_actual_path(self.output_filename, mode="result")
 
-        with outputfile.open("w") as o:
+        with outputfile.open("wb") as o:
             o.write(self.last_result.encode("utf-8"))
 
 
     def __repr__(self, **extra_params) -> str:
         parameters = {
             "id": self.id,
-            "model": self.model,
+            "model": self.model["name"],
             **extra_params,
             "last_result": self.last_result,
             "output_filename": self.output_filename
@@ -109,17 +109,17 @@ class Inference(ModelExecution):
     def setup(self: Self) -> Pipeline:
         return pipeline(
             task="text-generation",
-            model=self._model['local'],
+            model=get_actual_path(self.model.local, mode="store"),
             num_workers=4,
-            framework="pt",
+            # framework=self.model["framework"],
             torch_dtype="auto",
             trust_remote_code = False,
             device_map="auto",
-            model_kwargs=self._model['params']
+            model_kwargs=self.model['params']
         )
     
     def execute(self, model: Pipeline) -> str:
-        return model(str(self.prompt))[0]['generated_text']
+        return model(str(self.prompt), do_sample=True)[0]['generated_text']
     
 
     def __repr__(self, **_) -> str:
