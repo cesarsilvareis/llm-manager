@@ -5,18 +5,28 @@ formatters:
   simple:
     format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
+filters:
+  run:
+    (): src.logger.RunFilter
+    delimiter: '#'
+    length: 21
+    additional_fields:
+      execfile: ""
+
 handlers:
   console:
     class: logging.StreamHandler
-    level: DEBUG
+    level: INFO
     formatter: simple
     stream: ext://sys.stdout
+    filters: [run]
 
   file:
     class: logging.FileHandler
-    level: INFO
+    level: DEBUG
     formatter: simple
     filename: outputs/logs/app.log
+    filters: [run]
 
 loggers:
   my_project:

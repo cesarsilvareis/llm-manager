@@ -1,2 +1,2 @@
-from .prompt import PromptType, Prompt, RawPrompt, CompletionPrompt, SystemPrompt, Template
-from .. import get_actual_path
+from src.inference.prompt import PromptType, Prompt, RawPrompt, CompletionPrompt, SystemPrompt, Template
+from src.inference.execution import ModelExecution, Inference

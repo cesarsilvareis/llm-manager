@@ -1,10 +1,11 @@
 import yaml
 from src import get_actual_path
-from src.inference import *
 from src.model import ModelConfig, CurrentModel
 from huggingface_hub import snapshot_download
 from pathlib import Path
 from src.logger import get_logger
+from pandas import read_csv
+from src.inference import Prompt, PromptType, RawPrompt, CompletionPrompt, SystemPrompt, Template, ModelExecution, Inference
 
 
 logger = get_logger(__name__)
@@ -67,3 +68,30 @@ def load_prompt(filename: str) -> Prompt:
             return Template(prompt_data["content"], prompt_data["name"], prompt_data["task"], prompt_data["params"])
         
     raise ValueError(f"[ERROR] File '{filename}' do not contain a valid prompt")
+
+
+# Load executions sorted by models for reusability
+def load_executions(path: str|Path, output_filename: str|None=None) -> list[ModelExecution]:
+    executions: list[ModelExecution] = list()
+
+    if isinstance(path, str):
+        path = Path(path)
+    
+    assert path.exists()
+    df = read_csv(path)
+    df.set_index("execution", inplace=True)
+    df.sort_values(by="model", inplace=True)
+
+    basefilename = output_filename if output_filename is not None else path.stem
+
+    for index, row in df.iterrows():
+        if row["type"].lower() == "test":   # TODO
+            continue
+
+        executions.append(Inference(index, 
+            model=load_model_from_fs(row["model"]),
+            prompt=load_prompt(row["input"]), 
+            output_filename=f"{basefilename}_{index}"
+        ))
+    
+    return executions

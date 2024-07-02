@@ -1,11 +1,10 @@
-from loader import ModelConfig
-from prompt import Prompt
 from abc import ABC, abstractmethod
 from typing import Self, Optional
 from src import get_actual_path
 from src.logger import get_logger
-from src.loader import load_model_from_hf
+from src.inference import Prompt
 from transformers import Pipeline, pipeline
+from src.model import ModelConfig
 
 logger = get_logger(__name__)
 
@@ -37,10 +36,11 @@ class ModelExecution(ABC):
     
     @property
     def output_filename(this) -> str:
-        return f"{this._output_filename}_{this.id}"
+        return this._output_filename
 
     def run(self, single: bool=False) -> str:
         if (model := self._model["instances"].get(self.KEY, None)) is None:
+            from src.loader import load_model_from_hf
             load_model_from_hf(self._model)
             model = self.setup()
         
@@ -81,6 +81,7 @@ class ModelExecution(ABC):
 
     def __repr__(self, **extra_params) -> str:
         parameters = {
+            "id": self.id,
             "model": self.model,
             **extra_params,
             "last_result": self.last_result,
@@ -88,7 +89,7 @@ class ModelExecution(ABC):
         }
         return (
             f"{self.__class__.__name__}(" +
-            "; ".join(f"{k}='{v}'" for k, v in parameters.items())
+            "; ".join(f"{k}={repr(v)}" for k, v in parameters.items())
             + ")"
         )
     
@@ -97,8 +98,8 @@ class Inference(ModelExecution):
 
     KEY = "Inf"
 
-    def __init__(self, id: int, model: ModelConfig, prompt: Prompt):
-        super().__init__(id, model)
+    def __init__(self, id: int, model: ModelConfig, output_filename: str, prompt: Prompt):
+        super().__init__(id, model, output_filename)
         self._prompt = prompt
 
     @property
@@ -119,10 +120,7 @@ class Inference(ModelExecution):
     
     def execute(self, model: Pipeline) -> str:
         return model(str(self.prompt))[0]['generated_text']
+    
 
-    def __repr__(self) -> str:
-        return (
-            f"{self.__class__.__name__}("
-            f"prompt={self.prompt}; "
-            f"model={self.model})"
-        )
+    def __repr__(self, **_) -> str:
+        return super().__repr__(prompt=self.prompt)

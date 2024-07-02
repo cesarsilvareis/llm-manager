@@ -21,9 +21,6 @@ def get_actual_path(fileOrDir: str, mode: Literal["model", "prompt", "test", "lo
             raise ValueError(f"[ERROR] Unknown mode '{mode}' for getting the actual \
                              path for the file '{fileOrDir}'.")
     
-    assert path.exists(), "[ERROR] Built path is not actual as it does not exist." 
+    assert path.exists(), f"[ERROR] Built path '{path}' is not actual as it does not exist." 
         
     return path.joinpath(Path(f"{fileOrDir}.{ext}")) if ext else path.joinpath(fileOrDir) 
-
-from src.inference import *
-# TODO: training...

@@ -1,16 +1,28 @@
-import sys
-from src.loader import load_prompt
+from src.loader import load_prompt, load_executions
 from src.logger import setup_logging, get_logger
+from argparse import ArgumentParser
 
+def parse_arguments():
+    parser = ArgumentParser(description="Tool for experiment LLMs in restricted, priviledged environments")
+    parser.add_argument("--execfile", "-e", type=str, required=True)
+    parser.add_argument("--resfile", "-o", type=str, required=False)
+    parser.add_argument("--prompt", "-p", type=str, required=True)
+    parser.add_argument(
+        "--log", "-l", type=str, required=False,
+        help="Log configuration file" 
+    )
 
+    args = parser.parse_args()
+
+    return args
 
 def main():
-    setup_logging()
-    logger = get_logger(__name__)
-    prompt = load_prompt(sys.argv[1])
+    args = parse_arguments()
 
-    logger.info(repr(prompt))
-    
+    setup_logging(args.log, execfile=args.execfile)
+
+    executions = load_executions(args.execfile, args.resfile)
+    print(executions)
 
 
 if __name__ == "__main__":
