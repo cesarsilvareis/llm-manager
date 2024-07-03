@@ -1,0 +1,12 @@
+execution,model,type,input
+e1,clinical_camel,Inference,prompt_text3
+e2,clinical_camel,Inference,prompt_text4
+e3,clinical_camel,Inference,prompt_med42_2
+e4,med_42,Inference,prompt_med42_1
+e5,med_42,Inference,prompt_med42_2
+e6,med_42,Inference,prompt_med42_3
+e7,med_42,Inference,prompt_med42_4
+e8,med_42,Inference,prompt_med42_5
+e9,meditron_large,Inference,prompt_comp1
+e10,meditron_large,Inference,prompt_comp2
+e11,meditron_large,Inference,prompt_med42_2

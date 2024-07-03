@@ -67,8 +67,8 @@ class ModelExecution(ABC):
     def execute(self, model: Pipeline) -> str:
         raise NotImplementedError
     
-    def teardown(self: Self):
-        del self._model["instances"][self.KEY]  # remove model from memory
+    # def teardown(self: Self):
+    #     del self._model["instances"][self.KEY]  # remove model from memory
     
     def save(self: Self):
         assert self.last_result is not None
@@ -107,21 +107,25 @@ class Inference(ModelExecution):
         return this._prompt
     
     def setup(self: Self) -> Pipeline:
-        return pipeline(
+        pipe = pipeline(
             task="text-generation",
             model=get_actual_path(self.model.local, mode="store"),
             num_workers=4,
-            framework=self.model["framework"],
+            # framework=self.model["framework"],
             torch_dtype="auto",
             trust_remote_code = False,
             device_map="auto",
-            **self.model['params']
+            model_kwargs=self.model["model_params"],
+            **self.model['gen_params']
         )
+
+        logger.info(f"Model footprint in inference: {pipe.model.get_memory_footprint()}")
+        return pipe
 
     
     
     def execute(self, model: Pipeline) -> str:
-        return model(str(self.prompt), do_sample=True)[0]['generated_text']
+        return model(str(self.prompt), do_sample=True, return_full_text=False)[0]['generated_text']
     
 
     def __repr__(self, **_) -> str:

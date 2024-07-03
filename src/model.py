@@ -1,7 +1,7 @@
 from src import get_actual_path
 from src.logger import get_logger
 from src.utils import BetterEnum, ImmutableMapping
-from typing import Self
+from typing import Self, Any
 
 logger = get_logger(__name__)
 
@@ -11,10 +11,12 @@ class DownloadStatus(BetterEnum):
     COMPLETED       =2
 
 class ModelConfig(ImmutableMapping):
+
+    LOADED_INSTANCE: tuple[str, Any] = "", None
+
     def __init__(self, filename: str, **kwargs):
         self._filename = filename
         self._store = {**kwargs}
-        self._instances = {}
 
     @property
     def filename(this) -> str:
@@ -50,14 +52,14 @@ class ModelConfig(ImmutableMapping):
         self._store["download_status"] = str(DownloadStatus.COMPLETED)
         self._save()
 
-    def get_instance(self, key: str):
-        return self._instances.get(key, None)
+    @classmethod
+    def get_instance(cls, key: str):
+        loaded_key, loaded_model = cls.LOADED_INSTANCE
+        return loaded_model if key == loaded_key else None
 
-    def save_instance(self, model, key: str):
-        if key in self._instances:
-            return
-        
-        self._instances[key] = model
+    @classmethod
+    def save_instance(cls, model, key: str):
+        cls.LOADED_INSTANCE = key, model
 
     def __getitem__(self, key):
         return self._store[key]

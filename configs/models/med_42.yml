@@ -1,0 +1,27 @@
+download_status: COMPLETED
+experiment_date: 09/03/2024
+framework: pt
+gen_params:
+  max_new_tokens: 512
+  repetition_penalty: 1.1
+  temperature: 0.2
+  top_k: 5
+  top_p: 0.15
+hf_repo: m42-health/med42-70b
+local: ''
+model_params:
+  load_in_4bit: true
+  load_in_8bit: false
+name: Med42 - Clinical Large Language Model
+properties:
+  access_space:
+  - local
+  cost:
+  - free in price
+  - power consumption
+  domain: medical
+  predecessor: llama-7b
+  size: '70'
+  task: instruction
+revision: 234f6e3
+weightpat: '*.bin'

@@ -1,0 +1,5 @@
+ ASSISTANT:
+Etiology: Infective endocarditis is caused by bacteria or fungi that enter the bloodstream and attach to damaged heart valves or other structures within the heart. Risk factors include previous heart surgery, intravenous drug use, and certain medical conditions such as rheumatic heart disease.
+Diagnosis: Diagnosis involves a combination of physical examination, blood tests, imaging studies (such as echocardiography), and sometimes biopsy of affected tissue. Common symptoms include fever, fatigue, shortness of breath, and chest pain.
+Treatment: Treatment typically involves antibiotics or antifungal medications, depending on the type of organism causing the infection. Surgery may also be necessary in some cases to repair damaged heart valves or remove infected tissue.
+Prognosis: The outcome of infective endocarditis depends on various factors, including the severity of the infection, the patient's overall health, and the timeliness of treatment. Early detection and prompt treatment can improve outcomes.

@@ -113,15 +113,20 @@ def load_executions(path: str|Path, output_filename: str|None=None) -> list[Mode
 
     basefilename = output_filename if output_filename is not None else path.stem
 
+    loaded_prompts = dict()
+
     for model, model_df in groups:
         loaded_model = load_model_from_fs(model)
         for index, row in model_df.iterrows():
             if row["type"].lower() == "test":   # TODO
                 continue
+            
+            if row["input"] not in loaded_prompts:
+                loaded_prompts[row["input"]] = load_prompt(row["input"])
 
             executions.append(Inference(index, 
                 model=loaded_model,
-                prompt=load_prompt(row["input"]), 
+                prompt=loaded_prompts[row["input"]], 
                 output_filename=f"{basefilename}_{index}"
             ))
     

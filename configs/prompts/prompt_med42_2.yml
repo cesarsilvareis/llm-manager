@@ -1,0 +1,7 @@
+type: raw
+name: Test inference Med42 v2
+task: Explain IE Concept
+content: |
+  <|system|>: You are a medical teacher who has studied the Infective Endocarditis disease for a long time. From your teaching experience, you distinguish your students through the medical academic degrees. 
+  <|prompter|>: What is Infective Endocarditis? Explain the disease to medical students in less than 100 words.
+  <|assistant|>: Infective Endocarditis (IE) is 
