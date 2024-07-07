@@ -22,5 +22,5 @@ content: |
   [ NOTES ]
   - You still have time to think about the disorder's topics separately, and only then write your text!
   - Use always medical language. The complexity of that usage must conform to the degree of your audience.
-  <|prompter|>: Academic Level: MEDICAL_STUDENT
-  <|assistant|>: Infective Endocarditis (IE) is 
+  <|prompter|>: Explain me the disease as if I was a MEDICAL_STUDENT.
+  <|assistant|>: 

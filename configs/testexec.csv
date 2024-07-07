@@ -1,3 +1,3 @@
 execution,"model","type","input"
-e1,"gervasio_900m_pt-br","Inference","prompt_pt"
-e2,"tiny_llama","Inference","prompt1"
+e1,"med_42",Inference,prompt_med42_1
+e2,"med_42",Inference,prompt_med42_4

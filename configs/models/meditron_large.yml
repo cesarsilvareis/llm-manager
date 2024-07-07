@@ -2,11 +2,13 @@ download_status: UNINITIALIZED
 experiment_date: 09/03/2024
 framework: tf
 gen_params:
-  max_new_tokens: 500
-  repetition_penalty: 1.1
-  temperature: 0.1
-  top_k: 0
-  top_p: 0.15
+  max_new_tokens: 512
+  temperature: .65
+  # top_k: [5, 50, 100]
+  # top_p: [0.15, 0.5, 0.75]
+  num_beams: 2
+  repetition_penalty: [1.0, 1.5, 2.0]
+  length_penalty: [-1.0, .0, 1.0]
 hf_repo: epfl-llm/meditron-70b
 local: ''
 model_params:

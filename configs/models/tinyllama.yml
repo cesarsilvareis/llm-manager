@@ -1,19 +1,25 @@
 download_status: UNINITIALIZED
-experiment_date: 09/03/2024
+experiment_date: '2024-07-07 17:39:36.571484'
 framework: tf
+gen_params:
+  max_new_tokens: 512
+  num_beams: 1
+  temperature: 0.65
 hf_repo: TinyLlama/TinyLlama-1.1B-Chat-v1.0
 local: ''
+model_params:
+  load_in_4bit: false
+  load_in_8bit: false
 name: TinyLlama-1.1B
-params: null
 properties:
   access_space:
-  - local, hf_api
+  - local
   cost:
   - free in price
   - power consumption
   domain: medical
   predecessor: llama-7b
   size: '1.1'
-  task: instruction
+  task: chat
 revision: fe8a4ea
 weightpat: '*.safetensors'

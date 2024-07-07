@@ -1,0 +1,36 @@
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': -1.0}
+Result:"""
+ rare but serious complication of intravenous drug use. IE occurs when bacteria in the bloodstream attach to abnormal heart valves or damaged heart tissue, which can cause a range of complications including heart failure and stroke. IE can be difficult to diagnose as symptoms may be vague or similar to other conditions, and blood cultures may not always detect the bacteria causing the infection. However, prompt treatment with antibiotics can be life-saving.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 0.0}
+Result:"""
+ rare but serious complication of intravenous drug use. IE occurs when bacteria in the bloodstream attach to abnormal heart valves or damaged heart tissue, which can result in a range of complications including heart failure and stroke. The risk of IE is particularly high among people who inject drugs, as the bacteria can enter the bloodstream through dirty needles or other injection equipment. IE can be difficult to diagnose and treat, and can lead to serious complications if left untreated.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 1.0}
+Result:"""
+ rare but serious complication of intravenous drug use. IE occurs when bacteria in the bloodstream attach to abnormal heart valves or damaged heart tissue, which can cause a range of symptoms and complications. The risk of IE is particularly high among people who inject drugs, as the bacteria can enter the bloodstream through dirty needles or other injection equipment. Other risk factors for IE include having a history of IE, having certain heart conditions, and having a weakened immune system. Symptoms of IE may include fever, chills, fatigue, shortness of breath, and chest pain. Treatment typically involves a combination of antibiotics and, in some cases, surgery to repair or replace damaged heart valves. Overall, IE is a serious and potentially life-threatening condition that can be prevented by practicing safe injection techniques and seeking medical care for any signs or symptoms of infection.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': -1.0}
+Result:"""
+ rare but serious complication of intravenous drug use. IE occurs when bacteria in the bloodstream attach to abnormal heart valves or damaged heart tissue. The resulting infection can lead to serious complications, such as heart failure, stroke, and even death. It is important for healthcare providers to be aware of the risk factors and symptoms of IE in order to provide prompt and appropriate treatment.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 0.0}
+Result:"""
+ rare but serious complication of intravenous drug use. IE occurs when bacteria in the bloodstream attach to abnormal heart valves or damaged heart tissue, which can result in a range of symptoms and complications. The risk of IE is particularly high among people who inject drugs, as the bacteria can enter the bloodstream through unsterilized injection equipment. However, IE can also occur as a result of other conditions that increase the risk of bacteria in the bloodstream, such as dental procedures or urinary tract infections. The symptoms of IE can vary depending on the location and severity of the infection, but may include fever, chills, fatigue, and heart murmur. Treatment typically involves a combination of antibiotics and, in some cases, surgery to repair or replace damaged heart valves. Overall, IE is a serious and potentially life-threatening condition that requires prompt medical attention.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 1.0}
+Result:"""
+ rare but serious complication of intravenous drug use. IE occurs when bacteria in the bloodstream attach to abnormal heart valves or damaged heart tissue. The risk of IE is high in intravenous drug users who have staphylococcal skin infections and inject drugs with non-sterile needles. Other risk factors include having a history of IE, congenital heart defects, and certain medical procedures. Symptoms of IE include fever, chills, fatigue, aching muscles and joints, night sweats, and shortness of breath. IE can be treated with antibiotics, but in severe cases, surgery may be necessary to repair or replace damaged heart valves. To prevent IE, intravenous drug users should seek medical attention for skin infections and use sterile needles when injecting drugs.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': -1.0}
+Result:"""
+ rare but serious complication of intravenous drug use. IE occurs when bacteria in the bloodstream attach to abnormal heart valves or damaged heart tissue. The resulting infection can cause serious damage to the heart and other organs, and can be life-threatening if not treated promptly. This presentation will discuss the causes, symptoms, and treatment of IE, as well as prevention strategies for people who inject drugs.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 0.0}
+Result:"""
+ rare but serious complication of intravenous drug use. IE occurs when bacteria in the bloodstream attach to abnormal heart valves or damaged heart tissue, which can result in a range of symptoms and complications. People who inject drugs are at an increased risk of developing IE due to the risk of introducing bacteria into the bloodstream through contaminated injection equipment. Other risk factors for IE include having a history of IE, having certain heart conditions, and having a weakened immune system. Symptoms of IE may include fever, chills, fatigue, aching joints and muscles, night sweats, and shortness of breath. Treatment for IE typically involves a combination of antibiotics and, in some cases, surgery to repair or replace damaged heart valves.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 1.0}
+Result:"""
+ rare but serious complication of intravenous drug use. IE occurs when bacteria in the bloodstream attach to abnormal heart valves or damaged heart tissue, which can result in a range of symptoms and complications. The risk of IE is particularly high among people who inject drugs, as the bacteria can enter the bloodstream through dirty needles or other injection equipment. Symptoms of IE can include fever, chills, fatigue, shortness of breath, and chest pain. Treatment typically involves a combination of antibiotics and, in some cases, surgery to repair or replace damaged heart valves. Prevention strategies include harm reduction measures such as needle exchange programs and opioid agonist therapy, as well as education about the risks of IE and how to prevent it.
+"""

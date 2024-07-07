@@ -1,0 +1,63 @@
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': -1.0}
+Result:"""
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2175009/
+https://www.uptodate.com/contents/infective-endocarditis-beyond-the-basics
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 0.0}
+Result:"""
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3227302/
+Infective endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and the heart valves, usually caused by bacteria. IE can develop rapidly over a few days (acute IE) or slowly over a few weeks (subacute IE). Signs and symptoms may include fever, chills, headache, shortness of breath, and abnormal heart sounds. IE can be life-threatening if not treated promptly.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 1.0}
+Result:"""
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3552680/
+Infective endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and the heart valves, usually caused by bacteria. The condition is a form of endocarditis, which also includes non-infective forms, caused by fungi, parasites, or other microorganisms.
+Infective endocarditis can be acute or subacute. Acute infective endocarditis develops rapidly, with symptoms appearing within days or weeks of infection. Subacute infective endocarditis develops slowly, with symptoms appearing weeks to months after the infection has started.
+Infective endocarditis can also be classified according to the type of microorganism causing the infection:
+Bacterial endocarditis, which is the most common type of infective endocarditis.
+Fungal endocarditis, which is caused by fungi and is relatively rare.
+Protozoal endocarditis, which is caused by protozoa and is also relatively rare.
+Metazoal endocarditis, which is caused by metazoans such as tapeworms and is very rare.
+Spirochetal endocarditis, which is caused by spirochetes such as Borrelia and is also very rare.
+Viral endocarditis, which is caused by viruses and is very rare.
+Infective endocarditis can also be classified according to the location of the infection:
+Left-sided endocarditis, which involves the left side of the heart (mitral valve, aortic valve, or both).
+Right-sided endocarditis, which involves the right side of the heart (tricuspid valve, pulmonary valve, or both).
+Biventricular endocarditis, which involves both the left and right sides of the heart.
+Mitral valve endocarditis, which involves the mitral valve.
+Aortic valve endocarditis, which involves the aortic valve.
+Tricuspid valve endocarditis, which
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': -1.0}
+Result:"""
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3190025/
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 0.0}
+Result:"""
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2746519/
+Infective endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and the heart valves, usually caused by bacteria. IE can develop rapidly over a few days (acute IE) or slowly over a few weeks (subacute IE). Signs and symptoms may include fever, chills, headache, shortness of breath, and abnormal heart sounds.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 1.0}
+Result:"""
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3662287/
+Infective endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and the heart valves, usually caused by bacteria. The condition is a form of endocarditis, which also includes non-infective forms, caused by fungi, parasites, or other microorganisms.
+The term "endocarditis" is somewhat misleading, since the heart is not always involved, and the term "infective endocarditis" (IE) is more accurate. Additionally, the term "bacterial endocarditis" is also used, as bacteria are the most common cause of the condition. When the heart is involved, the infection can cause damage to the valves and the mural endocardium, leading to symptoms such as fever, chills, fatigue, aching, and shortness of breath. When the heart is not involved, the infection may be asymptomatic, or it may cause complications in other organs, such as the brain, kidneys, or spleen.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': -1.0}
+Result:"""
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3967405/
+Infective endocarditis (IE) is an infection of the inner lining of the heart, usually the valves. It can be caused by bacteria, fungi, viruses, or other microorganisms. Bacterial infection is the most common cause, and Staphylococcus aureus is the most common bacterium that causes this condition. Fungal infection is the second most common cause of IE. The infection can damage the valves and disrupt the normal flow of blood through the heart, which can lead to serious complications such as heart failure, stroke, and sepsis.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 0.0}
+Result:"""
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2746509/
+Infective endocarditis (IE) is an infection of the inner lining of the heart, usually the valves. The condition is a rare one, but it is also very serious. It can develop rapidly and is often fatal if not treated promptly. IE can be caused by bacteria, fungi, or other microorganisms that enter the bloodstream and attach to abnormal areas of the heart. People with certain heart conditions, such as congenital heart disease, are at higher risk for developing IE.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 1.0}
+Result:"""
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3662287/
+An overview of infective endocarditis for the Internal Medicine Clerkship student:
+https://www.aafp.org/afp/2005/0315/p1115.html
+A brief overview of infective endocarditis for the beginner:
+https://www.merckmanuals.com/home/heart-and-blood-vessel-disorders/infective-endocarditis/overview-of-infective-endocarditis
+"""

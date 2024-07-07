@@ -1,0 +1,118 @@
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': -1.0}
+Result:
+
+Infective endocarditis (IE) is an infection of the inner lining of the heart chambers and valves, or the blood vessels that lead to or from the heart. The term “endocarditis” means inflammation of the inner layer of the heart, and “infective” refers to the presence of an infection.
+How does IE occur?
+IE occurs when bacteria, fungi, or other germs invade your bloodstream and attach to abnormal areas of your heart. The infection can damage your heart and cause serious and sometimes fatal complications.
+What are the signs and symptoms of IE?
+The signs and symptoms of IE can vary from person to person. They also can vary over time in the same person. Symptoms may include:
+Flu-like symptoms, such as fever, chills, fatigue (tiredness), aching muscles, and headaches.
+Shortness of breath or a cough that won’t go away.
+A new or changed heart murmur.
+Skin changes such as:
+– Overall paleness.
+– Small, painful, red or purplish bumps under the skin on the fingers or toes.
+– Small, dark, painless flat spots on the palms of the hands or the soles of the feet.
+Nausea (feeling sick to your stomach), vomiting, a decrease in appetite, a sense of fullness with discomfort on the upper left side of the abdomen, or weight loss with or without a change in appetite.
+Blood in the urine.
+Swelling in the feet, legs, or abdomen.
+Sore, red, or swollen eyes.
+What causes IE?
+IE is caused by bacteria, fungi, or other germs that enter your bloodstream and attach to abnormal areas of your heart. The infection can damage your heart and cause serious and sometimes fatal complications.
+Who is at risk for IE?
+Certain factors make it easier for bacteria to enter your bloodstream. These factors put you at higher risk for IE. For example, you’re at higher risk if you have:
+An abnormal or damaged heart valve.
+An artificial heart valve.
+Congenital heart defect
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 0.0}
+Result:
+
+Infective endocarditis (IE) is an infection of the inner lining of the heart chambers and valves, or the blood vessels that lead to and from the heart. The term “endocarditis” refers to the inner lining of the heart; “infective” refers to the presence of an infection.
+The condition can develop rapidly over a few days (acute IE), or it may develop slowly over a few weeks or possibly months (subacute IE).
+IE can be caused by bacteria, fungi, or other germs. However, most cases of IE are caused by bacteria.
+Overview of Infective Endocarditis
+Infective endocarditis (IE) occurs if bacteria, fungi, or other germs invade the bloodstream and attach to abnormal areas of the heart.
+The condition can develop rapidly over a few days (acute IE), or it may develop slowly over a few weeks or possibly months (subacute IE). Acute IE is a medical emergency, while subacute IE is a serious condition that causes subtle symptoms that may not be noticed right away.
+IE can develop in people who have normal heart valves, but the condition is more likely to occur in people who have abnormal hearts or damaged heart valves.
+People who have abnormal hearts or damaged heart valves are at higher risk for IE because blood may pool in the abnormal areas. This pooling allows germs to attach and grow, causing infection.
+People who have normal heart valves are at lower risk for IE. However, the risk is still greater than zero. People who have normal heart valves can develop IE if germs enter their bloodstream through needles, syringes, or other medical devices and then attach to abnormal areas of the heart.
+Outlook
+IE is a rare condition that affects people of all ages. It’s more common in men than women.
+The outlook for IE depends on many factors, including the type and severity of the condition, the site of the infection, and the patient’s overall health.
+IE is treated with antibiotics for several weeks. You also may need heart surgery to repair or replace heart valves or remove infected heart tissue.
+Prompt treatment of IE reduces the risk of complications,
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 1.0}
+Result:
+
+Infective endocarditis (IE) is an infection of the inner lining of the heart chambers and valves, or the blood vessels that lead to or from the heart. The term “endocarditis” means inflammation of the inner layer of the heart, and “infective” refers to the presence of an infection.
+IE can be caused by bacteria, fungi, or other microorganisms that enter the bloodstream and attach to abnormal areas of the heart. The infection can damage the heart and cause serious and sometimes fatal complications.
+There are two main types of IE:
+Acute infective endocarditis: This type of IE develops quickly and can cause severe symptoms. It is usually caused by bacteria.
+Subacute infective endocarditis: This type of IE develops slowly and may not cause symptoms for weeks or even months. It is usually caused by fungi.
+Infective Endocarditis Causes
+IE is caused by microorganisms, such as bacteria or fungi, that enter the bloodstream and attach to abnormal areas of the heart. The following factors increase the risk of developing IE:
+Damaged or artificial heart valves
+Congenital heart defects
+History of IE
+Intravenous drug use
+Poor dental hygiene
+Infective Endocarditis Symptoms
+Symptoms of IE can vary depending on the type and severity of the infection. Common symptoms include:
+Flu-like symptoms, such as fever, chills, and fatigue
+Shortness of breath and cough
+Night sweats and chills
+Swelling in the feet, legs, or abdomen
+Overall, IE can cause a wide range of symptoms, and some people may not have any symptoms at all.
+Infective Endocarditis Treatment
+The treatment for IE involves antibiotics to kill the microorganisms causing the infection, as well as medications to manage symptoms and prevent complications. In some cases, surgery may be necessary to repair or replace damaged heart valves or remove infected tissue.
+The duration of treatment depends on the severity of the infection and the response to treatment. In general, IE requires several weeks of antibiotic
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': -1.0}
+Result:
+
+Infective endocarditis (IE) is an infection of the inner lining of the heart chambers and valves, or the blood vessels that lead to or from the heart. The term “endocarditis” refers to the inner lining of the heart; “infective” refers to the presence of an infection.
+The condition also is called infective endocarditis (IE).
+Overview
+Endocarditis is caused by bacteria in the bloodstream multiplying and spreading across the inner lining of the heart. The infection can damage the heart valves and other parts of the heart. If untreated, it can be life threatening.
+The bacteria that cause endocarditis usually enter the bloodstream through needles, syringes, or other medical devices. Rarely, the bacteria enter the bloodstream through a break in the skin or gums.
+People who have normal heart valves also can have endocarditis. However, people who have certain heart conditions have a greater risk for the infection.
+These conditions include:
+
+Congenital heart defects (defects present at birth)
+Damaged heart valves
+Artificial heart valves
+A history of endocarditis
+
+Outlook
+With prompt diagnosis and treatment, most people who have endocarditis can recover. Without treatment, the condition can be life threatening.
+
+If you&apos;re at high risk for endocarditis, brush and floss your teeth regularly, and have regular dental checkups. Germs from a gum infection can enter your bloodstream. If you&apos;re at high risk for endocarditis, these germs can cause infection in other parts of your body, such as your heart.
+
+If you&apos;re at high risk for endocarditis, talk with your doctor before having any type of dental or medical procedure.
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 0.0}
+Result:
+
+Infective endocarditis (IE) is an infection of the inner lining of the heart chambers and valves, or the blood vessels that lead to or from the heart. The term “endocarditis” means inflammation of the inner layer of the heart, and “infective” refers to the presence of a bacterial or fungal infection. IE occurs if bacteria or fungi invade your bloodstream and attach to abnormal areas of your heart.
+Infective endocarditis can develop quickly or slowly; it depends on what type of germ is causing it and whether you have an underlying heart problem. When IE develops quickly, it’s known as acute infective endocarditis. When it develops slowly, it’s called subacute infective endocarditis.
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 1.0}
+Result:
+
+Infective endocarditis (IE) is an infection of the inner lining of the heart chambers and valves, or the blood vessels that lead to or from the heart. The term “endocarditis” means inflammation of the inner layer of the heart, and “infective” refers to the presence of a bacterial or fungal infection. IE can be acute (rapid onset with severe symptoms) or subacute (slow onset with mild symptoms), depending on the type of organism causing the infection.
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': -1.0}
+Result:
+
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 0.0}
+Result:
+
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 1.0}
+Result:
+
+Infective endocarditis (IE) is an infection of the inner lining of the heart chambers and valves, or the blood vessels that lead to or from the heart. The term “endocarditis” means inflammation of the inner layer of the heart, and “infective” refers to the presence of a bacterial or fungal infection. IE can be acute (rapid onset with severe symptoms) or subacute (slow onset with mild symptoms), depending on the type of organism causing the infection.
+

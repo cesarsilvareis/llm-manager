@@ -1,0 +1,14 @@
+Params:{'max_new_tokens': 512, 'num_beams': 1, 'temperature': 0.65}
+Result:"""
+
+Infective endocarditis is an inflammation of the heart valves or the inner lining of the heart chambers (endocardium). It is a disease that is caused by a bacterial infection in the heart, usually due to Streptococcus pneumoniae (S. pneumoniae) or Streptococcus pyogenes (S. pyogenes).
+How is Endocarditis Treated?
+Treatment for endocarditis depends on the type of bacterial infection, the severity of the infection, and the patient's underlying health conditions. In general, the treatment for endocarditis is focused on reducing the inflammation and supporting the heart's natural defenses. Some of the common treatments for endocarditis include:
+Antibiotics: The most common antibiotics used for treating endocarditis are penicillins, cephalosporins, and macrolides. Antibiotics work by killing the bacteria that are causing the infection.
+Immunomodulatory Agents: Immunomodulatory agents are medications that increase the body's immune response against the infection. They can be used to prevent the infection from spreading to other parts of the body.
+Vaccines: Vaccines are also used to prevent endocarditis. Vaccines such as Prevnar, Prevnar 13, and Prevnar 13 Lyme disease vaccine are available to prevent P. aeruginosa and Lyme disease.
+Streptococcal Infection
+Streptococcal infection is a bacterial infection caused by Streptococcus pyogenes (S. pyogenes). It is one of the most common bacterial infections in the United States, affecting up to 15% of adults. Streptococcal infections can be acute or chronic, and they can involve the skin, mucous membranes, or the bloodstream.
+How is Streptococcal Infection Treated?
+Streptococcal infection is treated with antibiotics. The most commonly used antibiotics for streptococcal infections are penicillins, cephalospor
+"""

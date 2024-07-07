@@ -1,0 +1,80 @@
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': -1.0}
+Result:"""
+Infective Endocarditis (IE) is a microbial infection of the endocardium, the inner lining of the heart. The heart valves are the most commonly affected sites. IE can be acute or subacute, the latter being more common in people with an underlying heart disease.
+
+Causes and Risk Factors:
+1. Causes: The most common culprit microorganisms are Staphylococcus aureus, Streptococcus species, and Enterococcus faecalis. Rarely, fungi like Candida can also cause IE.
+2. Risk Factors: People with an immunocompromised status, intravenous drug users, individuals with prosthetic valves, and those with an underlying heart disease are at a higher risk of developing IE.
+
+Diagnosis:
+1. Duke Criteria: To diagnose IE, the Duke Criteria are used. These criteria include clinical and laboratory tests as well as echocardiographic findings.
+2. Treatment: IE is treated with a combination of antibiotics, and in severe cases, surgery may be required to repair or replace damaged heart valves.
+
+Prophylaxis and Prognosis:
+1. Prophylaxis: To prevent IE, antibiotic prophylaxis is recommended before certain dental or medical procedures for people with specific risk factors.
+2. Prognosis: The prognosis for IE depends on the severity of the infection, the underlying heart disease, and the patient's overall health. Early diagnosis and treatment lead to better outcomes.
+
+For a medical student, it is crucial to understand the pathophysiology, diagnosis, and treatment of IE, as well as the risk factors and prophylactic measures.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 0.0}
+Result:"""
+Infective Endocarditis (IE) is a microbial infection of the endocardium, the inner lining of the heart, and the heart valves. The heart valves can be damaged or destroyed by the infection, which can lead to heart failure and other complications. IE can also cause abscesses, or pockets of pus, to form in the heart muscle. The disease is more common in people with certain heart conditions, such as congenital heart defects or artificial heart valves. IE can be a serious and potentially life-threatening condition if not treated promptly.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 1.0}
+Result:"""
+Infective Endocarditis (IE) is an inflammatory disease of the inner lining of the heart (endocardium) caused by an infectious agent, usually bacteria. It can affect any part of the heart, including the heart valves, the interventricular septum, the chordae tendineae, and the mural endocardium. 
+
+The bacteria can enter the bloodstream through various means, such as dental procedures, skin infections, or urinary tract infections. Once in the bloodstream, the bacteria can travel to the heart and infect the endocardium. 
+
+Symptoms of IE can include fever, chills, fatigue, aching joints and muscles, night sweats, and shortness of breath. IE can also cause complications such as heart failure, stroke, and sepsis, which can be life-threatening. 
+
+Treatment for IE typically involves a combination of antibiotics and, in some cases, surgery to repair or replace damaged heart valves. Prevention measures include antibiotic prophylaxis before certain medical procedures, good oral hygiene, and prompt treatment of skin and urinary tract infections.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': -1.0}
+Result:"""
+Infective Endocarditis (IE) is an inflammatory disease of the inner lining of the heart (endocardium) caused by an infectious agent, usually bacteria. It can affect any part of the heart, including the heart valves, the interventricular septum, the chordae tendineae, and the mural endocardium.
+
+The bacteria usually enter the bloodstream through needles, syringes, or other medical devices that break the skin. Some people are more susceptible to IE than others, including those with certain heart conditions, such as congenital heart disease or a history of endocarditis.
+
+Symptoms of IE can include fever, chills, fatigue, aching joints and muscles, night sweats, and shortness of breath. In some cases, the infection can cause small, painless red or purple spots on the skin, called petechiae.
+
+Diagnosis of IE typically involves blood cultures to identify the bacteria causing the infection, as well as echocardiography to assess the extent of the damage to the heart. Treatment usually involves a combination of antibiotics and, in some cases, surgery to repair or replace damaged heart valves.
+
+Prevention of IE involves proper hygiene and infection control practices, as well as prophylactic antibiotics for people at high risk of developing the disease.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 0.0}
+Result:"""
+Infective Endocarditis (IE) is an inflammatory disease of the inner lining of the heart (endocardium) caused by an infectious agent, usually bacteria. It can affect any part of the heart, including the heart valves, the interventricular septum, the chordae tendineae, and the mural endocardium.
+
+The bacteria usually enter the bloodstream through needles, syringes, or other medical devices that break the skin. Once in the bloodstream, the bacteria can travel to the heart and infect the endocardium.
+
+Symptoms of IE can include fever, chills, fatigue, aching joints and muscles, night sweats, and shortness of breath. In some cases, the infection can cause abscesses to form in the heart, which can lead to serious complications.
+
+Treatment for IE typically involves a combination of antibiotics and surgery to repair or replace damaged heart valves. In severe cases, hospitalization may be required to administer intravenous antibiotics and monitor for complications.
+
+Prevention of IE involves proper hygiene and infection control practices, such as using sterile techniques when handling medical devices and wounds. People with certain heart conditions may be advised to take antibiotics before certain dental or medical procedures to prevent IE.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 1.0}
+Result:"""
+Infective Endocarditis (IE) is an inflammatory disease of the inner lining of the heart (endocardium) caused by an infectious agent, usually bacteria. It can affect any part of the heart, including the heart valves, the interventricular septum, the chordae tendineae, and the mural endocardium.
+
+The bacteria usually enter the bloodstream through needles, syringes, or other medical devices that break the skin. Once in the bloodstream, the bacteria can travel to the heart and infect the endocardium. Risk factors for IE include intravenous drug use, untreated dental infections, and certain medical procedures, such as dental work, catheterization, and surgery.
+
+Symptoms of IE can include fever, chills, fatigue, aching joints and muscles, night sweats, and shortness of breath. In some cases, the infection can also cause small, painless red or purple spots on the skin, called petechiae.
+
+Diagnosis of IE usually involves a combination of clinical examination, blood cultures, and echocardiography. Treatment typically involves a course of antibiotics to kill the bacteria, as well as surgery to repair or replace damaged heart valves.
+
+Prevention of IE involves proper hygiene and infection control practices, such as using sterile equipment and washing hands thoroughly. People at high risk for IE, such as those with certain heart conditions, may also be advised to take antibiotics before certain medical procedures to prevent infection.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': -1.0}
+Result:"""
+Infective Endocarditis is an inflammatory disease that affects the inner lining of the heart, specifically the heart valves. It is caused by bacterial infection, most commonly due to Staphylococcus aureus, Streptococcus species, or Enterococcus faecalis. These bacteria enter the bloodstream through various means, such as skin infections or dental procedures, and then attach to damaged heart valves, where they multiply and cause inflammation. The symptoms of Infective Endocarditis include fever, chills, fatigue, shortness of breath, and fluid buildup in the body. Treatment usually involves a combination of antibiotics and, in some cases, surgery to repair or replace damaged heart valves.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 0.0}
+Result:"""
+Infective Endocarditis is an inflammatory disease that affects the inner lining of the heart, specifically the heart valves. It is caused by bacterial infection, most commonly due to Staphylococcus aureus or Streptococcus species. The bacteria enter the bloodstream and attach to the damaged heart valves, where they form a protective layer called a biofilm. This can lead to a range of symptoms, including fever, fatigue, and heart murmur. Treatment typically involves a combination of antibiotics and, in some cases, surgery to repair or replace damaged heart valves. Prevention measures include antibiotic prophylaxis before certain dental or medical procedures, as well as good hygiene practices to prevent infection.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 1.0}
+Result:"""
+Infective Endocarditis is an inflammatory disease that affects the inner lining of the heart, specifically the heart valves. It is caused by bacterial infection, most commonly due to Staphylococcus aureus or Streptococcus species. The bacteria enter the bloodstream and attach to the damaged heart valves, where they form a protective layer called a biofilm. This can lead to a range of symptoms, including fever, fatigue, and heart murmur. Treatment typically involves a combination of antibiotics and, in some cases, surgery to repair or replace damaged heart valves. Prevention measures include antibiotic prophylaxis before certain dental or medical procedures, as well as good hygiene practices to prevent infection.
+"""

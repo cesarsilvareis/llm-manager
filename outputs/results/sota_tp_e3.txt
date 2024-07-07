@@ -1,0 +1,36 @@
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': -1.0}
+Result:"""
+ Infective Endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and heart valves, often caused by bacteria entering the bloodstream. IE can lead to serious complications such as heart failure, stroke, and sepsis. It is more common in individuals with pre-existing heart conditions, but can also occur in healthy individuals. Treatment typically involves a combination of antibiotics and, in some cases, surgery to repair or replace damaged heart valves.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 0.0}
+Result:"""
+ Infective Endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and heart valves. It's caused by bacteria in the bloodstream multiplying and spreading across the endocardium. IE can cause fever, fatigue, and heart murmurs. It's a serious condition that requires prompt medical attention.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 1.0}
+Result:"""
+ Infective Endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and heart valves. It's caused by bacteria in the bloodstream multiplying and spreading across the endocardium. IE can cause fever, fatigue, and heart murmurs. It's a serious condition that requires prompt medical attention.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': -1.0}
+Result:"""
+ Infective Endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and heart valves. It's caused by bacteria in the bloodstream multiplying and spreading across the endocardium. IE can cause fever, fatigue, and heart murmurs. It's a serious condition that requires prompt medical attention.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 0.0}
+Result:"""
+ Infective Endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and heart valves. It's caused by bacteria in the bloodstream multiplying and spreading across the endocardium. IE can cause fever, fatigue, and heart murmurs. It's a serious condition that requires prompt medical attention.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 1.0}
+Result:"""
+ Infective Endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and heart valves. It occurs when bacteria, often from the mouth or gastrointestinal tract, enter the bloodstream and attach to damaged heart valves or other areas of the heart. This can cause inflammation, abscess formation, and potentially life-threatening complications. IE is most commonly seen in people with pre-existing heart conditions, but can also occur in otherwise healthy individuals. Prevention and treatment typically involve antibiotics, surgery, and addressing any underlying heart issues.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': -1.0}
+Result:"""
+ Infective Endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and heart valves. It occurs when bacteria, often from the mouth or gastrointestinal tract, enter the bloodstream and attach to damaged heart valves or other areas of the heart. This can cause inflammation, abscess formation, and potentially life-threatening complications.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 0.0}
+Result:"""
+ Infective Endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and heart valves. It occurs when bacteria, often from the mouth or gastrointestinal tract, enter the bloodstream and attach to damaged heart valves or other areas of the heart. This can cause inflammation, abscess formation, and potentially life-threatening complications.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 1.0}
+Result:"""
+ Infective Endocarditis (IE) is an infection of the inner lining of the heart (endocardium) and heart valves. It occurs when bacteria, often from the mouth or gastrointestinal tract, enter the bloodstream and attach to damaged heart valves or other areas of the heart. This can cause inflammation, abscess formation, and potentially life-threatening complications. IE is more common in individuals with pre-existing heart conditions, but can also occur in otherwise healthy people. Prevention and treatment typically involve antibiotics, surgery, and managing underlying heart issues.
+"""

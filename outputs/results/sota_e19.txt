@@ -1,0 +1,47 @@
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': -1.0}
+Result:
+Infective endocarditis is an infection of the inner surface of the heart, usually the valves. Osler's nodes ("ephemeral spots of a painful nodular erythema, chiefly in the skin of the hands and feet"), Roth's spots on the retina, positive serum rheumatoid factor Other signs may include night sweats, rigors, anemia, spleen enlargement Damaged valves and endocardium contribute to the development of infective endocarditis. Specifically, the damaged pa of a hea valve forms a local blood clot, a condition known as non-bacterial thrombotic endocarditis (NBTE). The platelet and fibrin deposits that form as pa of the blood clotting process allow bacteria to take hold and form vegetations. As previously mentioned, the body has no direct methods of combating valvular vegetations because the valves do not have a dedicated blood supply. This combination of damaged valves, bacterial growth, and lack of a strong immune response results in infective endocarditis. Damage to the valves and endocardium can be caused by: Altered, turbulent blood flow. The areas that fibrose, clot, or roughen as a result of this altered flow are known as jet lesions. Altered blood flow is more likely in high pressure areas, so ventricular septal defects or patent ductus aeriosus can create more susceptibility to infective endocarditis than atrial septal defects. Catheters, electrodes, and other intracardiac prosthetic devices. Solid paicles from repeated intravenous injections. Chronic inflammation. Examples include auto-immune mechanisms, degenerative valvular lesions, and previous valvular site infections. The risk factors for infective endocarditis provide a more extensive list of potential causes.
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 0.0}
+Result:
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3967402/
+https://www.ahajournals.org/doi/full/10.1161/cir.0000000000000565
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 1.0}
+Result:
+Infective endocarditis is an infection of the inner surface of the heart, usually the valves. Osler's nodes ("ephemeral spots of a painful nodular erythema, chiefly in the skin of the hands and feet"), Roth's spots on the retina, positive serum rheumatoid factor Other signs may include night sweats, rigors, anemia, spleen enlargement Damaged valves and endocardium contribute to the development of infective endocarditis. Specifically, the damaged pa of a hea valve forms a local blood clot, a condition known as non-bacterial thrombotic endocarditis (NBTE). The platelet and fibrin deposits that form as pa of the blood clotting process allow bacteria to take hold and form vegetations. As previously mentioned, the body has no direct methods of combating valvular vegetations because the valves do not have a dedicated blood supply. This combination of damaged valves, bacterial growth, and lack of a strong immune response results in infective endocarditis. Risk factors for infective endocarditis mirror those of NBTE and include long-term hemodialysis, intravenous drug use, and prosthetic valves. Intravenous drug use is a major risk factor for infective endocarditis. The bacteria Staphylococcus aureus is a common cause of endocarditis in intravenous drug abusers, while Streptococcus viridans is more commonly associated with infective endocarditis in non-drug abusers.
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': -1.0}
+Result:
+Infective endocarditis is an infection of the inner surface of the heart, usually the valves. Osler's nodes ("ephemeral spots of a painful nodular erythema, chiefly in the skin of the hands and feet"), Roth's spots on the retina, positive serum rheumatoid factor Other signs may include night sweats, rigors, anemia, spleen enlargement Damaged valves may need to be surgically repaired or replaced.
+Read more about Infective Endocarditis.
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 0.0}
+Result:
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3967481/
+A brief overview of infective endocarditis for the non-cardiologist.
+Infective endocarditis (IE) is an infection of the inner lining of the heart, usually the valves. The infection can also develop on implanted material, such as artificial valves or pacemaker wires. IE can be acute or subacute. Acute IE develops rapidly, with signs and symptoms appearing within days or weeks of infection. Subacute IE develops slowly, and signs and symptoms may not appear for weeks or months. This review will focus on acute IE.
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 1.0}
+Result:
+https://www.youtube.com/watch?v=6W1_cJAj-HY
+Video can's be loaded.
+Explanation of Infective Endocarditits for regular medical students:
+https://www.youtube.com/watch?v=6W1_cJAj-HY
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': -1.0}
+Result:
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3967401/
+Infective endocarditis (IE) is an infection of the inner surface of the heart, usually the valves. Osler's nodes ("ephemeral spots of a painful nodular erythema, chiefly in the skin of the hands and feet"), Roth's spots on the retina, positive serum rheumatoid factor Other signs may include night sweats, rigors, anemia, spleen enlargement Damaged valves and endocardium contribute to the development of infective endocarditis. Specifically, the damaged pa of a hea valve forms a local blood clot, a condition known as non-bacterial thrombotic endocarditis (NBTE). The platelet and fibrin deposits that form as pa of the blood clotting process allow bacteria to take hold and form vegetations. As previously mentioned, the body has no direct methods of combating valvular vegetations because the valves do not have a dedicated blood supply. This combination of damaged valves, bacterial growth, and lack of a strong immune response results in infective endocarditis. Right-sided endocarditis can be caused by bacteria that have entered the bloodstream from the gastrointestinal tract or through intravenous drug use, while left-sided endocarditis can be caused by bacteria that have entered the bloodstream through any source.
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 0.0}
+Result:
+https://www.youtube.com/watch?v=iWwUXzib-34&t=1s
+
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 1.0}
+Result:
+Infective endocarditis (IE) is a microbial infection of the endocardium, the inner lining of the heart. The term “endocarditis” may also be used to describe an inflammation of the endocardium due to other conditions, such as autoimmune disease. However, IE specifically refers to an infection of the endocardium and the associated complications.
+IE can be broadly classified into two categories: acute infective endocarditis and subacute infective endocarditis. Acute IE is a rapidly progressing infection of the endocardium that can cause severe damage to the heart valves and other cardiac structures. Subacute IE, on the other hand, is a slower-progressing infection that may not cause as much damage to the heart but can still lead to serious complications if left untreated.
+The symptoms of IE can vary depending on the type and severity of the infection, but common symptoms include fever, chills, fatigue, aching joints and muscles, night sweats, shortness of breath, and fluid buildup in the body (edema). IE can also cause complications such as heart failure, stroke, and sepsis, which can be life-threatening.
+Treatment for IE typically involves a combination of antibiotics to clear the infection and, in some cases, surgery to repair or replace damaged heart valves. Early diagnosis and treatment are critical for the best possible outcome, as IE can quickly become a serious and potentially fatal condition.
+

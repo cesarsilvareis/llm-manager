@@ -2,6 +2,7 @@ from src import get_actual_path
 from src.logger import get_logger
 from src.utils import BetterEnum, ImmutableMapping
 from typing import Self, Any
+from datetime import datetime
 
 logger = get_logger(__name__)
 
@@ -12,11 +13,12 @@ class DownloadStatus(BetterEnum):
 
 class ModelConfig(ImmutableMapping):
 
-    LOADED_INSTANCE: tuple[str, Any] = "", None
-
     def __init__(self, filename: str, **kwargs):
         self._filename = filename
         self._store = {**kwargs}
+        self._instance = None
+
+        self._store["experiment_date"] = str(datetime.now())
 
     @property
     def filename(this) -> str:
@@ -30,48 +32,48 @@ class ModelConfig(ImmutableMapping):
     def status(this) -> DownloadStatus:
         return this._store["download_status"]
     
-    def _save(self):
+    @property
+    def instance(this):
+        return this._instance # DO NOT NEED THIS! REFERENCES!!!
+
+    
+    def _savecfg(self):
         from src.loader import update_config
         update_config(self)
 
         logger.debug(f"Saved state for the model '{self['name']}'")
 
-
     def start_download(self):
         assert self.status == DownloadStatus.UNINITIALIZED
         self._store["download_status"] = str(DownloadStatus.STARTED)
-        self._save()
+        self._savecfg()
 
     def invalidate_local(self):
         logger.debug(f"Invalidating local for model '{self['name']}'")
         self._store["download_status"] = str(DownloadStatus.UNINITIALIZED)
-        self._save()
+        self._savecfg()
 
     def validate_local(self):
         logger.debug(f"Validating local for model '{self['name']}'")
         self._store["download_status"] = str(DownloadStatus.COMPLETED)
-        self._save()
+        self._savecfg()
 
-    @classmethod
-    def get_instance(cls, key: str):
-        loaded_key, loaded_model = cls.LOADED_INSTANCE
-        return loaded_model if key == loaded_key else None
+    def load_instance(self, caller, *args, **kwargs): # insecured by design ;)
+        if self.instance is not None: return
 
-    @classmethod
-    def save_instance(cls, model, key: str):
-        cls.LOADED_INSTANCE = key, model
+        from src.loader import load_model_from_hf
+        load_model_from_hf(self)
 
-    def __getitem__(self, key):
-        return self._store[key]
+        logger.debug(f"Loading model '{self['name']}' with arguments: {args=}; {kwargs=}")
+        self._instance = caller(*args, **kwargs)
+        
+        # logger.info(f"Loaded model '{self['name']}' with  footprint: {(self.instance.model.get_memory_footprint()/1e9):.3f} GB of (V)RAM")
 
-    def __iter__(self):
-        return iter(self._store)
-
-    def __len__(self):
-        return len(self._store)
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}({self._store})"
+    def teardown(self):
+        import torch
+        self._instance = None
+        torch.cuda.empty_cache()
+        # keeping the model save awaiting for replacement! 
 
     def __eq__(self, other: object) -> bool:
         return isinstance(other, ModelConfig) and other["name"] == self["name"]

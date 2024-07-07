@@ -1,0 +1,33 @@
+download_status: UNINITIALIZED
+experiment_date: '2024-07-07 12:19:49.841632'
+framework: tf
+gen_params:
+  length_penalty:
+  - -1.0
+  max_new_tokens: 512
+  num_beams: 2
+  repetition_penalty:
+  - 1.0
+  temperature: 0.65
+  top_k:
+  - 5
+  top_p:
+  - 0.15
+hf_repo: meta-llama/Llama-2-70b-chat-hf
+local: ''
+model_params:
+  load_in_4bit: true
+  load_in_8bit: false
+name: Llama-2-70b-chat-hf
+properties:
+  access_space:
+  - local
+  cost:
+  - free in price
+  - power consumption
+  domain: medical
+  predecessor: llama2-70b
+  size: '70'
+  task: chat LLM
+revision: e9149a1
+weightpat: '*.safetensors'

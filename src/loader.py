@@ -5,13 +5,14 @@ from huggingface_hub import snapshot_download
 from pathlib import Path
 from src.logger import get_logger
 from pandas import read_csv
-from src.inference import Prompt, PromptType, RawPrompt, CompletionPrompt, SystemPrompt, Template, ModelExecution, Inference
+from src.execution import ModelExecution
+from src.inference import Prompt, PromptType, RawPrompt, CompletionPrompt, SystemPrompt, Template, Inference
 
 
 logger = get_logger(__name__)
 
-def load_model_from_fs(filename: str) -> ModelConfig:
-    source = get_actual_path(filename, mode="model")
+def load_modelcfg_from_fs(filename: str) -> ModelConfig:
+    source = get_actual_path(filename, mode="config")
 
     with source.open("r", encoding="utf-8") as s:
         model_config = yaml.safe_load(s)
@@ -25,36 +26,34 @@ def load_model_from_hf(model: ModelConfig):
         import os
         allmodels = os.listdir("./configs/models/")
         for m in allmodels:
-            cfg = load_model_from_fs(Path(m).stem)
+            cfg = load_modelcfg_from_fs(Path(m).stem)
             if cfg.status == DownloadStatus.COMPLETED  and cfg.local == CurrentModel.LOCAL:
                 CurrentModel.initiate(cfg)
                 break
-
-    destination: Path = get_actual_path(fileOrDir=model.local, mode="store")
 
     # This is enough to just download one time for correcting consequents
     if model.status != DownloadStatus.UNINITIALIZED and model.local == CurrentModel.LOCAL \
         and CurrentModel.on() and not CurrentModel.included(model):
             model.invalidate_local()
-    
+
+    destination: Path = get_actual_path(fileOrDir=model.local, mode="model")
+
     match model.status:
         case DownloadStatus.COMPLETED:
-            logger.debug(f"No downloaded model '{model}' as it is present on '{destination}'")
+            logger.debug(f"No downloaded model '{model['name']}' as it is present on '{destination}'")
             return
         case DownloadStatus.STARTED:
             assert destination.exists()
-            logger.debug(f"Continuing downloading model '{model}' in destination '{destination}'...")
+            logger.debug(f"Continuing downloading model '{model['name']}' in destination '{destination}'...")
 
-        case DownloadStatus.UNINITIALIZED:
+        case _: # DownloadStatus.UNINITIALIZED or others
             if destination.exists(): # Disk space preparation
                 shutil.rmtree(destination)
             destination.mkdir()
 
             model.start_download()
             
-            logger.debug(f"Cleaned directory '{destination}' for downloading model '{model}'...")
-        case _: # NEVER
-            logger.warn(f"Download status not recognized")
+            logger.debug(f"Cleaned directory '{destination}' for downloading model '{model['name']}'...")
 
 
     if model.local == CurrentModel.LOCAL:
@@ -116,7 +115,7 @@ def load_executions(path: str|Path, output_filename: str|None=None) -> list[Mode
     loaded_prompts = dict()
 
     for model, model_df in groups:
-        loaded_model = load_model_from_fs(model)
+        loaded_model = load_modelcfg_from_fs(model)
         for index, row in model_df.iterrows():
             if row["type"].lower() == "test":   # TODO
                 continue
@@ -125,7 +124,7 @@ def load_executions(path: str|Path, output_filename: str|None=None) -> list[Mode
                 loaded_prompts[row["input"]] = load_prompt(row["input"])
 
             executions.append(Inference(index, 
-                model=loaded_model,
+                modelcfg=loaded_model,
                 prompt=loaded_prompts[row["input"]], 
                 output_filename=f"{basefilename}_{index}"
             ))
@@ -133,6 +132,6 @@ def load_executions(path: str|Path, output_filename: str|None=None) -> list[Mode
     return executions
 
 def update_config(modelcfg: ModelConfig):
-    cfg_file = get_actual_path(fileOrDir=modelcfg.filename, mode="model")
+    cfg_file = get_actual_path(fileOrDir=modelcfg.filename, mode="config")
     with cfg_file.open("w") as c:
         yaml.dump(dict(modelcfg), c)

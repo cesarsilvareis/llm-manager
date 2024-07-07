@@ -1,0 +1,63 @@
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': -1.0}
+Result:"""
+
+1) an inflammatory disease of the inner lining of the heart (endocardium) and the heart valves, 
+
+2) a microbial infection of the endocardium and the heart valves, 
+
+3) a microbial infection of the endocardium, the heart valves, and the mural endocardium (the inner lining of the heart), 
+
+4) an inflammatory disease of the endocardium, the heart valves, and the mural endocardium.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 0.0}
+Result:"""
+
+1) an inflammatory disease of the inner lining of the heart (endocardium) and the heart valves, 
+
+2) a microbial infection of the endocardium and the heart valves, 
+
+3) a microbial infection of the endocardium, the heart valves, and the mural endocardium (the inner lining of the heart), 
+
+4) an inflammatory disease of the endocardium, the heart valves, and the mural endocardium.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 1.0}
+Result:"""
+
+1) an inflammatory disease of the inner lining of the heart (endocardium) and the heart valves, 
+
+2) caused by bacterial infection, 
+
+3) with or without destruction of the valve and the surrounding anatomy.
+
+In other words, Infective Endocarditis is an inflammatory disease of the endocardium and the heart valves caused by bacterial infection with or without destruction of the valve and the surrounding anatomy.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': -1.0}
+Result:"""
+
+an infection of the inner lining of the heart (endocardium), usually the valves.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 0.0}
+Result:"""
+
+an infection of the inner lining of the heart (endocardium), usually the valves.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 1.0}
+Result:"""
+
+an infection of the inner lining of the heart (endocardium), usually the valves.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': -1.0}
+Result:"""
+
+an infection of the inner lining of the heart (endocardium), usually the valves.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 0.0}
+Result:"""
+
+an infection of the inner lining of the heart (endocardium), usually the valves.
+"""
+Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 1.0}
+Result:"""
+
+an infection of the inner lining of the heart (endocardium), usually the valves.
+"""
