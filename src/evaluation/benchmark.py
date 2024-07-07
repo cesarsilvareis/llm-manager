@@ -1,4 +1,4 @@
-import pandas as df, numpy as np
+import pandas as pd, numpy as np
 from pathlib import Path
 from src import get_actual_path
 from src.model import ModelConfig
@@ -24,10 +24,12 @@ class LLMBenchmark(ModelExecution):
 
   def setup(self):
     local = get_actual_path(self.modelcfg.local, "model")
+    self.modelcfg.teardown()
 
+    import torch
     model = AutoModelForCausalLM.from_pretrained(
       pretrained_model_name_or_path=local,
-      torch_dtype="auto",
+      torch_dtype=torch.bfloat16,
       device_map="auto",
       **self.modelcfg["model_params"] 
     )
@@ -46,12 +48,17 @@ class LLMBenchmark(ModelExecution):
     return {"caller": lambda m, t: (m, t), "m": model, "t": tokenizer} 
   
 
+  def save_latent_results(self, results: pd.DataFrame):
+    results.to_csv(get_actual_path(f"{self.output_filename}.csv", mode="data"))
+
   @abstractmethod
   def execute(self, model, tokenizer, gen_params: dict[str, Any]) -> Any|list[Any]:
     ...
 
 
 class TruthfulQA(LLMBenchmark):
+
+  BATCH_SIZE = 10
 
   def __init__(self, id: int, 
                modelcfg: ModelConfig, 
@@ -64,7 +71,7 @@ class TruthfulQA(LLMBenchmark):
 
   def load_data(self, *args, **kwargs) -> Dataset:
     dataset = load_dataset("truthfulqa/truthful_qa", "generation", *args, **kwargs)
-    return dataset["validation"]
+    return dataset["validation"].select(range(100))
 
   def execute(self, model, tokenizer: PreTrainedTokenizer, gen_params: dict[str, Any]) -> Any|list[Any]:
     conversation = lambda question: \
@@ -82,25 +89,27 @@ class TruthfulQA(LLMBenchmark):
       tokenizer.convert_tokens_to_ids("<|eot_id|>")
     ]
 
-    tokenized_dataset = self.dataset.map(tokenize_conversation, batched=True, batch_size=100, remove_columns=self.dataset.column_names)
+    tokenized_dataset = self.dataset.map(tokenize_conversation, batched=True, remove_columns=self.dataset.column_names)
     tokenized_dataset.set_format(type="torch", columns=["input_ids", "attention_mask"])
-    for batch in tokenized_dataset:
-        print(batch["input_ids"])
-        input_ids = batch["input_ids"].to(device=model.device)
-        attention_mask = batch["attention_mask"].to(device=model.device)
+    print(tokenized_dataset)
 
-        print(input_ids.shape)
-        print(attention_mask.shape)
+    from torch.utils.data import DataLoader
+    question_batches = DataLoader(tokenized_dataset, shuffle=True, batch_size=self.BATCH_SIZE)
 
-    
-    # prompt = tokenizer.apply_chat_template(conversation("What is Infective Endocarditis?"), tokenize=False, add_generation_prompt=True)
+    results_df = pd.DataFrame(columns=["question", "answer"])
+    for i, batch in enumerate(question_batches):
+      logger.debug(f"Infering batch {i+1}/{len(question_batches)}...")
+      input_ids = batch["input_ids"].to(device=model.device)
+      attention_mask = batch["attention_mask"].to(device=model.device)
 
-    # input_batch = tokenizer(prompt, return_tensors="pt", return_attention_mask=True).to(device=model.device) # cuda:0 probably, i.e., the first gpu available (from env)
-    # input_ids, attention_mask = input_batch.input_ids, input_batch.attention_mask
+      outputs_ids = model.generate(input_ids, attention_mask=attention_mask, do_sample=True, num_return_sequences=1, eos_token_id=terminators, **gen_params)
 
-        outputs = model.generate(input_ids, attention_mask=attention_mask, do_sample=True, num_return_sequences=1, eos_token_id=terminators, **gen_params)
-        sequences = tokenizer.decode(outputs[0][input_ids.shape[-1]:], skip_special_tokens=True)
-    # print(sequences)
+      for j, (question_enc, answer_enc) in enumerate(zip(input_ids, outputs_ids)):
+        question = tokenizer.decode(question_enc, skip_special_tokens=True)
+        answer = tokenizer.decode(answer_enc[question_enc.shape[-1]:], skip_special_tokens=True)
+        results_df.loc[i * self.BATCH_SIZE + j, ["question", "answer"]] = question, answer
+
+    self.save_latent_results(results_df)
 
 
 
