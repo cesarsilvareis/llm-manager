@@ -14,7 +14,6 @@ logger = get_logger(__name__)
 class ModelExecution(ABC):
 
     ACTIVIVE_EXECUTIONS: set[int]=set()
-    KEY: str
 
     def __init__(self, id: int, model: ModelConfig, output_filename: str):
         assert id not in self.ACTIVIVE_EXECUTIONS

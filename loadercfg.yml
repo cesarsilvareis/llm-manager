@@ -33,6 +33,11 @@ loggers:
     level: DEBUG
     handlers: [console, file]
     propagate: no
+  
+  filelock:
+    level: WARNING
+    handlers: [file]
+    propagate: no
 
 root:
   level: DEBUG

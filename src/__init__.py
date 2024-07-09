@@ -1,6 +1,8 @@
 from pathlib import Path
 from typing import Literal
 from dotenv import load_dotenv
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 

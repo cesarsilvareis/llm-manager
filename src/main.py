@@ -70,7 +70,7 @@ def main():
     if args.bench is not None:
         ben = TruthfulQA(id=-1,
             modelcfg=load_modelcfg_from_fs(args.modelcfg),
-            metrics="bleu",
+            
         )
         ben.run(single=True, explore_comb=False)
     

@@ -66,4 +66,8 @@ def return_all(f, all_arg: str, *args, return_as_tuple=False, **kwargs) -> Any|l
         return call_f(all_value)
 
     return call_f(all_value[0]) if len(all_value) == 1 else [call_f(a) for a in all_value]
-    
+
+
+def adapt_prompt(prompt: str):
+    lines = prompt.split("\n")
+    return "\n".join(l.strip() for l in lines)
