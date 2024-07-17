@@ -1,6 +1,5 @@
 from time import time
 from abc import ABC, abstractmethod
-from collections.abc import Sequence
 from typing import Self, Optional
 from src import get_actual_path
 from src.logger import get_logger
@@ -38,16 +37,16 @@ class ModelExecution(ABC):
     
     @property
     def output_filename(this) -> str:
-        return this._output_filename
+        return this._output_filename or ""
 
-    def run(self, single=True, explore_comb=False) -> str:
+    def run(self, single=True, explore_comb=False, gen_params=None, to_save: bool=True) -> Any|list[Any]:
         self._model.load_instance(**self.setup())
         instance = self._model.instance
         
-        
         ## Get combinations from generation parameters. Uncheck this for training 
         combinations = list()
-        gen_params: dict[str, Any] = self.modelcfg["gen_params"] # this is a copy
+        if gen_params is None:
+            gen_params: dict[str, Any] = self.modelcfg["gen_params"] # this is a copy
         if explore_comb:
             for param, value in gen_params.items():
                 if isinstance(value, list): # i.e., there is no change for the param
@@ -67,7 +66,11 @@ class ModelExecution(ABC):
 
         assert len(combinations) > 0
 
-        logger.info(f"Running execution '{self.id}' {len(combinations)} times (rel., combinations)...")
+        logger.info(f"Running execution '{self.id}'...")
+        logger.info(f"\t model = {self.modelcfg['name']} ;")
+        logger.info(f"\t configuration = {self.modelcfg['gen_params']} ;")
+        logger.info(f"\t running combinations = {len(combinations)};")
+        
         stime = time()
         try:
             self._last_results = return_all(
@@ -85,11 +88,13 @@ class ModelExecution(ABC):
         dtime = time() - stime
         logger.info(f"Execution '{self.id}' ran for {int(dtime)}s")
 
-        logger.info(f"Saving result in '{self.output_filename}'...")
-        self.save()
+        if to_save:
+            logger.info(f"Saving result in '{self.output_filename}'...")
+            self.save(exec_time=dtime)
 
         if single:
             self._model.teardown()
+        return self._last_results
 
 
     @abstractmethod
@@ -100,8 +105,13 @@ class ModelExecution(ABC):
     def execute(self, model, gen_params: dict[str, Any]) -> Any:
         raise NotImplementedError
     
-    def save(self: Self):
+    def save(self: Self, exec_time: float):
         assert self.last_results is not None
+
+        if not self.output_filename:
+            for params, result in self.last_results:
+                print((f'Params:{params}\nResult:"""\n{result}\n"""\n' if params else f'"""\n{result}\n"""\n'))
+            return
 
         outputfile = get_actual_path(self.output_filename, mode="result")
 
@@ -115,7 +125,7 @@ class ModelExecution(ABC):
 
         with outputfile.open("ab") as o:
             for params, result in self.last_results:
-                o.write((f'Params:{params}\nResult:"""\n{result}\n"""\n' if params else f'"""\n{result}\n"""\n').encode("utf-8"))
+                o.write((f'Params:{params}\nResult:"""\n{result}\n"""\n' if params else f'"""\n{result}\n"""\nExecTime:{exec_time:.2f}s').encode("utf-8"))
 
 
 
@@ -133,7 +143,7 @@ class ModelExecution(ABC):
             + ")"
         )
     
-class ModelBatch(Sequence):
+class ModelBatch:
 
     def __init__(self, model: ModelConfig, executions: set[ModelExecution]) -> None:
         self.model = model
@@ -146,12 +156,83 @@ class ModelBatch(Sequence):
         
         logger.debug(f"Batch for the model '{model['name']}' has {len(executions)} executions.")
         
-    def run(self):
+    def run(self, benchmode=False):
 
-        logger.info(f"Running {len(self.executions)} executions of the model '{self.model['name']}'...")
+        logger.info(f"Running {len(self.executions)} executions of the model '{self.model['name']}' as a batch...")
 
-        for exec in self.executions:
-            exec.run(single=False)
+        if not benchmode:
+            for exec in self.executions:
+                try:
+                    exec.run(single=False)
+                except Exception as e:
+                    logger.error(f"Executing {exec.id}: {e}")
+                    continue
+            self.model.teardown()
+            return
+
+
+        from src.evaluation import LLMBenchmark
+        assert all(isinstance(b, LLMBenchmark) for b in self.executions)
+
+        def score(config_id, params: dict[str, Any|list[Any]], param):
+            configuration = {p: v[0] if isinstance(v, list) else v for p, v in params.items()}
+            logger.info(f"[DYNAMIC] Testing configuration {configuration}  with {param} = {params[param]}")
+
+            result = 0
+            output_file = get_actual_path(f"benchmode{config_id}_{param}", mode="result")
+
+            with output_file.open('a') as r:
+                r.write(f"Configuration: {configuration} for {param}={params[param]}\n")
+
+                for bench in self.executions:
+                    _, metrics = bench.run(single=False, explore_comb=False, gen_params=configuration, to_save=False)
+                    r.write(f"{metrics}\n")
+                    result += bench.WEIGHT * bench.get_score(metrics)
+
+                r.write(f"Configuration cmp score = {result}\n\n\n")
+            self.model.teardown()
+            logger.info(f"[DYNAMIC] Scored configuration {param}={params[param]} with score={result}")
+
+            return result
+
+        gen_params = self.model["gen_params"].copy()
+        priority_queue = self.model["gen_priorities"]
+        config_id = 1
+        # best_score = score(config_id, gen_params, "max_new_tokens")
+        best_score = 0
+        config_id += 1
+
+        logger.info(f"Benchmode as been activated! Priority queue: {priority_queue}")
+        for param in priority_queue:
+            # Discard param
+            if param not in gen_params or not isinstance((comb :=gen_params[param]), list):
+                continue
+            
+            if len(comb) == 1:
+                gen_params[param] = comb[0]
+                continue
+
+            comb = comb[1:]
+
+            best_value, value_score = max((v, score(config_id, {
+                **gen_params,
+                param: v
+            }, param)) for v in comb)
+
+            if value_score > best_score:
+                best_score = value_score
+                assigned_value = best_value
+            else:
+                assigned_value = comb[0]
+
+            logger.info(f"[DYNAMIC] Assigning {param}={assigned_value}")
+            gen_params[param] = assigned_value
+            config_id += 1
+
+
+        assert all(not isinstance(gen_params[k], list) for k in priority_queue)
+
+        logger.info(f"Benchmode as ended in {config_id} configurations! Best config {gen_params}")
     
         self.model.teardown()
 
@@ -165,7 +246,7 @@ class ModelBatch(Sequence):
             model_executions[exec.modelcfg].append(exec)
 
         for model in model_executions.copy(): # keeping references
-            model_executions[model] = model_executions[model].sort(key=lambda e: e.id)
+            model_executions[model].sort(key=lambda e: e.id)
 
-        return list(ModelBatch(model, executions) for model, executions in model_executions)
+        return list(ModelBatch(model, executions) for model, executions in model_executions.items())
 

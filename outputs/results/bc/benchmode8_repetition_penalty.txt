@@ -1,0 +1,26 @@
+Configuration: {'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 2, 'repetition_penalty': 1.2, 'temperature': 0.7, 'top_k': 10, 'top_p': 0.95} for repetition_penalty=1.2
+        bleurtmax  bleurtdiff  bleurtacc
+mean    -0.113676    0.339087        1.0
+median  -0.113676    0.339087        1.0
+           rouge
+mean    0.325424
+median  0.325424
+        variance  retention  weighted_mean
+mean    0.593407    0.30921       0.630126
+median  0.593407    0.30921       0.630126
+Configuration cmp score = 0.6496773273881797
+
+
+Configuration: {'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 2, 'repetition_penalty': 1.5, 'temperature': 0.7, 'top_k': 10, 'top_p': 0.95} for repetition_penalty=1.5
+        bleurtmax  bleurtdiff  bleurtacc
+mean    -0.113676    0.339087        1.0
+median  -0.113676    0.339087        1.0
+           rouge
+mean    0.344569
+median  0.344569
+        variance  retention  weighted_mean
+mean    0.593407    0.30921       0.630126
+median  0.593407    0.30921       0.630126
+Configuration cmp score = 0.655420995260966
+
+

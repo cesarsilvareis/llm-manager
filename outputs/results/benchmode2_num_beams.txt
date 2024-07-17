@@ -1,0 +1,126 @@
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 2} for num_beams=2
+        bleurt max  bleurt diff  bleurt acc
+mean     -0.669043     0.091992        0.56
+median   -0.637501     0.049351        1.00
+           rouge
+mean    0.325894
+median  0.320418
+        variance  retention  weighted_mean
+mean    0.596593  -0.637206       0.347475
+median  0.593951  -0.660919       0.344062
+Configuration cmp score = 0.4047582934098608
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3} for num_beams=3
+        bleurt max  bleurt diff  bleurt acc
+mean     -0.656222     0.099314        0.59
+median   -0.617030     0.037699        1.00
+           rouge
+mean    0.328635
+median  0.336878
+        variance  retention  weighted_mean
+mean    0.602257  -0.655256       0.344326
+median  0.593640  -0.691318       0.330957
+Configuration cmp score = 0.4133209827378145
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 5} for num_beams=5
+        bleurt max  bleurt diff  bleurt acc
+mean     -0.647223     0.102585        0.63
+median   -0.594254     0.075397        1.00
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 2} for num_beams=2
+        bleurt max  bleurt diff  bleurt acc
+mean     -0.669043     0.091992        0.56
+median   -0.637501     0.049351        1.00
+           rouge
+mean    0.335145
+median  0.338825
+        variance  retention  weighted_mean
+mean    0.604032  -0.652759       0.345785
+median  0.601599  -0.689994       0.342432
+Configuration cmp score = 0.40685767416131846
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3} for num_beams=3
+        bleurt max  bleurt diff  bleurt acc
+mean     -0.656222     0.099314        0.59
+median   -0.617030     0.037699        1.00
+           rouge
+mean    0.340257
+median  0.340876
+        variance  retention  weighted_mean
+mean    0.605507  -0.668996       0.341504
+median  0.595943  -0.691318       0.335234
+Configuration cmp score = 0.4156784718388791
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 5} for num_beams=5
+        bleurt max  bleurt diff  bleurt acc
+mean     -0.647223     0.102585        0.63
+median   -0.594254     0.075397        1.00
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 2} for num_beams=2
+        bleurt max  bleurt diff  bleurt acc
+mean     -0.669043     0.091992        0.56
+median   -0.637501     0.049351        1.00
+Configuration cmp score = 0.168
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3} for num_beams=3
+        bleurt max  bleurt diff  bleurt acc
+mean     -0.656222     0.099314        0.59
+median   -0.617030     0.037699        1.00
+Configuration cmp score = 0.177
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 5} for num_beams=5
+        bleurt max  bleurt diff  bleurt acc
+mean     -0.647223     0.102585        0.63
+median   -0.594254     0.075397        1.00
+Configuration cmp score = 0.189
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 2} for num_beams=2
+           rouge
+mean    0.326428
+median  0.328252
+Configuration cmp score = 0.0979284097013209
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3} for num_beams=3
+           rouge
+mean    0.330912
+median  0.338468
+Configuration cmp score = 0.09927352226352697
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 5} for num_beams=5
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 2} for num_beams=2
+           rouge
+mean    0.314639
+median  0.318471
+Configuration cmp score = 0.09439166484811631
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3} for num_beams=3
+           rouge
+mean    0.315195
+median  0.318471
+Configuration cmp score = 0.09455856630928301
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 5} for num_beams=5
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 2} for num_beams=2
+           rouge
+mean    0.314639
+median  0.318471
+Configuration cmp score = 0.09439166484811633
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3} for num_beams=3
+           rouge
+mean    0.315195
+median  0.318471
+Configuration cmp score = 0.09455856630928301
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 5} for num_beams=5

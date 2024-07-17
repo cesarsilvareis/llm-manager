@@ -1,36 +1,10 @@
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': -1.0}
-Result:
- Infective Endocarditis (IE) is a microbial infection of the heart's inner lining, usually involving the heart valves. IE is caused by bacteria, fungi, or other microorganisms that enter the bloodstream and attach to damaged heart valves or other cardiac abnormalities. Symptoms include fever, fatigue, and heart murmur. Treatment typically involves a combination of antibiotics and, in severe cases, surgery to repair or replace damaged heart valves. Prevention includes proper dental hygiene and antibiotic prophylaxis before certain dental or medical procedures.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 0.0}
-Result:
- Infective Endocarditis (IE) is a microbial infection of the heart's inner lining, usually involving the heart valves. IE is caused by bacteria, fungi, or other microorganisms that enter the bloodstream and attach to damaged heart valves or other cardiac abnormalities. Symptoms include fever, fatigue, and heart murmur. Treatment typically involves a combination of antibiotics and, in severe cases, surgery to repair or replace damaged heart valves. Prevention includes proper dental hygiene and antibiotic prophylaxis before certain dental or medical procedures.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 1.0}
-Result:
- Infective Endocarditis is an inflammatory disease of the inner lining of the heart and heart valves caused by bacterial or fungal infection. Risk factors include intravenous drug use, prosthetic valves, and pre-existing heart conditions. Symptoms include fever, fatigue, and heart murmur. Diagnosis involves blood cultures and echocardiography. Treatment includes antibiotics and, in severe cases, surgery. Prevention includes antibiotic prophylaxis before certain dental and medical procedures.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': -1.0}
-Result:
- Infective Endocarditis (IE) is an inflammatory disease affecting the inner lining of heart valves and mural endocardium. It results from the interaction between a susceptible host, an infective agent, and a favorable environment. The etiology is mainly due to bacterial infection, with Staphylococcus aureus being the most common causative organism. Transesophageal echocardiography is a significant diagnostic tool, while antibiotics and cardiac surgery are the main therapeutic approaches. Complications include valvular dysfunction, metastatic infections, and embolic events.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 0.0}
-Result:
- Infective Endocarditis (IE) is an inflammatory disease affecting the inner lining of heart valves and mural endocardium. It results from the interaction between a susceptible host, an infective agent, and a favorable environment. The etiology comprises bacterial, fungal, and other microbial infections. IE presents with symptoms such as fever, fatigue, and heart murmur. Diagnosis relies on clinical signs, blood cultures, and echocardiography. Treatment includes antimicrobial therapy and, in severe cases, surgical intervention. Complications encompass valve dysfunction, abscesses, and embolic events. Prophylaxis and prognosis depend on the early diagnosis and adequate treatment.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 1.0}
-Result:
- Infective Endocarditis (IE) is an inflammatory disease affecting the inner lining of heart valves and mural endocardium. It results from the interaction between a susceptible host, an infective agent, and a favorable environment. The etiology is mainly due to bacterial infection, with Staphylococcus aureus being the most common causative organism. Transesophageal echocardiography is a significant diagnostic tool, while antibiotics and cardiac surgery are the main therapeutic approaches. Complications include valvular dysfunction, metastatic infections, and embolic events.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': -1.0}
-Result:
- Infective Endocarditis (IE) is an inflammatory disease affecting the inner lining of heart valves and mural endocardium. It typically occurs due to bacterial infection, resulting in vegetations that can lead to valve dysfunction, thromboembolic complications, and abscess formation. IE is more common in individuals with pre-existing valvular abnormalities, but can also occur in healthy valves. Diagnosis involves a combination of clinical suspicion, blood cultures, and echocardiography. Treatment usually includes prolonged antibiotic therapy and, in severe cases, surgical intervention.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 0.0}
-Result:
- Infective Endocarditis (IE) is an inflammatory disease affecting the inner lining of heart valves and mural endocardium. It results from the interaction between a susceptible host, an infective agent, and a favorable environment. The etiology comprises bacterial, fungal, and other microbial infections. IE presents with symptoms such as fever, fatigue, and heart murmur. Diagnosis relies on clinical signs, blood cultures, and echocardiography. Treatment includes antimicrobial therapy and, in severe cases, surgical intervention. Complications encompass metastatic infections and valvular dysfunction. Prophylaxis and prognosis depend on early diagnosis and adequate treatment.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 1.0}
-Result:
- Infective Endocarditis (IE) is an inflammatory disease affecting the inner lining of heart valves and mural endocardium. It results from the interaction between a susceptible host, an infective agent, and a favorable environment. The etiology comprises bacterial, fungal, and other microbial infections. IE presents with symptoms such as fever, fatigue, and heart murmur. Diagnosis relies on clinical signs, blood cultures, and echocardiography. Treatment includes antimicrobial therapy and, in severe cases, surgical intervention. Complications encompass metastatic infections and valvular dysfunction. Prophylaxis and prognosis depend on early diagnosis and adequate treatment.
-
+Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
+Result:"""
+- Infective endocarditis (IE) is an infection of the heart valves and/or the inner lining of the heart (endocardium).
+- IE is caused by bacteria or fungi that enter the bloodstream and adhere to the heart valves or endocardium.
+- IE can be caused by a variety of bacteria and fungi, including Staphylococcus aureus, Streptococcus viridans, Enterococcus faecalis, and Candida albicans.
+- IE can lead to complications such as heart valve damage, heart failure, stroke, and death.
+- IE is typically treated with antibiotics and surgery to remove the infected heart valves or endocardium.
+- IE can be prevented by taking steps to reduce the risk of bacterial and fungal infections, such as practicing good hygiene, getting vaccinated against certain diseases, and taking antibiotics to prevent infections.
+- IE is a serious and potentially life-threatening condition that requires prompt diagnosis and treatment to prevent complications and
+"""

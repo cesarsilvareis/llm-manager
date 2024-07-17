@@ -1,10 +1,10 @@
-import sys
+import sys, json
 from src.loader import load_modelcfg_from_fs, load_prompt, load_executions
 from src.logger import setup_logging
 from src.inference import Inference
-from src.evaluation import TruthfulQA
+from src.evaluation import TruthfulQA, PubMedSummary, ClinicalParaph
 
-from argparse import ArgumentParser
+from argparse import ArgumentParser, BooleanOptionalAction
 
 class CustomArgumentParser(ArgumentParser):
     def error(self, message):
@@ -24,12 +24,17 @@ class CustomArgumentParser(ArgumentParser):
             [   # Evaluation
                 (args.bench, "bench"),
                 (args.modelcfg, "modelcfg"),
-                (args.resfile, "resfile")
+                (args.gen_config, "gen_config"),
+            ],
+            [   # Train
+                (args.train, "train"),
+                (args.modelcfg, "modelcfg"),
+                (args.resfile, "resfile"),
             ]
         ]
 
         for dpd in dependencies:
-            if len(dpd) <= 1 or dpd[0][0] is None:
+            if len(dpd) <= 1 or not dpd[0][0]:
                 continue
 
             defined_args = set((arg, n) for arg, n in dpd if arg is not None)
@@ -45,7 +50,9 @@ def parse_arguments():
     parser.add_argument("--execfile", "-e", type=str, required=False)
     parser.add_argument("--modelcfg", "-c", type=str, required=False)
     parser.add_argument("--prompt", "-p", type=str, required=False)
+    parser.add_argument("--gen_config", "-g", type=str, required=False)
     parser.add_argument("--bench", "-b", type=str, required=False)
+    parser.add_argument("--train", "-t", action=BooleanOptionalAction, default=False)
     parser.add_argument("--resfile", "-o", type=str, required=False)
     parser.add_argument(
         "--log", "-l", type=str, required=False,
@@ -59,6 +66,10 @@ def main():
 
     setup_logging(args.log, execfile=args.execfile)
 
+    if args.train:
+        from src.training import run_sft
+        run_sft(modelcfg=load_modelcfg_from_fs(args.modelcfg), finetuned_model_dir=args.resfile)
+
     if args.prompt is not None:
         inf = Inference(id=-1, 
                 modelcfg=load_modelcfg_from_fs(args.modelcfg), 
@@ -68,14 +79,20 @@ def main():
         inf.run(single=True)
 
     if args.bench is not None:
-        ben = TruthfulQA(id=-1,
-            modelcfg=load_modelcfg_from_fs(args.modelcfg),
-            
-        )
-        ben.run(single=True, explore_comb=False)
+        match args.bench:
+            case "truthfulqa":
+                ben = TruthfulQA(-1, modelcfg=load_modelcfg_from_fs(args.modelcfg),
+                    outputfile=args.resfile, save_latents="metric")
+            case "pubmedsum":
+                ben = PubMedSummary(-1, modelcfg=load_modelcfg_from_fs(args.modelcfg),
+                    outputfile=args.resfile, save_latents="metric")
+            case "clinicalparaph":
+                ben = ClinicalParaph(-1, load_modelcfg_from_fs(args.modelcfg),
+                    outputfile=args.resfile, save_latents="metric")
+        ben.run(single=True, explore_comb=False, gen_params=json.loads(args.gen_config))
     
     if args.execfile is not None:
-        executions = load_executions(args.execfile, args.resfile)
+        executions = load_executions(args.execfile, args.resfile, batched=True)
         for exec in executions:
             exec.run()
 

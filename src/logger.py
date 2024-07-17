@@ -3,6 +3,8 @@ from logging import Filter, Logger, getLogger, basicConfig
 from logging.config import dictConfig
 from pathlib import Path
 
+from transformers import logging as hf_logging
+hf_logging.set_verbosity_error()
 
 class RunFilter(Filter):
     def __init__(self, delimiter, length, additional_fields=None):

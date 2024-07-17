@@ -1,0 +1,13 @@
+Configuration: {'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 2, 'repetition_penalty': 1.0, 'temperature': 0.85, 'top_k': 50, 'top_p': 1.0} for early_stopping=True
+        bleurtmax  bleurtdiff  bleurtacc
+mean    -0.113676    0.339087        1.0
+median  -0.113676    0.339087        1.0
+           rouge
+mean    0.344086
+median  0.344086
+        variance  retention  weighted_mean
+mean    0.593407    0.30921       0.630126
+median  0.593407    0.30921       0.630126
+Configuration cmp score = 0.6552760151957249
+
+

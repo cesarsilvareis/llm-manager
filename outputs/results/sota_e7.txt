@@ -1,36 +1,6 @@
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': -1.0}
-Result:
- Infective Endocarditis is an inflammatory heart disease caused by bacterial infection. It mainly affects individuals with damaged heart valves and can result in serious complications, such as heart failure and stroke. Prevention and early treatment are crucial for a better prognosis.
+Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
+Result:"""
 
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 0.0}
-Result:
- Infective Endocarditis is an inflammatory heart disease caused by bacterial infection. It mainly affects individuals with pre-existing heart conditions, such as damaged heart valves. The bacteria usually enter the bloodstream through needles or other medical procedures. Symptoms include fever, fatigue, and heart murmur. Treatment typically involves a combination of antibiotics and, in severe cases, surgery to repair or replace damaged heart valves.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.0, 'length_penalty': 1.0}
-Result:
- Infective Endocarditis is an inflammatory heart disease caused by bacterial infection. It mainly affects individuals with pre-existing heart conditions, such as damaged heart valves. The bacteria usually enter the bloodstream through needles or other medical procedures. Symptoms include fever, fatigue, and heart murmur. Treatment typically involves a combination of antibiotics and, in severe cases, surgery to repair or replace damaged heart valves. Prevention includes antibiotic prophylaxis before certain medical procedures and good oral hygiene.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': -1.0}
-Result:
- Infective Endocarditis is an inflammatory heart disease caused by bacterial infection. It mainly affects individuals with pre-existing heart conditions, such as damaged heart valves. The bacteria usually enter the bloodstream through needles or other medical procedures. Symptoms include fever, fatigue, and heart murmur. Treatment typically involves a combination of antibiotics and, in severe cases, surgery to repair or replace damaged heart valves.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 0.0}
-Result:
- Infective Endocarditis is an inflammation of the inner lining of the heart and heart valves caused by bacterial or fungal infection. It can be acute or subacute, and symptoms include fever, fatigue, and heart murmur. Treatment typically involves antibiotics and, in severe cases, surgery.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 1.5, 'length_penalty': 1.0}
-Result:
- Infective Endocarditis is an inflammation of the inner lining of the heart and heart valves caused by bacterial or fungal infection. It can be acute or subacute, and symptoms include fever, fatigue, and heart murmur. Treatment typically involves prolonged antibiotic therapy and, in some cases, surgical intervention.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': -1.0}
-Result:
- Infective Endocarditis is an inflammation of the inner lining of the heart and heart valves caused by bacterial or fungal infection. It can be acute or subacute, and symptoms may include fever, fatigue, and heart murmur. Treatment typically involves antibiotics and, in some cases, surgery.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 0.0}
-Result:
- Infective Endocarditis is an inflammatory heart disease caused by bacterial infection. It mainly affects individuals with pre-existing heart conditions, such as damaged heart valves. The bacteria usually enter the bloodstream through needles or other medical procedures. Symptoms include fever, fatigue, and heart murmur. Treatment typically involves a combination of antibiotics and, in severe cases, surgery to repair or replace damaged heart valves.
-
-Params:{'max_new_tokens': 512, 'temperature': 0.65, 'num_beams': 2, 'repetition_penalty': 2.0, 'length_penalty': 1.0}
-Result:
- Infective Endocarditis is an inflammation of the inner lining of the heart and heart valves caused by bacterial or fungal infection. It can be acute or subacute, and symptoms include fever, fatigue, and heart murmur. Treatment typically involves prolonged antibiotic therapy and, in some cases, surgical intervention.
-
+## Answer
+Infective endocarditis (IE) is an infection of the endocardial surface of the heart. It is most commonly caused by bacteria, but can also be caused by fungi, parasites, and viruses. The most common cause of IE is Staphylococcus aureus, followed by Streptococcus viridans and Enterococcus faecalis. The incidence of IE has been increasing in recent years, likely due to an aging population and an increase in the number of invasive medical procedures. IE can be classified into native valve endocarditis (NVE) and prosthetic valve endocarditis (PVE). NVE is more common than PVE, accounting for approximately 80% of all cases of IE. The clinical presentation of IE is variable, but can include fever, chills, night sweats, weight loss, fatigue, and malaise. Patients may also have signs and symptoms of congestive heart failure, such as dyspnea, edema, and pleural effusions. IE can lead to serious complications, including
+"""

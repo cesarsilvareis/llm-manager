@@ -5,9 +5,9 @@ from huggingface_hub import snapshot_download
 from pathlib import Path
 from src.logger import get_logger
 from pandas import read_csv
-from src.execution import ModelExecution
+from src.execution import ModelExecution, ModelBatch
 from src.inference import Prompt, PromptType, RawPrompt, CompletionPrompt, SystemPrompt, Template, Inference
-
+from src.evaluation import TruthfulQA, PubMedSummary, ClinicalParaph
 
 logger = get_logger(__name__)
 
@@ -98,7 +98,7 @@ def load_prompt(filename: str) -> Prompt:
 
 
 # Load executions sorted by models for reusability
-def load_executions(path: str|Path, output_filename: str|None=None) -> list[ModelExecution]:
+def load_executions(path: str|Path, output_filename: str|None=None, batched: bool=True) -> list[ModelExecution]|list[ModelBatch]:
     executions: list[ModelExecution] = list()
 
     if isinstance(path, str):
@@ -116,19 +116,33 @@ def load_executions(path: str|Path, output_filename: str|None=None) -> list[Mode
     for model, model_df in groups:
         loaded_model = load_modelcfg_from_fs(model)
         for index, row in model_df.iterrows():
-            if row["type"].lower() == "test":   # TODO
-                continue
-            
-            if row["input"] not in loaded_prompts:
-                loaded_prompts[row["input"]] = load_prompt(row["input"])
+            match row["type"].lower():
+                case "inference":
+                    if row["input"] not in loaded_prompts:
+                        loaded_prompts[row["input"]] = load_prompt(row["input"])
+                    execution = Inference(index, modelcfg=loaded_model,
+                        prompt=loaded_prompts[row["input"]], 
+                        output_filename=f"{basefilename}_{index}"
+                    )
+                case "benchmark":
+                    match row["input"].lower():
+                        case "truthfulqa":
+                            execution = TruthfulQA(index, modelcfg=loaded_model,
+                                outputfile=basefilename, save_latents="metric")
+                        case "pubmedsum":
+                            execution = PubMedSummary(index, modelcfg=loaded_model,
+                                outputfile=basefilename, save_latents="metric")
+                        case "clinicalparaph":
+                            execution = ClinicalParaph(index, modelcfg=loaded_model,
+                                outputfile=basefilename, save_latents="metric")
+                        case _:
+                            raise ValueError(f"Unknown benchmark name '{row['input']}' as the input column value.")
+                case _:
+                    raise ValueError(f"Unknown execution type '{row['type']}'.")
 
-            executions.append(Inference(index, 
-                modelcfg=loaded_model,
-                prompt=loaded_prompts[row["input"]], 
-                output_filename=f"{basefilename}_{index}"
-            ))
+            executions.append(execution)
     
-    return executions
+    return ModelBatch.from_list(executions) if batched else executions
 
 def update_config(modelcfg: ModelConfig):
     cfg_file = get_actual_path(fileOrDir=modelcfg.filename, mode="config")

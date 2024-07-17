@@ -72,8 +72,13 @@ class ModelConfig(ImmutableMapping):
     def teardown(self):
         import torch
         self._instance = None
+        torch.cuda.ipc_collect()
         torch.cuda.empty_cache()
+        torch.cuda.ipc_collect()
         # keeping the model save awaiting for replacement! 
+
+    def __hash__(self):
+        return hash(self["name"])
 
     def __eq__(self, other: object) -> bool:
         return isinstance(other, ModelConfig) and other["name"] == self["name"]

@@ -1,0 +1,39 @@
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 1} for max_new_tokens=252
+        bleurt max  bleurt diff  bleurt acc
+mean     -0.669329     0.014043        0.55
+median   -0.637091     0.026005        1.00
+           rouge
+mean    0.323594
+median  0.314465
+        variance  retention  weighted_mean
+mean    0.580304  -0.220959       0.465834
+median  0.598262  -0.121331       0.464955
+Configuration cmp score = 0.44841177008073807
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 1} for max_new_tokens=252
+        bleurt max  bleurt diff  bleurt acc
+mean     -0.693548    -0.061991         0.5
+median   -0.603806    -0.017474         0.5
+           rouge
+mean    0.328854
+median  0.310881
+        variance  retention  weighted_mean
+mean    0.583014  -0.185043       0.477693
+median  0.580014  -0.139783       0.500629
+Configuration cmp score = 0.4397334066787007
+
+
+Configuration: {'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 1} for max_new_tokens=252
+        bleurt max  bleurt diff  bleurt acc
+mean     -0.597148     0.063031        0.65
+median   -0.569575     0.033653        1.00
+           rouge
+mean    0.305444
+median  0.312292
+        variance  retention  weighted_mean
+mean    0.540132  -0.139605       0.474171
+median  0.510274  -0.032748       0.481457
+Configuration cmp score = 0.47630157875749635
+
+

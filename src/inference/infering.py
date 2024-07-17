@@ -2,7 +2,6 @@ from src import get_actual_path
 from src.execution import ModelExecution
 from src.model import ModelConfig
 from src.inference import Prompt
-from itertools import product
 from typing import Self, Any
 from transformers import pipeline
 
@@ -24,14 +23,13 @@ class Inference(ModelExecution):
             "num_workers": 4,
             "torch_dtype":"auto",
             "trust_remote_code": False,
-            "device_map": "auto",
+            "device_map": "cuda",
             "model_kwargs": self.modelcfg["model_params"],
         }
 
     def execute(self, model, gen_params: dict[str, Any]) -> list[str]:
         return model(
             str(self.prompt), 
-            do_sample=True, 
             return_full_text=False, 
             **gen_params)[0]['generated_text']
 
