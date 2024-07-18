@@ -34,10 +34,24 @@ loggers:
     handlers: [console, file]
     propagate: no
   
+  absl:
+    level: WARNING
+    handlers: [console, file]
+    propagate: no
+
+  tensorflow:
+    level: WARNING
+    handler: [console, file]
+    propagate: no
+
   filelock:
     level: WARNING
     handlers: [file]
     propagate: no
+
+  fsspec.local:
+    level: WARNING
+    handler: [file]
 
 root:
   level: DEBUG

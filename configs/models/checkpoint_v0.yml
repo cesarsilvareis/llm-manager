@@ -12,14 +12,14 @@ gen_params:
   temperature: 0.45
   top_k: 100
   top_p: 0.85
-hf_repo: epfl-llm/meditron-7b
-local: ''
+hf_repo: ''
+local: 'sft-mcqed-meditron_small/checkpoint-12500'
 model_params:
   device_map: cuda
   load_in_4bit: false
   load_in_8bit: false
-  torch_dtype: auto
-name: Meditron Small
+  torch_dtype: bfloat16
+name: Checkpoint V0
 params: null
 properties:
   access_space:
@@ -28,8 +28,8 @@ properties:
   - free in price
   - power consumption
   domain: medical
-  predecessor: llama-7b
+  predecessor: meditron-7b
   size: '7'
-  task: base LLM
-revision: d7d0a5e
+  task: ED_MCQ
+revision: null
 weightpat: '*.safetensors'

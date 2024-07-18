@@ -1,11 +1,11 @@
 execution,model,type,input
-e1,med_42,Inference,prompt_med42_0
-e2,med_42,Inference,prompt_med42_1
-e3,med_42,Inference,prompt_med42_2
-e4,med_42,Inference,prompt_med42_3
-e5,med_42,Inference,prompt_med42_4
-e6,med_42,Inference,prompt_med42_5
-e7,med_42,Inference,prompt_med42_6
+e1,meditron_small,Inference,prompt_comp0
+e2,meditron_small,Inference,prompt_comp1
+e3,meditron_small,Inference,prompt_comp2
+e4,meditron_small,Inference,prompt_comp3
+e5,meditron_small,Inference,prompt_comp4
+e6,meditron_small,Inference,prompt_comp5
+e7,meditron_small,Inference,prompt_comp6
 
 e8,clinical_camel,Inference,prompt_clin0
 e9,clinical_camel,Inference,prompt_clin1
@@ -29,3 +29,12 @@ e24,adaptllm,Inference,prompt_clin2
 e25,adaptllm,Inference,prompt_clin3
 e26,adaptllm,Inference,prompt_clin4
 e27,adaptllm,Inference,prompt_clin5
+
+e28,med_42,Inference,prompt_med42_0
+e29,med_42,Inference,prompt_med42_1
+e30,med_42,Inference,prompt_med42_2
+e31,med_42,Inference,prompt_med42_3
+e32,med_42,Inference,prompt_med42_4
+e33,med_42,Inference,prompt_med42_5
+e34,med_42,Inference,prompt_med42_6
+

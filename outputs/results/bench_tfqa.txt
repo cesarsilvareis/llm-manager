@@ -1,7 +1,0 @@
-Params:{'max_new_tokens': 512, 'num_beams': 1, 'temperature': 0.65}
-Result:"""
-                                  mean    median
-TinyLlama-1.1B bleurt (max)  -0.669764 -0.654812
-TinyLlama-1.1B bleurt (diff) -0.016270 -0.004397
-TinyLlama-1.1B bleurt (acc)   0.497531  0.000000
-"""

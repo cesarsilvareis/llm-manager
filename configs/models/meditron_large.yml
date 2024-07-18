@@ -1,19 +1,32 @@
 download_status: UNINITIALIZED
-experiment_date: 09/03/2024
+experiment_date: '2024-07-15 12:14:51.514038'
 framework: tf
 gen_params:
-  max_new_tokens: 512
-  temperature: .65
-  # top_k: [5, 50, 100]
-  # top_p: [0.15, 0.5, 0.75]
-  num_beams: 2
-  repetition_penalty: [1.0, 1.5, 2.0]
-  length_penalty: [-1.0, .0, 1.0]
+  do_sample:
+  - true
+  early_stopping:
+  - true
+  length_penalty:
+  - -0.5
+  max_new_tokens: 252
+  min_new_tokens: 54
+  num_beams:
+  - 3
+  repetition_penalty:
+  - 1.2
+  temperature:
+  - 0.45
+  top_k:
+  - 100
+  top_p:
+  - 0.85
 hf_repo: epfl-llm/meditron-70b
 local: ''
 model_params:
+  device_map: auto
   load_in_4bit: true
   load_in_8bit: false
+  torch_dtype: auto
 name: Meditron-70B-v1.0
 properties:
   access_space:

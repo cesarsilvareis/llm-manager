@@ -1,5 +1,5 @@
 download_status: UNINITIALIZED
-experiment_date: '2024-07-09 16:09:30.956715'
+experiment_date: '2024-07-13 21:06:18.309436'
 framework: tf
 gen_params:
   max_new_tokens: 512

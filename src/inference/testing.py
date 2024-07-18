@@ -1,8 +1,10 @@
+import numpy as np
 from src import get_actual_path
 from src.execution import ModelExecution
 from src.model import ModelConfig
+from src.tasks import Task, TaskType
 from typing import Self, Any
-from transformers import Trainer, AutoModelForSequenceClassification
+from transformers import Trainer, AutoTokenizer
 from datasets import load_from_disk, Dataset, DatasetDict
 
 
@@ -10,13 +12,14 @@ class Testing(ModelExecution):
 
     TEST_DATA = "test"
 
-    def __init__(self, id: int, modelcfg: ModelConfig, data_local: str, output_filename: str):
+    def __init__(self, id: int, modelcfg: ModelConfig, task: Task|TaskType, data_local: Dataset|DatasetDict, output_filename: str):
         super().__init__(id, modelcfg, output_filename)
 
-        assert data_local
-
-        self._dataset_local = get_actual_path(data_local, mode="data")
-        self._dataset = load_from_disk(self._dataset_local)
+        self._task = task
+        if isinstance(task, TaskType):
+            self._task = Task(task)
+       
+        self._dataset = data_local
         if isinstance(self._dataset, DatasetDict):
             self._dataset = self._dataset[Testing.TEST_DATA]
 
@@ -25,23 +28,35 @@ class Testing(ModelExecution):
         return this._dataset
 
     def setup(self: Self):
-        def prepare_trainer(checkpoint_local, ) -> Trainer:
-            trained_model = AutoModelForSequenceClassification(checkpoint_local)
+        def prepare_trainer(checkpoint_local, model_kwargs) -> Trainer:
+            print(model_kwargs)
+            pretrained_model = self._task.get_pretrained_model_forme(
+                checkpoint_local, **model_kwargs)
+            tokenizer = AutoTokenizer.from_pretrained(checkpoint_local)
+
+            return Trainer(
+                model=pretrained_model,
+                tokenizer=tokenizer,
+                compute_metrics=self._task.compute_metrics
+            )
 
         return {
             "caller": prepare_trainer,
-            "task": "text-generation",
-            "model": get_actual_path(self.modelcfg.local, mode="model"),
-            "num_workers": 4,
-            "torch_dtype": "auto",
-            "trust_remote_code": False,
-            "device_map": "cuda",
+            "checkpoint_local": get_actual_path(self.modelcfg.local, mode="model"),
             "model_kwargs": self.modelcfg["model_params"],
         }
 
-    def execute(self, trainer: Trainer) -> list[str]:
-        trainer.tokenizer
-        ...
+    def execute(self, trainer: Trainer, **_) -> Any|list[Any]:
+        tokenized_dataset = self._task._trainer_scheme.tokenizing_data(self.test, self._task, trainer.tokenizer)
+        test_predictions = trainer.predict(tokenized_dataset)
+
+        return {
+            "metrics": test_predictions.metrics,
+            "prediction": np.argmax(test_predictions.predictions, axis=-1), 
+            "ground_truth": test_predictions.label_ids,
+            **trainer.evaluate(tokenized_dataset),
+        }
+
 
     def __repr__(self, **_) -> str:
         test_set = self.test

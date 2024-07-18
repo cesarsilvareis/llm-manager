@@ -1,5 +1,5 @@
 import sys, json
-from src.loader import load_modelcfg_from_fs, load_prompt, load_executions
+from src.loader import load_modelcfg_from_fs, load_prompt_fs, load_executions
 from src.logger import setup_logging
 from src.inference import Inference
 from src.evaluation import TruthfulQA, PubMedSummary, ClinicalParaph
@@ -67,13 +67,17 @@ def main():
     setup_logging(args.log, execfile=args.execfile)
 
     if args.train:
-        from src.training import run_sft
-        run_sft(modelcfg=load_modelcfg_from_fs(args.modelcfg), finetuned_model_dir=args.resfile)
+        from src.training import Training_EDMCQ
+        tr = Training_EDMCQ(
+            modelcfg=load_modelcfg_from_fs(args.modelcfg),
+            to_save="preproc_mcqed_data"
+        )
+        tr.run_sft(finetuned_model_dir=args.resfile)
 
     if args.prompt is not None:
         inf = Inference(id=-1, 
                 modelcfg=load_modelcfg_from_fs(args.modelcfg), 
-                prompt=load_prompt(args.prompt),
+                prompt=load_prompt_fs(args.prompt),
                 output_filename=args.resfile
             )
         inf.run(single=True)

@@ -1,7 +1,9 @@
 execution,model,type,input
-e1,meditron_large,Inference,prompt_comp1
-e2,meditron_large,Inference,prompt_comp2
-e3,meditron_large,Inference,prompt_comp3
-e4,meditron_large,Inference,prompt_comp4
-e5,meditron_large,Inference,prompt_comp5
+e1,meditron_small,Inference,prompt_comp0
+e2,meditron_small,Inference,prompt_comp1
+e3,meditron_small,Inference,prompt_comp2
+e4,meditron_small,Inference,prompt_comp3
+e5,meditron_small,Inference,prompt_comp4
+e6,meditron_small,Inference,prompt_comp5
+e7,meditron_small,Inference,prompt_comp6
 

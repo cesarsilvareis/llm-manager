@@ -162,11 +162,11 @@ class ModelBatch:
 
         if not benchmode:
             for exec in self.executions:
-                try:
+                # try:
                     exec.run(single=False)
-                except Exception as e:
-                    logger.error(f"Executing {exec.id}: {e}")
-                    continue
+                # except Exception as e:
+                #     logger.error(f"Executing {exec.id}: {e}")
+                #     continue
             self.model.teardown()
             return
 

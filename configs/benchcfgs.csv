@@ -1,0 +1,5 @@
+execution,"model","type","input"
+e1,llama2_7b,benchmark,truthfulqa
+e2,llama2_7b,benchmark,clinicalparaph
+e3,llama2_7b,benchmark,pubmedsum
+

@@ -6,8 +6,10 @@ from pathlib import Path
 from src.logger import get_logger
 from pandas import read_csv
 from src.execution import ModelExecution, ModelBatch
-from src.inference import Prompt, PromptType, RawPrompt, CompletionPrompt, SystemPrompt, Template, Inference
+from src.inference import Prompt, PromptType, RawPrompt, CompletionPrompt, SystemPrompt, Template, Inference, Testing
 from src.evaluation import TruthfulQA, PubMedSummary, ClinicalParaph
+from datasets import Dataset, DatasetDict, load_from_disk
+from src.tasks import ED_MCQ
 
 logger = get_logger(__name__)
 
@@ -19,6 +21,11 @@ def load_modelcfg_from_fs(filename: str) -> ModelConfig:
 
     return ModelConfig(filename, **model_config)
     
+def update_config(modelcfg: ModelConfig):
+    cfg_file = get_actual_path(fileOrDir=modelcfg.filename, mode="config")
+    with cfg_file.open("w") as c:
+        yaml.dump(dict(modelcfg), c)
+
 
 def load_model_from_hf(model: ModelConfig):
 
@@ -78,7 +85,7 @@ def load_model_from_hf(model: ModelConfig):
 
 
 
-def load_prompt(filename: str) -> Prompt:
+def load_prompt_fs(filename: str) -> Prompt:
     source = get_actual_path(filename, mode="prompt")
 
     with source.open("r", encoding="utf-8") as s:
@@ -97,6 +104,10 @@ def load_prompt(filename: str) -> Prompt:
     raise ValueError(f"[ERROR] File '{filename}' do not contain a valid prompt")
 
 
+def load_data_from_fs(filename: str) -> Dataset| DatasetDict:
+    data_local = get_actual_path(filename, mode="data")
+    return load_from_disk(data_local)
+
 # Load executions sorted by models for reusability
 def load_executions(path: str|Path, output_filename: str|None=None, batched: bool=True) -> list[ModelExecution]|list[ModelBatch]:
     executions: list[ModelExecution] = list()
@@ -112,6 +123,7 @@ def load_executions(path: str|Path, output_filename: str|None=None, batched: boo
     basefilename = output_filename if output_filename is not None else path.stem
 
     loaded_prompts = dict()
+    loaded_tests = dict()
 
     for model, model_df in groups:
         loaded_model = load_modelcfg_from_fs(model)
@@ -119,11 +131,10 @@ def load_executions(path: str|Path, output_filename: str|None=None, batched: boo
             match row["type"].lower():
                 case "inference":
                     if row["input"] not in loaded_prompts:
-                        loaded_prompts[row["input"]] = load_prompt(row["input"])
+                        loaded_prompts[row["input"]] = load_prompt_fs(row["input"])
                     execution = Inference(index, modelcfg=loaded_model,
                         prompt=loaded_prompts[row["input"]], 
-                        output_filename=f"{basefilename}_{index}"
-                    )
+                        output_filename=f"infer_{basefilename}_{index}")
                 case "benchmark":
                     match row["input"].lower():
                         case "truthfulqa":
@@ -137,6 +148,12 @@ def load_executions(path: str|Path, output_filename: str|None=None, batched: boo
                                 outputfile=basefilename, save_latents="metric")
                         case _:
                             raise ValueError(f"Unknown benchmark name '{row['input']}' as the input column value.")
+                case "testing":
+                    if row["input"] not in loaded_tests:
+                        loaded_tests[row["input"]] = load_data_from_fs(row["input"])
+                    execution = Testing(index, modelcfg=loaded_model,
+                        data_local=loaded_tests[row["input"]], task=ED_MCQ(),
+                        output_filename=f"test_{basefilename}_{index}")
                 case _:
                     raise ValueError(f"Unknown execution type '{row['type']}'.")
 
@@ -144,7 +161,4 @@ def load_executions(path: str|Path, output_filename: str|None=None, batched: boo
     
     return ModelBatch.from_list(executions) if batched else executions
 
-def update_config(modelcfg: ModelConfig):
-    cfg_file = get_actual_path(fileOrDir=modelcfg.filename, mode="config")
-    with cfg_file.open("w") as c:
-        yaml.dump(dict(modelcfg), c)
+
