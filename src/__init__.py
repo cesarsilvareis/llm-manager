@@ -7,10 +7,11 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 ROOT_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(ROOT_DIR.joinpath(".env"))
 
-# import tensorflow as tf
-# physical_devices = tf.config.list_physical_devices('GPU')
-# for device in physical_devices:
-#     tf.config.experimental.set_memory_growth(device, True)
+import tensorflow as tf
+physical_devices = tf.config.list_physical_devices('GPU')
+print(physical_devices)
+for device in physical_devices:
+    tf.config.experimental.set_memory_growth(device, True)
 
 # Limit GPU memory allocation to a fraction of total memory
 # Adjust `0.5` to the fraction of GPU memory you want to allocate

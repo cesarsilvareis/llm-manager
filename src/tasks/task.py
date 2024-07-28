@@ -7,6 +7,7 @@ from transformers import (
   AutoModelForSequenceClassification
 )
 from datasets import Dataset, DatasetDict
+from evaluate import EvaluationModule
 
 class Task(ABC):
 
@@ -29,6 +30,9 @@ class Task(ABC):
   def get_pretrained_model_forme(self, *args, **kwargs) -> PreTrainedModel:
     return Task.MODEL_FOR_TASK[self.type].from_pretrained(*args, **self.get_parameters(), **kwargs)
 
+  @abstractmethod
+  def get_max_metric(self) -> EvaluationModule:
+    ...
 
   @abstractmethod
   def get_parameters(self) -> dict:

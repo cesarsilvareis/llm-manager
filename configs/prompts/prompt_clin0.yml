@@ -1,7 +1,7 @@
-type: raw
-name: Test inference for Llama Descendency v0
+type: control
+name: Test inference for Clinical Camel v0
 task: Explain IE Concept
-content: |
-  <s>[INST]
+system: |
   What is Infective Endocarditis? Explain the disease to medical students in less than 100 words.
-  [/INST]
+human:
+ 

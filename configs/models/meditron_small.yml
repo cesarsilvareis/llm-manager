@@ -1,5 +1,5 @@
 download_status: COMPLETED
-experiment_date: '2024-07-16 14:39:05.527533'
+experiment_date: '2024-07-20 14:13:02.046770'
 framework: tf
 gen_params:
   do_sample: true
@@ -13,12 +13,12 @@ gen_params:
   top_k: 100
   top_p: 0.85
 hf_repo: epfl-llm/meditron-7b
-local: ''
+local: 'current-model'
 model_params:
   device_map: cuda
   load_in_4bit: false
   load_in_8bit: false
-  torch_dtype: auto
+  torch_dtype: bfloat16
 name: Meditron Small
 params: null
 properties:

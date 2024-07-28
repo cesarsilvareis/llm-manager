@@ -139,13 +139,13 @@ def load_executions(path: str|Path, output_filename: str|None=None, batched: boo
                     match row["input"].lower():
                         case "truthfulqa":
                             execution = TruthfulQA(index, modelcfg=loaded_model,
-                                outputfile=basefilename, save_latents="metric")
+                                outputfile=f"truthful_{basefilename}_{index}", save_latents="metric")
                         case "pubmedsum":
                             execution = PubMedSummary(index, modelcfg=loaded_model,
-                                outputfile=basefilename, save_latents="metric")
+                                outputfile=f"pubmedsum_{basefilename}_{index}", save_latents="metric")
                         case "clinicalparaph":
                             execution = ClinicalParaph(index, modelcfg=loaded_model,
-                                outputfile=basefilename, save_latents="metric")
+                                outputfile=f"clinpar_{basefilename}_{index}", save_latents="metric")
                         case _:
                             raise ValueError(f"Unknown benchmark name '{row['input']}' as the input column value.")
                 case "testing":

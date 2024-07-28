@@ -1,7 +1,11 @@
 # Personal Files
-.storage/models
+.storage/
 .env
 .token
+tmp*
+
+# DEV
+outputs/logs
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

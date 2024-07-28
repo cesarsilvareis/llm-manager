@@ -43,7 +43,7 @@ class TruthfulQA(LLMBenchmark):
     prompts = [tokenizer.apply_chat_template(prompt(question), tokenize=False, add_generation_prompt=True) for question in examples["question"]]
     return tokenizer(prompts, padding=True, return_tensors="pt", return_attention_mask=True)
   
-  def batching(self, tokenized_dataset: Dataset) -> DataLoader:
+  def batching(self, tokenized_dataset: Dataset, tokenizer: PreTrainedTokenizer) -> DataLoader:
     return DataLoader(tokenized_dataset, shuffle=True, batch_size=10)
 
   def result_buffer(self) -> pd.DataFrame:

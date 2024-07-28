@@ -1,0 +1,10 @@
+Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
+Result:"""
+
+
+Infective endocarditis (IE) is an infection of the endocardial surface of the heart, which may involve one or more heart valves, the mural endocardium, or a septal defect. It is characterized by the presence of vegetations on the valve leaflets or other endocardial surfaces. IE can be caused by a variety of microorganisms, including bacteria, fungi, and viruses. The most common causative agents are Staphylococcus aureus, Streptococcus viridans, and Enterococcus faecalis.
+
+The diagnosis of IE is based on a combination of clinical, echocardiographic, and microbiologic findings. The Duke criteria are commonly used to establish the diagnosis. These criteria include the presence of two major criteria, one major and three minor criteria, or five minor criteria. Echocardiography is essential for the diagnosis of IE, as it allows for the visualization of vegetations on the valve leaflets or other endocardial surfaces.
+
+The treatment of IE depends on the causative agent and the severity
+"""

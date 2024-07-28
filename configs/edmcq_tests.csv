@@ -1,3 +1,7 @@
 execution,model,type,input
-e1,checkpoint_v0,Testing,mcqed_data
+e1,checkpoint_v1,Testing,preproc_mcqed_data_v4
+e2,checkpoint_v2,Testing,preproc_mcqed_data_v4
+e3,checkpoint_v3,Testing,preproc_mcqed_data_v4
+e4,checkpoint_v4,Testing,preproc_mcqed_data_v4
+e5,checkpoint_v5,Testing,preproc_mcqed_data_v4
 

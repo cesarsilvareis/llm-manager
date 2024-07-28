@@ -1,0 +1,6 @@
+Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
+Result:"""
+
+
+Infective Endocarditis (IE) is a complex disease that affects the inner lining of the heart and heart valves. It is caused by bacteria that enter the bloodstream and attach to damaged heart valves or other areas of the heart. The disease can cause a range of symptoms, including fever, fatigue, and heart murmur. Treatment typically involves a combination of antibiotics and, in some cases, surgery to repair or replace damaged heart valves. IE is a serious condition that requires prompt medical attention to prevent complications such as heart failure or sepsis.
+"""

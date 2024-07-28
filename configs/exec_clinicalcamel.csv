@@ -1,0 +1,6 @@
+execution,model,type,input
+e8,clinical_camel,Inference,prompt_clin0
+e9,clinical_camel,Inference,prompt_clin1
+e10,clinical_camel,Inference,prompt_clin2
+e11,clinical_camel,Inference,prompt_clin3
+

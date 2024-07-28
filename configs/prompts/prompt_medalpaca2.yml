@@ -1,0 +1,6 @@
+type: raw
+name: Test inference for MedAlpaca v2
+task: Explain IE Concept
+content: |
+ Task: What is Infective Endocarditis? Explain the disease to advanced medical students (5th-year graduation) in less than 100 words.
+ Description:

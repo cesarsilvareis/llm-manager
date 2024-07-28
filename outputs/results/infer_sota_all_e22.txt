@@ -1,0 +1,4 @@
+Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
+Result:"""
+Infective endocarditis is a serious infection of the heart valves or lining of the heart (endocardium). It is caused by bacteria that enter the bloodstream. The bacteria form infective abscesses on the heart valves or endocardium. The abscesses destroy the valves or lining and can spread to other parts of the body.
+"""

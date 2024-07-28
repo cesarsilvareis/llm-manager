@@ -8,7 +8,7 @@ class BetterEnum(Enum):
     
     def __eq__(self: Self, value: Any) -> bool:
         if isinstance(value, BetterEnum):
-            return super().__eq__(self, value)
+            return super().__eq__(value)
         
         return isinstance(value, str) and self.name.lower() == value.lower()
 

@@ -1,31 +1,25 @@
 download_status: UNINITIALIZED
-experiment_date: 09/03/2024
+experiment_date: '2024-07-25 22:38:02.712928'
 framework: tf
-hf_repo: AdaptLLM/medicine-chat
-local: ''
-name: Domain Adaptation of Large Language Models
-model_params:
-  load_in_4bit: False
-  load_in_8bit: False
 gen_params:
-  do_sample:
-  - true
-  early_stopping:
-  - true
-  length_penalty:
-  - -0.5
+  do_sample: true
+  early_stopping: true
+  length_penalty: -0.5
   max_new_tokens: 252
   min_new_tokens: 54
-  num_beams:
-  - 3
-  repetition_penalty:
-  - 1.2
-  temperature:
-  - 0.45
-  top_k:
-  - 100
-  top_p:
-  - 0.85
+  num_beams: 3
+  repetition_penalty: 1.2
+  temperature: 0.45
+  top_k: 100
+  top_p: 0.85
+hf_repo: AdaptLLM/medicine-chat
+local: ''
+model_params:
+  device_map: cuda
+  load_in_4bit: false
+  load_in_8bit: false
+  torch_dtype: bfloat16
+name: Domain Adaptation of Large Language Models
 properties:
   access_space:
   - local

@@ -1,0 +1,22 @@
+Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 512, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
+Result:"""
+- Infective endocarditis (IE) is an infection of the heart valves or endocardium (inner lining of the heart) caused by bacteria or fungi.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged skin or mucous membranes.
+- IE can also be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged heart valve.
+- IE can be caused by bacteria or fungi that enter the bloodstream through a damaged
+"""

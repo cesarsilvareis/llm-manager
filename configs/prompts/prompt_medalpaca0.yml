@@ -1,0 +1,6 @@
+type: raw
+name: Test inference for MedAlpaca v0
+task: Explain IE Concept
+content: |
+ Question: What is Infective Endocarditis?
+ Answer:

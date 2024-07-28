@@ -12,10 +12,10 @@ class ED_MCQ(Task):
   INCORRECT_LABEL = "Incorrect"
 
   METRICS = [
-    load("accuracy"), # the upper the chosen for scoring checkpoints
+    load("f1"),  # the upper the chosen for scoring checkpoints
+    load("accuracy"),
     load("recall"),
     load("precision"),
-    load("f1")
   ]
 
 
@@ -38,12 +38,11 @@ class ED_MCQ(Task):
   def num_labels(this):
     return len(this.labels2ids)
   
-  @property
-  def max_metric(this) -> EvaluationModule:
-    return this.METRICS[0]
+  def get_max_metric(self) -> EvaluationModule:
+    return self.METRICS[0]
 
-  def get_label(self, id_opi: int, id_opc: int, return_id: bool=False) -> str:
-    label = ED_MCQ.CORRECT_LABEL if id_opi == id_opc else ED_MCQ.INCORRECT_LABEL
+  def get_label(self, opi: int|str, opc: int|str, return_id: bool=False) -> str:
+    label = ED_MCQ.CORRECT_LABEL if opi == opc else ED_MCQ.INCORRECT_LABEL
     return (self.labels2ids[label], label) if return_id else label
 
 

@@ -1,8 +1,8 @@
 import sys, json
-from src.loader import load_modelcfg_from_fs, load_prompt_fs, load_executions
+from src.loader import load_modelcfg_from_fs, load_prompt_fs, load_executions, load_data_from_fs
 from src.logger import setup_logging
 from src.inference import Inference
-from src.evaluation import TruthfulQA, PubMedSummary, ClinicalParaph
+from src.evaluation import TruthfulQA, PubMedSummary, ClinicalParaph, QuestionRephrase
 
 from argparse import ArgumentParser, BooleanOptionalAction
 
@@ -24,7 +24,6 @@ class CustomArgumentParser(ArgumentParser):
             [   # Evaluation
                 (args.bench, "bench"),
                 (args.modelcfg, "modelcfg"),
-                (args.gen_config, "gen_config"),
             ],
             [   # Train
                 (args.train, "train"),
@@ -50,9 +49,10 @@ def parse_arguments():
     parser.add_argument("--execfile", "-e", type=str, required=False)
     parser.add_argument("--modelcfg", "-c", type=str, required=False)
     parser.add_argument("--prompt", "-p", type=str, required=False)
-    parser.add_argument("--gen_config", "-g", type=str, required=False)
     parser.add_argument("--bench", "-b", type=str, required=False)
     parser.add_argument("--train", "-t", action=BooleanOptionalAction, default=False)
+    parser.add_argument("--train_data", type=str, required=False)
+    parser.add_argument("--test_data",  type=str, required=False)
     parser.add_argument("--resfile", "-o", type=str, required=False)
     parser.add_argument(
         "--log", "-l", type=str, required=False,
@@ -70,7 +70,10 @@ def main():
         from src.training import Training_EDMCQ
         tr = Training_EDMCQ(
             modelcfg=load_modelcfg_from_fs(args.modelcfg),
-            to_save="preproc_mcqed_data"
+            train_data=load_data_from_fs(args.train_data),
+            test_data=load_data_from_fs(args.test_data),
+            do_preprocessing=False,
+            to_save="preproc_mcqed_data_v3"
         )
         tr.run_sft(finetuned_model_dir=args.resfile)
 
@@ -93,7 +96,10 @@ def main():
             case "clinicalparaph":
                 ben = ClinicalParaph(-1, load_modelcfg_from_fs(args.modelcfg),
                     outputfile=args.resfile, save_latents="metric")
-        ben.run(single=True, explore_comb=False, gen_params=json.loads(args.gen_config))
+            case "questionrephrasing":
+                ben = QuestionRephrase(-1, modelcfg=load_modelcfg_from_fs(args.modelcfg),
+                    outputfile=args.resfile)
+        ben.run(single=True, explore_comb=False)
     
     if args.execfile is not None:
         executions = load_executions(args.execfile, args.resfile, batched=True)

@@ -48,7 +48,7 @@ class PubMedSummary(LLMBenchmark):
     ]
     return tokenizer(prompts, padding=True, return_tensors="pt", return_attention_mask=True)
 
-  def batching(self, tokenized_dataset: Dataset) -> DataLoader:
+  def batching(self, tokenized_dataset: Dataset, tokenizer: PreTrainedTokenizer) -> DataLoader:
     return DataLoader(tokenized_dataset, shuffle=True, batch_size=5)
 
   def result_buffer(self) -> pd.DataFrame:

@@ -1,0 +1,12 @@
+Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 512, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
+Result:"""
+
+## Answer
+Infective endocarditis (IE) is an infection of the endocardial surface of the heart. It is most commonly caused by bacteria, but can also be caused by fungi, viruses, and parasites. The most common cause of IE is Staphylococcus aureus, which accounts for approximately 25% of cases. Other common causes include Streptococcus viridans, Enterococcus faecalis, and Enterococcus faecium. The incidence of IE has been increasing over the past few decades, likely due to an increase in the number of invasive medical procedures and the use of intravenous drugs. IE can affect any part of the heart, but it most commonly affects the mitral and aortic valves. The symptoms of IE can vary depending on the location of the infection and the severity of the infection. Common symptoms include fever, chills, fatigue, weight loss, and night sweats. In severe cases, IE can lead to heart failure, stroke, and death. The diagnosis of IE is made based on a combination of clinical findings, laboratory tests, and imaging studies. Treatment of IE typically involves antibiotic therapy and surgery to remove the infected valve. The prognosis for IE varies depending on the severity of the infection and the patient's overall health. In general, the prognosis is poor, with a mortality rate of approximately 30%.
+
+## Question 2
+What are the risk factors for infective endocarditis?
+
+## Answer
+The risk factors for infective endocarditis (IE) include congenital heart disease, rheumatic heart disease, prosthetic heart valves, cardiac implantable electronic devices (CIEDs), and intravenous drug use (IVDU). Congenital heart disease is the most common risk factor for IE, accounting for approximately 25% of cases. Rheumatic heart disease is the second most common risk factor for IE, accounting for approximately 20% of cases. Prosthetic heart valves, CIEDs, and IVDU are less common risk factors for IE, accounting for approximately 10% of cases each. Other risk factors for IE
+"""

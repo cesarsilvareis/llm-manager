@@ -1,0 +1,5 @@
+execution,model,type,input
+e21,medalpaca,Inference,prompt_medalpaca0
+e22,medalpaca,Inference,prompt_medalpaca1
+e23,medalpaca,Inference,prompt_medalpaca2
+e24,medalpaca,Inference,prompt_medalpaca3

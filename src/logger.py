@@ -34,7 +34,7 @@ def setup_logging(configfile: str|Path="", **run_args):
         configfile = Path(configfile)
 
     """Setup logging configuration"""
-    if configfile is not None and configfile.is_file():
+    if configfile is not None and configfile.exists():
         with configfile.open("r") as f:
             config = yaml.safe_load(f)
 

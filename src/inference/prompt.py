@@ -90,7 +90,8 @@ class SystemPrompt(Prompt):
     
     PATTERN = r"^System:\n{0}\n\nHuman:\n{1}$"
 
-    def __new__(cls: type[Self], name: str, task: str, system_data: str, human_data: str) -> Self:
+    def __new__(cls: type[Self], name: str, task: str, system_data: str, human_data: str|None) -> Self:
+        if human_data is None: human_data = ""
         return super().__new__(cls, f"System:\n{system_data}\n\nHuman:\n{human_data}", 
                                name, task, system_data, human_data)
 
@@ -99,7 +100,7 @@ class SystemPrompt(Prompt):
                      task: str, system_data: str, human_data: str) -> bool:
         if not(
             super(SystemPrompt, cls).check_format(content, name, task) and
-            "" not in [system_data, human_data]
+            system_data is not None and system_data != ""
         ): return False
         
         pattern = cls.PATTERN.format(re.escape(system_data), re.escape(human_data))
@@ -110,7 +111,7 @@ class SystemPrompt(Prompt):
                  system_data: str, human_data: str):
         super().__init__(None, name, PromptType.CONTROL, task)
         self._system_data = system_data
-        self._human_data = human_data
+        self._human_data = human_data or ""
 
     @property
     def system_message(this: Self) -> str:

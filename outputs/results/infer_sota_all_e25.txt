@@ -1,0 +1,4 @@
+Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
+Result:"""
+ Infective endocarditis is an infection of the inner lining of the heart, usually involving the heart valves. It can be caused by bacteria, fungi, or other microorganisms that enter the bloodstream and attach to damaged heart valves or other areas of the heart. Symptoms may include fever, chills, fatigue, and heart murmur. Treatment typically involves a combination of antibiotics and, in some cases, surgery to repair or replace damaged heart valves.
+"""

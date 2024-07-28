@@ -13,13 +13,13 @@ gen_params:
   top_k: 100
   top_p: 0.85
 hf_repo: ''
-local: 'sft-mcqed-meditron_small/checkpoint-12500'
+local: 'sft-edmcq-v0'
 model_params:
   device_map: cuda
   load_in_4bit: false
   load_in_8bit: false
   torch_dtype: bfloat16
-name: Checkpoint V0
+name: Checkpoint V0 - select before - BAD
 params: null
 properties:
   access_space:

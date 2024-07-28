@@ -1,0 +1,8 @@
+Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
+Result:"""
+ Infective endocarditis is a serious infection of the inner lining of the heart, known as the endocardium. It occurs when bacteria or other microorganisms enter the bloodstream and attach to the heart valves, causing inflammation and potentially leading to serious complications.
+
+As an advanced medical student, it is important to understand the epidemiology of infective endocarditis in Portugal and the etiology of the disease. Infective endocarditis is relatively uncommon in developed countries, but it is more prevalent in developing countries where access to healthcare is limited. The most common cause of infective endocarditis is bacterial infection, with Staphylococcus aureus and Streptococcus viridans being the most common pathogens.
+
+In terms of diagnosis, infective endocarditis is typically diagnosed through a combination of physical examination, echocardiography, and blood cultures. Physical examination may reveal signs of heart failure, such as jugular venous distension, and echocardiography can provide visual evidence of vegetations
+"""

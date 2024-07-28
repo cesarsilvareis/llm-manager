@@ -1,0 +1,8 @@
+execution,"model","type","input"
+e13,medalpaca,benchmark,truthfulqa
+e14,medalpaca,benchmark,clinicalparaph
+e15,medalpaca,benchmark,pubmedsum
+e16,med_42,benchmark,truthfulqa
+e17,med_42,benchmark,clinicalparaph
+e18,med_42,benchmark,pubmedsum
+

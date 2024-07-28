@@ -3,6 +3,7 @@ from src.logger import get_logger
 from src.utils import BetterEnum, ImmutableMapping
 from typing import Self, Any
 from datetime import datetime
+from transformers import PreTrainedModel, Trainer 
 
 logger = get_logger(__name__)
 
@@ -67,7 +68,12 @@ class ModelConfig(ImmutableMapping):
         logger.debug(f"Loading model '{self['name']}' with arguments: {args=}; {kwargs=}")
         self._instance = caller(*args, **kwargs)
         
-        # logger.info(f"Loaded model '{self['name']}' with  footprint: {(self.instance.model.get_memory_footprint()/1e9):.3f} GB of (V)RAM")
+        if isinstance(self._instance, PreTrainedModel):
+            logger.info(f"Loaded model '{self['name']}' with  footprint: {(self._instance.model.get_memory_footprint()/1e9):.3f} GB of (V)RAM")
+        elif isinstance(self._instance, Trainer):
+            logger.info(f"Loaded model '{self['name']}' with  footprint: {(self._instance.model.model.get_memory_footprint()/1e9):.3f} GB of (V)RAM")
+        else:
+            logger.info(f"Loaded model '{self['name']}' with  footprint: {(self.instance[0].model.get_memory_footprint()/1e9):.3f} GB of (V)RAM")
 
     def teardown(self):
         import torch
@@ -86,7 +92,7 @@ class ModelConfig(ImmutableMapping):
 
 class CurrentModel:
 
-    LOCAL = "current-model"
+    LOCAL = "medical-current-model"
     INSTANCE: 'CurrentModel' = None
 
     def __init__(self, modelcfg: ModelConfig) -> None:

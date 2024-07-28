@@ -15,7 +15,7 @@ INDEX_COLUMN = "index"
 
 class LLMBenchmark(ModelExecution):
 
-  REPEAT: int
+  REPEAT: int = 1
   WEIGHT: int
 
   def __init__(self, id: int, modelcfg: ModelConfig, output_filename: str="", 
@@ -42,8 +42,6 @@ class LLMBenchmark(ModelExecution):
       import torch
       model = AutoModelForCausalLM.from_pretrained(
         pretrained_model_name_or_path=local,
-        torch_dtype=torch.bfloat16,
-        device_map="auto",
         **model_params 
       )
 
@@ -68,7 +66,7 @@ class LLMBenchmark(ModelExecution):
   
 
   def save_latent_data(self, latent_data: pd.DataFrame):
-    logger.info(f"[EXEC {self.id}] Saving latent {self._latent_mode}s...")
+    logger.info(f"[EXEC {self.id}] Saving latent {self._latent_mode}s. Results on size {latent_data.shape}...")
     latent_data.to_csv(get_actual_path(f"{self.output_filename}.csv", mode="data"))
 
   @abstractmethod
@@ -85,7 +83,7 @@ class LLMBenchmark(ModelExecution):
     return tokenized
 
   @abstractmethod
-  def batching(self, tokenized_dataset: Dataset) -> DataLoader:
+  def batching(self, tokenized_dataset: Dataset, tokenizer: PreTrainedTokenizer) -> DataLoader:
     ...
 
   @abstractmethod
@@ -140,7 +138,7 @@ class LLMBenchmark(ModelExecution):
       tokenizer.convert_tokens_to_ids("<|eot_id|>")
     ]
 
-    batches = self.batching(self.tokenized_dataset)
+    batches = self.batching(self.tokenized_dataset, tokenizer)
 
     results_df = self.result_buffer()
 
@@ -153,12 +151,7 @@ class LLMBenchmark(ModelExecution):
         batch_size = len(input_ids)
         
         logger.info(f"\tInfering batch {i+1}/{len(batches)} of {batch_size} size...")
-        try:
-          outputs_ids = model.generate(input_ids, attention_mask=attention_mask, num_return_sequences=1, eos_token_id=terminators, **gen_params)
-        except:
-          torch.cuda.empty_cache()
-          torch.cuda.ipc_collect()
-          continue
+        outputs_ids = model.generate(input_ids, attention_mask=attention_mask, num_return_sequences=1, eos_token_id=terminators, **gen_params)
 
         for j, (idx_tensor, input_enc, output_enc) in enumerate(zip(idx, input_ids, outputs_ids)):
           idx = idx_tensor.item()
@@ -174,6 +167,7 @@ class LLMBenchmark(ModelExecution):
 
     if self._latent_mode == "output":
       self.save_latent_data(results_df)
+      return ""
 
     metrics_df = self.compute_metrics(results_df)
     metrics = metrics_df.agg(['mean', 'median']).T

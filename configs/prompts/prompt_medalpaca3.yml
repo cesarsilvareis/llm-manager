@@ -1,0 +1,7 @@
+type: raw
+name: Test inference for MedAlpaca v4
+task: Explain IE Concept
+content: |
+ Content: You are a medical teacher who has studied the Infective Endocarditis disease for a long time. From your teaching experience, you distinguish your students through the medical academic degrees.
+ Task: What is Infective Endocarditis? Explain the disease to advanced medical students (5th-year graduation) in less than 100 words.
+ Description:
