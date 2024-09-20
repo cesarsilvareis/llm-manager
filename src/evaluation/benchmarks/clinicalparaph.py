@@ -38,18 +38,18 @@ class ClinicalParaph(LLMBenchmark):
   def define_prompt(self, discharge, question, attempt):
     return [
       {"role": "system", "content": adapt_prompt(f"""\
-        You are given with the follow discharge summary of a patient:
-        <condiction>
-        {discharge}
-        </condition>
-        
-        Your task is to rephrase the user's answer to next question. While trying to keep nearly the number of used words, adapt this text to a new version where you utilize medical language suited to the complexity of medical academy.
-        <question>
-        {question}
-        </question>
-        
-        Just respond to the user just with your paraphrase.
-        """
+          You are given with the follow discharge summary of a patient:
+          <condiction>
+          {discharge}
+          </condition>
+          
+          Your task is to rephrase the user's answer to next question. While trying to keep nearly the number of used words, adapt this text to a new version where you utilize medical language suited to the complexity of medical academy.
+          <question>
+          {question}
+          </question>
+          
+          Just respond to the user just with your paraphrase.
+          """
        )},
       {"role": "user", "content": f"{attempt}"}
     ]

@@ -51,8 +51,7 @@ def parse_arguments():
     parser.add_argument("--prompt", "-p", type=str, required=False)
     parser.add_argument("--bench", "-b", type=str, required=False)
     parser.add_argument("--train", "-t", action=BooleanOptionalAction, default=False)
-    parser.add_argument("--train_data", type=str, required=False)
-    parser.add_argument("--test_data",  type=str, required=False)
+    parser.add_argument("--dataset", type=str, required=False)
     parser.add_argument("--resfile", "-o", type=str, required=False)
     parser.add_argument(
         "--log", "-l", type=str, required=False,
@@ -70,10 +69,8 @@ def main():
         from src.training import Training_EDMCQ
         tr = Training_EDMCQ(
             modelcfg=load_modelcfg_from_fs(args.modelcfg),
-            train_data=load_data_from_fs(args.train_data),
-            test_data=load_data_from_fs(args.test_data),
-            do_preprocessing=False,
-            to_save="preproc_mcqed_data_v3"
+            dataset=load_data_from_fs(args.dataset) if args.dataset else None,
+            to_save=None
         )
         tr.run_sft(finetuned_model_dir=args.resfile)
 

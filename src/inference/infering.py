@@ -8,7 +8,7 @@ from transformers import pipeline, TextGenerationPipeline
 class Inference(ModelExecution):
 
     def __init__(self, id: int, modelcfg: ModelConfig, output_filename: str, prompt: Prompt):
-        super().__init__(id, modelcfg, output_filename)
+        super().__init__(id, modelcfg, f"inference/{output_filename}")
         self._prompt = prompt
     
     def setup(self: Self):

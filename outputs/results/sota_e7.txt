@@ -1,6 +1,0 @@
-Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
-Result:"""
-
-## Answer
-Infective endocarditis (IE) is an infection of the endocardial surface of the heart. It is most commonly caused by bacteria, but can also be caused by fungi, parasites, and viruses. The most common cause of IE is Staphylococcus aureus, followed by Streptococcus viridans and Enterococcus faecalis. The incidence of IE has been increasing in recent years, likely due to an aging population and an increase in the number of invasive medical procedures. IE can be classified into native valve endocarditis (NVE) and prosthetic valve endocarditis (PVE). NVE is more common than PVE, accounting for approximately 80% of all cases of IE. The clinical presentation of IE is variable, but can include fever, chills, night sweats, weight loss, fatigue, and malaise. Patients may also have signs and symptoms of congestive heart failure, such as dyspnea, edema, and pleural effusions. IE can lead to serious complications, including
-"""

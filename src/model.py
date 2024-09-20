@@ -60,7 +60,7 @@ class ModelConfig(ImmutableMapping):
         self._savecfg()
 
     def load_instance(self, caller, *args, **kwargs): # insecured by design ;)
-        if self.instance is not None: return
+        if self.instance is not None: return # reuse model in memory
 
         from src.loader import load_model_from_hf
         load_model_from_hf(self)
@@ -92,7 +92,7 @@ class ModelConfig(ImmutableMapping):
 
 class CurrentModel:
 
-    LOCAL = "medical-current-model"
+    LOCAL = "current-model"
     INSTANCE: 'CurrentModel' = None
 
     def __init__(self, modelcfg: ModelConfig) -> None:

@@ -1,4 +1,0 @@
-execution,"model","type","input"
-e1,"clinical_camel","Inference","prompt_comp1"
-e2,"clinical_camel","Inference","prompt_comp2"
-e3,"clinical_camel","Inference","prompt_text"

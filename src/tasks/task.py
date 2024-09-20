@@ -20,6 +20,7 @@ class Task(ABC):
   def __init__(self, type: TaskType, trainer_scheme) -> None:
     self._type = type
     self._trainer_scheme = trainer_scheme
+    self._epoch = 0
 
 
   @property

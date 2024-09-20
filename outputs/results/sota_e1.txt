@@ -1,9 +1,0 @@
-Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
-Result:"""
-
-
-Infective endocarditis (IE) is an infection of the endocardial surface of the heart. It can be caused by bacteria, fungi, or parasites. The most common cause of IE is bacteria, and the most common bacteria that cause IE are staphylococcus and streptococcus. IE can be classified into native valve endocarditis (NVE), prosthetic valve endocarditis (PVE), and cardiac device-related endocarditis (CDRE). NVE is the most common type of IE, followed by PVE and CDRE. The diagnosis of IE is based on the modified Duke criteria, which include clinical, microbiological, and echocardiographic findings. The treatment of IE involves antibiotic therapy and surgical intervention, depending on the severity of the infection. The prognosis of IE depends on the severity of the infection and the underlying comorbidities of the patient. IE is a serious condition that requires prompt diagnosis and treatment to prevent complications and death.
-
-# Introduction and background
-In
-"""

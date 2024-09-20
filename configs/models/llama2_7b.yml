@@ -1,35 +1,17 @@
 download_status: COMPLETED
-experiment_date: '2024-07-20 18:38:45.581764'
+experiment_date: '2024-08-30 17:20:01.462672'
 framework: tf
 gen_params:
   do_sample:
   - true
-  early_stopping:
-  - true
-  length_penalty:
-  - -0.5
   max_new_tokens: 252
-  min_new_tokens: 54
-  num_beams:
-  - 3
-  repetition_penalty:
-  - 1.2
-  temperature:
-  - 0.45
-  top_k:
-  - 100
-  top_p:
-  - 0.85
-gen_priorities:
-- temperature
-- top_k
-- top_p
-- repetition_penalty
 hf_repo: meta-llama/Llama-2-7b-chat-hf
-local: llama2_7b
+local: qa_fixer_model
 model_params:
+  device_map: cuda
   load_in_4bit: false
   load_in_8bit: false
+  torch_dtype: bfloat16
 name: Llama-2-7b-chat-hf
 properties:
   access_space:

@@ -1,0 +1,29 @@
+Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 512, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
+Result:"""
+
+
+==== MAIN METRICS ====
+
+Ground Truth:
+[0 0 1 0 1 0 0 0 0 1 1 0 1 0]
+
+Predictions:
+
+- [1 0 1 1 0 1 1 1 1 1 1 1 0 1]
+
+FP: 18
+FN: 4
+
+
+
+
+Final Score:
+f1: 0.6333333333333333
+
+==== OTHER METRICS ====
+
+
+; {'predictions': array([1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1]), 'ground_truth': array([0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0]), 'fp': 18, 'fn': 4, 'metrics': {'test_loss': 0.7795877456665039, 'test_precision': 0.5135135135135135, 'test_recall': 0.8260869565217391, 'test_accuracy': 0.5319148936170213, 'test_f1': 0.6333333333333333, 'test_runtime': 1.5882, 'test_samples_per_second': 29.594, 'test_steps_per_second': 3.778}}: 
+
+
+"""

@@ -1,6 +1,0 @@
-Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 512, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
-Result:"""
-        variance  retention  weighted_mean
-mean    0.917415  -0.983009       0.372063
-median  0.940337  -1.066237       0.348124
-"""

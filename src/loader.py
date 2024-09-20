@@ -34,7 +34,7 @@ def load_model_from_hf(model: ModelConfig):
         allmodels = os.listdir("./configs/models/")
         for m in allmodels:
             cfg = load_modelcfg_from_fs(Path(m).stem)
-            if cfg.status == DownloadStatus.COMPLETED  and cfg.local == CurrentModel.LOCAL:
+            if cfg.status == DownloadStatus.COMPLETED and cfg.local == CurrentModel.LOCAL:
                 CurrentModel.initiate(cfg)
                 break
 

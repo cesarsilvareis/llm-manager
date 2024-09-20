@@ -1,5 +1,5 @@
 download_status: UNINITIALIZED
-experiment_date: '2024-07-14 13:00:00.101421'
+experiment_date: '2024-08-28 10:15:53.044548'
 framework: tf
 gen_params:
   do_sample:

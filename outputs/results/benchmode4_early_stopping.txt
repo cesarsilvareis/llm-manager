@@ -1,7 +1,0 @@
-Configuration: {'do_sample': False, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 5} for early_stopping=True
-        bleurt max  bleurt diff  bleurt acc
-mean     -0.646413     0.100046        0.63
-median   -0.594254     0.073818        1.00
-Configuration cmp score = 0.189
-
-

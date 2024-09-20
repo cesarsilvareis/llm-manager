@@ -1,7 +1,0 @@
-Params:{'length_penalty': 0.0, 'min_new_tokens': 54, 'max_new_tokens': 252, 'num_beams': 1, 'repetition_penalty': 1.0, 'temperature': 1.0, 'top_k': 50, 'top_p': 1.0, 'early_stopping': False}
-Result:"""
-                                       mean    median
-Llama-2-70b-chat-hf bleurt (max)  -0.705066 -0.681866
-Llama-2-70b-chat-hf bleurt (diff)  0.058343  0.057875
-Llama-2-70b-chat-hf bleurt (acc)   0.604000  1.000000
-"""

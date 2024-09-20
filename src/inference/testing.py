@@ -19,7 +19,7 @@ class Testing(ModelExecution):
     REPEAT = 1
 
     def __init__(self, id: int, modelcfg: ModelConfig, task: Task|TaskType, data_local: Dataset|DatasetDict, output_filename: str):
-        super().__init__(id, modelcfg, output_filename)
+        super().__init__(id, modelcfg, f"tests/{output_filename}")
 
         self._task = task
         if isinstance(task, TaskType):
@@ -35,7 +35,7 @@ class Testing(ModelExecution):
 
     def setup(self: Self):
         def prepare_trainer(checkpoint_local, model_kwargs) -> Trainer:
-            print(model_kwargs)
+            print(checkpoint_local, model_kwargs)
             pretrained_model = self._task.get_pretrained_model_forme(
                 checkpoint_local, **model_kwargs)
             tokenizer = AutoTokenizer.from_pretrained(checkpoint_local)

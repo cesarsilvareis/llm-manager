@@ -15,9 +15,10 @@ from transformers.training_args import TrainingArguments
 
 class BalancedTrainer(Trainer):
 
-  def __init__(self, class_weights, model: PreTrainedModel | nn.Module = None, args: TrainingArguments = None, data_collator: Any | None = None, train_dataset: Dataset | IterableDataset | Dataset | None = None, eval_dataset: Dataset | Dict[str, Dataset] | Dataset | None = None, tokenizer: PreTrainedTokenizerBase | None = None, model_init: Callable[[], PreTrainedModel] | None = None, compute_metrics: Callable[[EvalPrediction], Dict] | None = None, callbacks: List[TrainerCallback] | None = None, optimizers: Tuple[Optimizer, LambdaLR] = ..., preprocess_logits_for_metrics: Callable[[Tensor, Tensor], Tensor] | None = None, ):
+  def __init__(self, train_class_weights, eval_class_weights, model: PreTrainedModel | nn.Module = None, args: TrainingArguments = None, data_collator: Any | None = None, train_dataset: Dataset | IterableDataset | Dataset | None = None, eval_dataset: Dataset | Dict[str, Dataset] | Dataset | None = None, tokenizer: PreTrainedTokenizerBase | None = None, model_init: Callable[[], PreTrainedModel] | None = None, compute_metrics: Callable[[EvalPrediction], Dict] | None = None, callbacks: List[TrainerCallback] | None = None, optimizers: Tuple[Optimizer, LambdaLR] = ..., preprocess_logits_for_metrics: Callable[[Tensor, Tensor], Tensor] | None = None, ):
     super().__init__(model, args, data_collator, train_dataset, eval_dataset, tokenizer, model_init, compute_metrics, callbacks, optimizers, preprocess_logits_for_metrics)
-    self._class_weights = class_weights
+    self._train_class_weights = train_class_weights
+    self._eval_class_weights = eval_class_weights
 
   def compute_loss(self, model, inputs, return_outputs=False):
     # Feed inputs to the model and extract logits
@@ -27,8 +28,8 @@ class BalancedTrainer(Trainer):
     # Extract labels
     labels = inputs.get("labels")
     
-    # Define loss function with class weights 
-    loss_func = nn.CrossEntropyLoss(weight=self._class_weights)
+    # Define loss function with class weights
+    loss_func = nn.CrossEntropyLoss(weight=self._train_class_weights if model.training else self._eval_class_weights)
 
     # Compute loss
     loss = loss_func(logits, labels)

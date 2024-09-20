@@ -39,15 +39,14 @@ class LLMBenchmark(ModelExecution):
     # self.modelcfg.teardown()
 
     def loader(local, model_params):
-      import torch
       model = AutoModelForCausalLM.from_pretrained(
         pretrained_model_name_or_path=local,
-        **model_params 
+        **model_params,
       )
 
       model = model.eval()
 
-      tokenizer = AutoTokenizer.from_pretrained(local)
+      tokenizer = AutoTokenizer.from_pretrained(local, use_fast=False)
 
       # For decoders only
       tokenizer.padding_side = "left"
@@ -66,8 +65,9 @@ class LLMBenchmark(ModelExecution):
   
 
   def save_latent_data(self, latent_data: pd.DataFrame):
-    logger.info(f"[EXEC {self.id}] Saving latent {self._latent_mode}s. Results on size {latent_data.shape}...")
-    latent_data.to_csv(get_actual_path(f"{self.output_filename}.csv", mode="data"))
+    output_file = get_actual_path(f"{self.output_filename}.csv", mode="data")
+    logger.info(f"[EXEC {self.id}] Saving latent {self._latent_mode}s. Results on size {latent_data.shape} in {output_file}...")
+    latent_data.to_csv(output_file)
 
   @abstractmethod
   def define_prompt(self, *args, **kwargs):
@@ -144,13 +144,13 @@ class LLMBenchmark(ModelExecution):
 
     import torch
     with torch.no_grad():
+      batch_size = batches.batch_size
       for i, batch in enumerate(batches):
         idx = batch[INDEX_COLUMN]
         input_ids = batch["input_ids"].to(device=model.device)
         attention_mask = batch["attention_mask"].to(device=model.device)
-        batch_size = len(input_ids)
         
-        logger.info(f"\tInfering batch {i+1}/{len(batches)} of {batch_size} size...")
+        logger.info(f"\tInfering batch {i+1}/{len(batches)} of {len(input_ids)} size...")
         outputs_ids = model.generate(input_ids, attention_mask=attention_mask, num_return_sequences=1, eos_token_id=terminators, **gen_params)
 
         for j, (idx_tensor, input_enc, output_enc) in enumerate(zip(idx, input_ids, outputs_ids)):

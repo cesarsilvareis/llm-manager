@@ -1,14 +1,17 @@
-import evaluate, pandas as pd
-from typing import Any, Literal
-from src import get_actual_path
-from datasets import Dataset, load_from_disk
-from transformers import PreTrainedTokenizer, BatchEncoding, DataCollatorWithPadding
-from torch.utils.data import DataLoader
+import re
+from abc import ABC, abstractmethod
+from datasets import Dataset, DatasetDict
+from operator import itemgetter
 
+from src.tasks import ED_MCQ
+from src.training.data_preparation import EDStep2
 from src.model import ModelConfig
-from src.evaluation import LLMBenchmark, INDEX_COLUMN
+from src import get_actual_path
+from src.loader import load_model_from_hf
 
-class QuestionRephrase(LLMBenchmark):
+from transformers import PreTrainedModel, AutoModelForCausalLM, AutoTokenizer, DataCollatorWithPadding
+
+class EDStep4(EDStep2): # Fix QA pairs
 
   EXAMPLES = [
 ("""
@@ -95,56 +98,104 @@ Q: "A 15-month-old boy is brought the pediatrician for immunizations and assessm
 """ 
 F: "A 15-month-old boy is brought the pediatrician for immunizations and assessment. His parents report that he is eating well and produces several wet diapers every day. He is occasionally fussy, but overall a happy and curious child. The boy was born at 39 weeks gestation via spontaneous vaginal delivery On physical examination his vital signs are stable. His weight and height are above the 85th percentile for his age and sex. On chest auscultation, the pediatrician detects a loud harsh holosystolic murmur over the left lower sternal border. The first and second heart sounds are normal. An echocardiogram confirms the diagnosis of the muscular ventricular septal defect without pulmonary hypertension. What is the best management strategy for this patient?"
 """),
-]
+("""
+Q: "Which of the following is a term describing a health education method comprising of a series of speeches on a selected subject?"
+""", # Example 9: context + multi-answered
+""" 
+F: "What is the term that describes a health education method comprising of a series of speeches on a selected subject?"
+"""),
+("""
+Q: "\"3-Million Plan\" was proposed by:-"
+""", # Example 9: context + multi-answered
+""" 
+F: "Who proposed the \"3-Million Plan\"?"
+"""),
+  ]
 
   SYSTEM_PROMPT = """
 You are given with the user's multiple-choice question (MCQ) potentially not \
 logically connected to single answers when the universe of options is omitted. \
-Your task is to remove its MCQ style (i.e., any "which of the following"-like \
-references) to create a single-answer question. For that: provide all given \
-necessary context (e.g., a clinical case); avoid being verbose; keep the meaning \
-of the problem; and do NOT respond to the question. Just provide the fixed version \
-after the "F" mark. 
+Your task is to remove its MCQ style (i.e., any "which of the following/below"-like \
+text) to create a possible single-answer question. For that: provide all given \
+necessary context (e.g., a clinical case); keep the meaning of the problem; \
+and do NOT display the solution. 
+
+In your generation, you must only present the fixed version \
+of the question after the "F" mark. Any other thing should be avoided.
 """
 
-  def __init__(self, id: int, 
-               modelcfg: ModelConfig,
-               outputfile: str="",
-               save_latents: Literal["output"]="output") -> None:
+  def __init__(self, task: ED_MCQ,
+               dataset: Dataset|DatasetDict, # dataset 3
+               modelcfg: ModelConfig, # llama2-7b
+               split: str|None=None,
+               ) -> None:
+    super().__init__(task, dataset, split)
 
-    super().__init__(id, modelcfg, outputfile, save_latents)
+    load_model_from_hf(modelcfg)
+    
+    local = get_actual_path(modelcfg.local, "model")
 
-  def load_data(self, *args, **kwargs) -> Dataset:
-    dataset = load_from_disk(get_actual_path("smcq_dataset4_test", mode="data"))
-    return dataset["test"]
-  
-  def select_data(self) -> Dataset:
-    return super().select_data()
+    self.model: PreTrainedModel = AutoModelForCausalLM.from_pretrained(
+      pretrained_model_name_or_path=local, **modelcfg["model_params"],
+    ).eval()
+    self.tokenizer = AutoTokenizer.from_pretrained(local, use_fast=False)
+    
+    self.tokenizer.padding_side = "left"
+    self.tokenizer.pad_token = self.tokenizer.eos_token
+    self.model.resize_token_embeddings(len(self.tokenizer))
+    self.model.config.pad_token_id = self.model.config.eos_token_id
 
-  def define_prompt(self, question: str, answer: str):
+
+  def define_prompt(self, question: str):
     return [
-      {"role": "system", "content": QuestionRephrase.SYSTEM_PROMPT},
-      *[item for sublist in [({"role": "user", "content": user}, {"role": "assistant", "content": assistant}) for user, assistant in QuestionRephrase.EXAMPLES] for item in sublist],
+      {"role": "system", "content": self.SYSTEM_PROMPT},
+      *[item for sublist in [({"role": "user", "content": user}, {"role": "assistant", "content": assistant}) for user, assistant in self.EXAMPLES] for item in sublist],
       {"role": "user", "content": f'Q: "{question}"\n'}
     ]
 
-  def tokenize(self, tokenizer: PreTrainedTokenizer, prompt, examples) -> BatchEncoding:
-    prompts = [tokenizer.apply_chat_template(prompt(question, answer), tokenize=False, add_generation_prompt=True) for question, answer in zip(examples["question"], examples["answer"])]
-    return tokenizer(prompts, padding=True, return_tensors="pt", return_attention_mask=True)
-  
-  def batching(self, tokenized_dataset: Dataset, tokenizer) -> DataLoader:
-    return DataLoader(tokenized_dataset, shuffle=True, batch_size=10,collate_fn=DataCollatorWithPadding(tokenizer))
+  def initialize(self, dataset: Dataset, split: str | None = None) -> Dataset:
+    def tokenize(examples):
+      prompts = [self.tokenizer.apply_chat_template(self.define_prompt(question), tokenize=False, add_generation_prompt=True) for question in examples["question"][::2]]
+      res_tokens = self.tokenizer(prompts, padding=True, return_tensors="pt", 
+                                  return_attention_mask=True)
+      return { k: list(i for i in l for _ in range(2)) for k, l in res_tokens.items() }
+    
+    tokenized = dataset.sort(self._task.QUESTION_LABEL).map(tokenize, batched=True, load_from_cache_file=False)
+    
+    tokenized.set_format(type="torch", columns=["input_ids", "attention_mask"])
+    return tokenized
 
-  def result_buffer(self) -> pd.DataFrame:
-    return pd.DataFrame(columns=[INDEX_COLUMN, "prompt", "reframed_question"])
-  
-  def save_latent_data(self, latent_data: pd.DataFrame):
-    latent_data = latent_data.join(self.dataset.select_columns(["question", "answer", "label"]).to_pandas(), on=INDEX_COLUMN)
-    return super().save_latent_data(latent_data)
+  def fn_process(self, examples, _) -> Dataset:
+    import torch
 
+    terminators = [
+      self.tokenizer.eos_token_id,
+      self.tokenizer.convert_tokens_to_ids("<|eot_id|>")
+    ]
 
-  def compute_metrics(self, results: pd.DataFrame) -> pd.DataFrame:
-    return None
-  
-  def get_score(self, results) -> float:
-    return None
+    collator = DataCollatorWithPadding(tokenizer=self.tokenizer, padding=True)
+    batch = collator({ k: examples[k][::2] for k in ('input_ids', 'attention_mask') })
+    input_ids = torch.tensor(batch['input_ids']).to(device=self.model.device)
+    attention_mask = torch.tensor(batch['attention_mask']).to(device=self.model.device)
+
+    outputs_ids = self.model.generate(input_ids, attention_mask=attention_mask,
+                      num_return_sequences=1, eos_token_id=terminators, max_new_tokens=96, do_sample=True, temperature=0.25)
+
+    fixed_questions = list(map(lambda i, o: self.tokenizer.decode(o[i.shape[-1]:],
+                              skip_special_tokens=True), input_ids, outputs_ids))
+
+    torch.cuda.empty_cache()
+    torch.cuda.ipc_collect()
+
+    return {**examples, self._task.QUESTION_LABEL: list(q for q in fixed_questions for _ in range(2))}
+
+  def finalize(self, dataset: Dataset, split: str | None = None) -> Dataset:
+    r_qst_pat = re.compile(r'F:\s*"(.+)"$')
+
+    def parse_question(example):
+      return r_qst_pat.search(example["question"]) is not None
+
+    return super().finalize(dataset, split)\
+                  .filter(parse_question, batched=False)\
+                  .map(lambda x: {**x, self._task.QUESTION_LABEL: r_qst_pat.search(x[self._task.QUESTION_LABEL]).group(1)}, batched=False)\
+                  .shuffle(seed=self._task.SEED)

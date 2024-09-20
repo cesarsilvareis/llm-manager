@@ -1,6 +1,0 @@
-Params:{'do_sample': False, 'early_stopping': False, 'length_penalty': 0.0, 'max_new_tokens': 252, 'min_new_tokens': 54, 'num_beams': 1}
-Result:"""
-        rouge
-mean     0.32
-median   0.32
-"""
