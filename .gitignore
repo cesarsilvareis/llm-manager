@@ -1,11 +1,41 @@
 # Personal Files
-.storage/
 .env
 .token
 tmp*
 
 # DEV
-outputs/logs
+
+# Data
+
+# Ignore everything inside .storage/
+.storage/*
+
+# Unless the data folder
+!.storage/data
+
+# Ignore everything inside .storage/data/
+.storage/data/**
+
+# Unless the preprocessed datasets
+!/.storage/data/preproc-dataset[0-9]*/
+
+# # Ignore everything inside those datasets
+# .storage/data/preproc-dataset[0-9]/*
+
+# # Allow only CSV files inside those datasets
+# !/.storage/data/preproc-dataset[0-9]/*.csv
+
+
+# Logs
+
+# Ignore all logs
+outputs/logs/*
+
+# But do not ignore logs/backup
+!outputs/logs/backup/
+
+# Allow all files in logs/backup
+!outputs/logs/backup/**
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
