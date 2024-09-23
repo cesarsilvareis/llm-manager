@@ -8,6 +8,7 @@ from pandas import read_csv
 from src.execution import ModelExecution, ModelBatch
 from src.inference import Prompt, PromptType, RawPrompt, CompletionPrompt, SystemPrompt, Template, Inference, Testing
 from src.evaluation import TruthfulQA, PubMedSummary, ClinicalParaph
+from src.training import Training_EDMCQ
 from datasets import Dataset, DatasetDict, load_from_disk
 from src.tasks import ED_MCQ
 
@@ -108,7 +109,7 @@ def load_data_from_fs(filename: str) -> Dataset| DatasetDict:
     data_local = get_actual_path(filename, mode="data")
     return load_from_disk(data_local)
 
-# Load executions sorted by models for reusability
+# Load executions sorted by models for avoiding redudant downloading & loading
 def load_executions(path: str|Path, output_filename: str|None=None, batched: bool=True) -> list[ModelExecution]|list[ModelBatch]:
     executions: list[ModelExecution] = list()
 
@@ -124,10 +125,16 @@ def load_executions(path: str|Path, output_filename: str|None=None, batched: boo
 
     loaded_prompts = dict()
     loaded_tests = dict()
+    loaded_train_data = dict()
 
     for model, model_df in groups:
         loaded_model = load_modelcfg_from_fs(model)
         for index, row in model_df.iterrows():
+            if not str.isnumeric(index): # ignore comments
+                continue
+
+            index = int(index)
+
             match row["type"].lower():
                 case "inference":
                     if row["input"] not in loaded_prompts:
@@ -148,6 +155,13 @@ def load_executions(path: str|Path, output_filename: str|None=None, batched: boo
                                 outputfile=f"clinpar_{basefilename}_{index}", save_latents="metric")
                         case _:
                             raise ValueError(f"Unknown benchmark name '{row['input']}' as the input column value.")
+                case "training":
+                    if row["input"] not in loaded_train_data:
+                        loaded_train_data[row["input"]] = load_data_from_fs(row["input"])
+                    execution = Training_EDMCQ(index, modelcfg=loaded_model,
+                            dataset=loaded_train_data[row["input"]],
+                            resulted_model_dir=row["output"], balanced_trainer=row["balanced"], epochs=row["epochs"], to_save=None)
+
                 case "testing":
                     if row["input"] not in loaded_tests:
                         loaded_tests[row["input"]] = load_data_from_fs(row["input"])

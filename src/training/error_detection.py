@@ -1,14 +1,13 @@
-import re, numpy as np
+from typing import Any
 from src import get_actual_path, Path
 from src.tasks import ED_MCQ
 from src.model import ModelConfig
 from src.tasks import Task, TaskType
 from src.logger import get_logger
-from src.loader import load_modelcfg_from_fs, load_model_from_hf, load_data_from_fs
-from datasets import Dataset, DatasetDict, load_dataset, concatenate_datasets
-from operator import itemgetter
+from datasets import Dataset, DatasetDict, load_dataset
 from transformers import (
   AutoTokenizer,
+  PreTrainedModel,
   PreTrainedTokenizer,
   DataCollatorWithPadding,
   TrainingArguments,
@@ -25,13 +24,15 @@ from peft import (
 ) 
 
 from time import time
+
+from src.execution import ModelExecution
 from src.training.balanced_trainer import BalancedTrainer
 from src.training.data_preparation import EDStep1, EDStep4
 
 logger = get_logger()
 
 
-class Training_EDMCQ():
+class Training_EDMCQ(ModelExecution):
 
   # Training Data
   TRAIN_DATASET_HF_PATH = "openlifescienceai/medmcqa"
@@ -45,7 +46,12 @@ class Training_EDMCQ():
   SOURCE_OPTIONS = ["opa", "opb", "opc", "opd"]
   SOURCE_TRUE_OPTION = "cop"
   
-  def __init__(self, modelcfg: ModelConfig, dataset: DatasetDict|None=None, to_save: str|Path|None=None) -> None:
+  def __init__(self, id: int, modelcfg: ModelConfig, resulted_model_dir: str|Path,
+               dataset: DatasetDict|None=None, balanced_trainer: bool=False,
+               epochs: int=3, to_save: str|Path|None=None) -> None:
+
+
+    super().__init__(id, modelcfg, None)
     self._task = ED_MCQ()
 
     train_data = dataset or load_dataset(path=Training_EDMCQ.TRAIN_DATASET_HF_PATH) # train, val, (test)
@@ -74,6 +80,7 @@ class Training_EDMCQ():
     #   split=self.VALIDATION_SUBSET
     # )
 
+    # from src.loader import load_modelcfg_from_fs
     # p = EDStep4(self._task, train_data, modelcfg=load_modelcfg_from_fs("llama2_7b"))
     # train_data = p.run()
 
@@ -87,17 +94,43 @@ class Training_EDMCQ():
       self.validation_dataset.to_csv(to_save.joinpath(f"validation.csv"))
       self.test_dataset.to_csv(to_save.joinpath(f"test.csv"))
 
-    print(self._dataset)
 
     # for split in self._dataset.column_names:
     #   self._dataset[split] = self._dataset[split].shuffle(self._task.SEED).select(range(10))
-    self._dataset[self.TRAIN_SUBSET] = self._dataset[self.TRAIN_SUBSET].select(range(70_000))
+    print(self._dataset)
+
+    if isinstance(resulted_model_dir, Path):
+      resulted_model_dir = resulted_model_dir.stem
+    self._resulted_model_dir = resulted_model_dir
+
+    self._balanced_trainer = balanced_trainer
+    self._epochs = epochs
 
 
-    # Prepare pretrained model and its dependencies
-    self._load_model(modelcfg)
-    self._modelcfg = modelcfg
-    self._already_prepared = False
+  def setup(self):
+    
+    def initialize_modules(pretrained_local: Path):
+      from torch import bfloat16
+      pretrained_model = self._task.get_pretrained_model_forme(
+          pretrained_local, torch_dtype = bfloat16, num_labels = self._task.num_labels
+      )
+
+      logger.info(f"Model has been loaded! {pretrained_model}")
+
+      tokenizer = AutoTokenizer.from_pretrained(pretrained_local, add_prefix_space=True)
+
+      # Configurations for our decoder-only transformer
+      tokenizer.padding_side = "left"
+      tokenizer.pad_token = tokenizer.eos_token
+      pretrained_model.resize_token_embeddings(len(tokenizer))
+      pretrained_model.config.pad_token_id = pretrained_model.config.eos_token_id
+
+      return pretrained_model, tokenizer
+    
+    return {
+      "caller": initialize_modules,
+      "pretrained_local": get_actual_path(self.modelcfg.local, mode="model")
+    }
 
 
   @property
@@ -113,25 +146,6 @@ class Training_EDMCQ():
     return this._dataset["test"]
 
 
-  def _load_model(self, modelcfg: ModelConfig):
-    load_model_from_hf(modelcfg)
-
-    checkpoint_local = get_actual_path(modelcfg.local, mode="model")
-    from torch import bfloat16
-    self._pretrained_model = self._task.get_pretrained_model_forme(
-        checkpoint_local, torch_dtype = bfloat16, num_labels = self._task.num_labels
-    )
-
-    logger.info(f"Model has been loaded! {self._pretrained_model}")
-
-    self._tokenizer = AutoTokenizer.from_pretrained(checkpoint_local, add_prefix_space=True)
-
-    # Configurations for our decoder-only transformer
-    self._tokenizer.padding_side = "left"
-    self._tokenizer.pad_token = self._tokenizer.eos_token
-    self._pretrained_model.resize_token_embeddings(len(self._tokenizer))
-    self._pretrained_model.config.pad_token_id = self._pretrained_model.config.eos_token_id
-
   @staticmethod
   def tokenizing_data(dataset: DatasetDict, task: ED_MCQ, tokenizer: PreTrainedTokenizer, ctx_len) -> DatasetDict:
     
@@ -146,11 +160,12 @@ class Training_EDMCQ():
         load_from_cache_file=False, remove_columns=column_names
     )
 
-  def prepare_model_for_training(self, override: bool=True) -> PeftModel:
-    self._pretrained_model.train()
-    self._pretrained_model.gradient_checkpointing_enable()
+  @staticmethod
+  def prepare_model_for_training(pretrained_model) -> PeftModel:
+    pretrained_model.train()
+    pretrained_model.gradient_checkpointing_enable()
 
-    model = prepare_model_for_kbit_training(self._pretrained_model)
+    model = prepare_model_for_kbit_training(pretrained_model)
     config = LoraConfig(
       r=32,
       lora_alpha=32,
@@ -160,29 +175,20 @@ class Training_EDMCQ():
       task_type=TaskType.SEQ_CLS
     )
     
-    model = get_peft_model(model, config)
-    if override:
-      self._pretrained_model = model
-      import torch
-      torch.cuda.ipc_collect()
-      torch.cuda.empty_cache()
-      self._already_prepared = True
-
-    return model
+    return get_peft_model(model, config)
 
 
-  def run_sft(self, finetuned_model_dir: str|Path):
+  def execute(self, model: PreTrainedModel, tokenizer: PreTrainedTokenizer, **_):
 
-    tokenized_dataset = self.tokenizing_data(self._dataset, self._task, self._tokenizer, ctx_len=2048)
+    tokenized_dataset = self.tokenizing_data(self._dataset, self._task, tokenizer, ctx_len=2048)
     logger.info(f"Tokenization done! Dataset: {tokenized_dataset}")
 
-    data_collator = DataCollatorWithPadding(self._tokenizer)
+    data_collator = DataCollatorWithPadding(tokenizer)
 
     training_args = TrainingArguments(
-      output_dir=get_actual_path(finetuned_model_dir, mode="model"),
-      logging_dir=get_actual_path(finetuned_model_dir, mode="log"),
-      logging_steps=10,
-      num_train_epochs=3,
+      output_dir=get_actual_path(self._resulted_model_dir, mode="model"),
+      logging_dir=get_actual_path(self._resulted_model_dir, mode="log"),
+      num_train_epochs=self._epochs,
       logging_strategy="epoch",
       eval_strategy="epoch",
       per_device_train_batch_size=8,
@@ -198,11 +204,9 @@ class Training_EDMCQ():
       data_seed=self._task.SEED,
     )
 
-    to_train_model = self._pretrained_model
-    if not self._already_prepared:
-      to_train_model = self.prepare_model_for_training(override=True)
+    model = Training_EDMCQ.prepare_model_for_training(model)
     
-    optimizer = AdamW(to_train_model.parameters(), lr=3e-4, eps=1e-5, weight_decay=0.1, betas=[0.9, 0.95])
+    optimizer = AdamW(model.parameters(), lr=3e-4, eps=1e-5, weight_decay=0.1, betas=[0.9, 0.95])
     lr_scheduler = get_cosine_with_min_lr_schedule_with_warmup(optimizer, 
         num_training_steps=self.train_dataset.num_rows * training_args.num_train_epochs // training_args.per_device_train_batch_size, num_warmup_steps=2000,
         min_lr=1e-6
@@ -219,41 +223,34 @@ class Training_EDMCQ():
 
     print(f"{train_class_weights=}, {eval_class_weights=}")
 
-    trainer = Trainer(
-      model=to_train_model,
-      args=training_args,
-      train_dataset=tokenized_dataset[self.TRAIN_SUBSET],
-      eval_dataset=tokenized_dataset[self.VALIDATION_SUBSET],
-      tokenizer=self._tokenizer,
-      data_collator=data_collator,
-      optimizers=(optimizer, lr_scheduler),
-      compute_metrics=lambda x: self._task.compute_metrics_with_radar_for(x, 
-                medical_subjects=self._dataset[self.VALIDATION_SUBSET]["subject_name"],
-                save_path=get_actual_path(finetuned_model_dir, mode="log")
+    common_args = {
+      "model": model, 
+      "tokenizer": tokenizer,
+      "args": training_args,
+      "train_dataset": tokenized_dataset[self.TRAIN_SUBSET],
+      "eval_dataset": tokenized_dataset[self.VALIDATION_SUBSET],
+      "data_collator": data_collator,
+      "optimizers": (optimizer, lr_scheduler),
+      "compute_metrics": lambda x: self._task.compute_metrics_with_radar_for(x, 
+          medical_subjects=self._dataset[self.VALIDATION_SUBSET]["subject_name"],
+          save_path=get_actual_path(self._resulted_model_dir, mode="log")
       )
-    )
+    }
+    
+    trainer = BalancedTrainer(**common_args, 
+              train_class_weights=train_class_weights,
+              eval_class_weights=eval_class_weights
+    ) if self._balanced_trainer else Trainer(**common_args)
 
-    # trainer = BalancedTrainer(
-    #   model=to_train_model,
-    #   args=training_args,
-    #   train_dataset=tokenized_dataset["train"],
-    #   eval_dataset=tokenized_dataset["validation"],
-    #   tokenizer=self._tokenizer,
-    #   data_collator=data_collator,
-    #   optimizers=(optimizer, lr_scheduler),
-    #   compute_metrics=self._task.compute_metrics,
-    #   train_class_weights=train_class_weights,
-    #   eval_class_weights=eval_class_weights
-    # )
     
     logger.info(f"Training Optimizer:\n{trainer.optimizer}")
     logger.info(f"Training LR Scheduler:\n{trainer.lr_scheduler}")
-    logger.info(f"Training SFT of model '{self._modelcfg['name']}'for ED of MCQs...")
+    logger.info(f"Training SFT of model '{self.modelcfg['name']}'for ED of MCQs...")
     logger.info(f"Dataset shapes: train={self.train_dataset.num_rows}, validation={self.validation_dataset.num_rows}, test={self.test_dataset.num_rows}")
 
-    to_train_model.print_trainable_parameters()
+    model.print_trainable_parameters()
     
-    if input("Initiate Training? (Y|N) ").strip().lower() not in ["y", "Y"]:
+    if self._id < 0 and input("Initiate Training? (Y|N) ").strip().lower() not in ["y", "Y"]:
       return
     
     stime = time()

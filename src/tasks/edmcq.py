@@ -8,7 +8,7 @@ from transformers import EvalPrediction
 
 class ED_MCQ(Task):
 
-  SEED = 7
+  SEED = 17
 
   CORRECT_LABEL = "Correct"
   INCORRECT_LABEL = "Incorrect"

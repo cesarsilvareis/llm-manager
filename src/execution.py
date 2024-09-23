@@ -14,7 +14,7 @@ class ModelExecution(ABC):
 
     ACTIVIVE_EXECUTIONS: set[int]=set()
 
-    def __init__(self, id: int, model: ModelConfig, output_filename: str):
+    def __init__(self, id: int, model: ModelConfig, output_filename: str|None=None):
         assert id not in self.ACTIVIVE_EXECUTIONS
         ModelExecution.ACTIVIVE_EXECUTIONS.add(id)
         
@@ -88,7 +88,7 @@ class ModelExecution(ABC):
         dtime = time() - stime
         logger.info(f"Execution '{self.id}' ran for {int(dtime)}s")
 
-        if to_save:
+        if to_save and self.output_filename:
             logger.info(f"Saving result in '{self.output_filename}'...")
             self.save(exec_time=dtime)
 

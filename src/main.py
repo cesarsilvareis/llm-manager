@@ -67,12 +67,14 @@ def main():
 
     if args.train:
         from src.training import Training_EDMCQ
-        tr = Training_EDMCQ(
+        tr = Training_EDMCQ(id=-1,
             modelcfg=load_modelcfg_from_fs(args.modelcfg),
             dataset=load_data_from_fs(args.dataset) if args.dataset else None,
+            resulted_model_dir=args.resfile,
+            balanced_trainer=False,
             to_save=None
         )
-        tr.run_sft(finetuned_model_dir=args.resfile)
+        tr.run(finetuned_model_dir=args.resfile)
 
     if args.prompt is not None:
         inf = Inference(id=-1, 

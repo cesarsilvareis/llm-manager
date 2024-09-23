@@ -7,7 +7,6 @@ from src.tasks import ED_MCQ
 from src.training.data_preparation import EDStep2
 from src.model import ModelConfig
 from src import get_actual_path
-from src.loader import load_model_from_hf
 
 from transformers import PreTrainedModel, AutoModelForCausalLM, AutoTokenizer, DataCollatorWithPadding
 
@@ -131,6 +130,7 @@ of the question after the "F" mark. Any other thing should be avoided.
                ) -> None:
     super().__init__(task, dataset, split)
 
+    from src.loader import load_model_from_hf
     load_model_from_hf(modelcfg)
     
     local = get_actual_path(modelcfg.local, "model")
