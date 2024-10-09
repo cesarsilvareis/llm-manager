@@ -1,4 +1,5 @@
 # Technical Report
+This is a technical report describing all experimental tasks in virtue on testing today's medical LLMs.
 
 ## Intent of the Framework
 - Evaluate medical LLMs efficiently; i.e., without wasting massive computational resources;
@@ -22,7 +23,7 @@ Once a shared resource, concerns are taken on: reducing disk usage; alleviating 
 The Figure 1 schematizes all these considerations.
 
 <div align="center">
- <img src="llm_usage_scheme.png" alt="Description of the image" width="550">
+ <img src="report_data/llm_usage_scheme.png" alt="Description of the image" width="550">
 </div>
 
 #### Storage and Disk Usage
@@ -80,5 +81,35 @@ As such, to accommodate experiments, the chosen available architecture is 1 Nvid
 ### T2 | Fine-Tuning for Enforcing  Error Detection
 
 #### Dataset Preprocessing
+
+1. Splitting MCQs into QA pairs turned out in bias for the ``incorrect`` class.
+<div align="center">
+ <img src="report_data/data_scores_step1.png" alt="Description of the image" width="550">
+</div>
+
+2. Balacing class variable towards a fair error detection. Considered validation dataset is the one for (a).
+
+    (a) Undersampling
+    
+    <div align="center">
+    <img src="report_data/data_scores_step2.1.png" alt="Description of the image" width="550">
+    </div>
+
+    (b) Class-weighted loss function
+    <div align="center">
+    <img src="report_data/data_scores_step2.2.png" alt="Description of the image" width="550">
+    </div>
+
+3. Similar questions removal (with cosine of embeddings followed by BLEURT similarities).
+<div align="center">
+ <img src="report_data/data_scores_step3.png" alt="Description of the image" width="550">
+</div>
+
+4. Mystification of QA relations by transforming MCQs into single-answer questions.
+<div align="center">
+ <img src="report_data/data_scores_step4.png" alt="Description of the image" width="550">
+</div>
+
+
 
 #### Results
