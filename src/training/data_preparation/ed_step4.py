@@ -199,3 +199,4 @@ of the question after the "F" mark. Any other thing should be avoided.
                   .filter(parse_question, batched=False)\
                   .map(lambda x: {**x, self._task.QUESTION_LABEL: r_qst_pat.search(x[self._task.QUESTION_LABEL]).group(1)}, batched=False)\
                   .shuffle(seed=self._task.SEED)
+

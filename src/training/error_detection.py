@@ -94,10 +94,7 @@ class Training_EDMCQ(ModelExecution):
       self.validation_dataset.to_csv(to_save.joinpath(f"validation.csv"))
       self.test_dataset.to_csv(to_save.joinpath(f"test.csv"))
 
-
-    # for split in self._dataset.column_names:
-    #   self._dataset[split] = self._dataset[split].shuffle(self._task.SEED).select(range(10))
-    print(self._dataset)
+    print(f'{self._dataset=}')
 
     if isinstance(resulted_model_dir, Path):
       resulted_model_dir = resulted_model_dir.stem
@@ -147,7 +144,7 @@ class Training_EDMCQ(ModelExecution):
 
 
   @staticmethod
-  def tokenizing_data(dataset: DatasetDict, task: ED_MCQ, tokenizer: PreTrainedTokenizer, ctx_len) -> DatasetDict:
+  def tokenizing_data(dataset: DatasetDict, task: ED_MCQ, tokenizer: PreTrainedTokenizer, ctx_len=2048) -> DatasetDict:
     
     column_names = dataset.column_names if isinstance(dataset, Dataset) else dataset["train"].column_names
     return dataset.map(function=task.tokenization, fn_kwargs={

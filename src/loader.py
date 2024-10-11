@@ -115,8 +115,9 @@ def load_executions(path: str|Path, output_filename: str|None=None, batched: boo
 
     if isinstance(path, str):
         path = Path(path)
-    
+
     assert path.exists()
+
     df = read_csv(path)
     df.set_index("execution", inplace=True)
     groups = df.groupby(by="model", sort=False)
@@ -130,7 +131,7 @@ def load_executions(path: str|Path, output_filename: str|None=None, batched: boo
     for model, model_df in groups:
         loaded_model = load_modelcfg_from_fs(model)
         for index, row in model_df.iterrows():
-            if not str.isnumeric(index): # ignore comments
+            if type(index) is not int and not str.isnumeric(index): # ignore comments
                 continue
 
             index = int(index)

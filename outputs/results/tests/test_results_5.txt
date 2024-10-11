@@ -1,0 +1,30 @@
+Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 512, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
+Result:"""
+
+
+==== MAIN METRICS ====
+
+Showing first 14 test case (total of 41) -------
+Ground Truth:
+[0 0 0 1 0 0 0 1 1 1 1 1 0 0]
+
+Predictions:
+
+- [0 0 1 1 1 1 0 0 0 1 1 0 0 0]
+
+-----------------------------------------------------------------
+
+FP: 9
+FN: 6
+
+
+Final Score:
+f1: 0.6521739130434783
+
+==== OTHER METRICS ====
+
+
+; {'predictions': array([0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0]), 'ground_truth': array([0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0]), 'fp': 9, 'fn': 7, 'metrics': {'test_loss': 0.741901695728302, 'test_precision': 0.625, 'test_recall': 0.6818181818181818, 'test_accuracy': 0.6097560975609756, 'test_f1': 0.6521739130434783, 'test_runtime': 3.6131, 'test_samples_per_second': 11.348, 'test_steps_per_second': 1.661}}: 
+
+
+"""

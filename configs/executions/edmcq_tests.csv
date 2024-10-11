@@ -1,9 +1,7 @@
 execution,model,type,input
-e1,meditron_small,Testing,smcq_dataset4
-e2,checkpoint_v1,Testing,smcq_dataset4
-e3,checkpoint_v2,Testing,smcq_dataset4
-e4,checkpoint_v3,Testing,smcq_dataset4
-e5,checkpoint_v4,Testing,smcq_dataset4
-e6,checkpoint_v5,Testing,smcq_dataset4
-e7,final,Testing,smcq_dataset4
-
+1,edft_v1,Testing,preproc-dataset5
+2,edft_v2,Testing,preproc-dataset5
+3,edft_v3,Testing,preproc-dataset5
+4,edft_v4,Testing,preproc-dataset5
+5,edft_v5,Testing,preproc-dataset5
+6,edft_llm,Testing,preproc-dataset5

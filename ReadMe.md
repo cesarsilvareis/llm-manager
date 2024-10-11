@@ -90,9 +90,8 @@ As such, to accommodate experiments, the chosen available architecture is 1 Nvid
 2. Balacing class variable towards a fair error detection. Considered validation dataset is the one for (a).
 
     (a) Undersampling
-    
     <div align="center">
-    <img src="report_data/data_scores_step2.1.png" alt="Description of the image" width="550">
+    <img src="report_data/data_scores_step2.1.png" alt="Description of the image"   width="550">
     </div>
 
     (b) Class-weighted loss function

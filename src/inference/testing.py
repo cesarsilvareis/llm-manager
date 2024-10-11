@@ -36,19 +36,19 @@ class Testing(ModelExecution):
     def setup(self: Self):
         def prepare_trainer(checkpoint_local, model_kwargs) -> Trainer:
             print(checkpoint_local, model_kwargs)
-            pretrained_model = self._task.get_pretrained_model_forme(
+            checkpoint = self._task.get_pretrained_model_forme(
                 checkpoint_local, **model_kwargs)
             tokenizer = AutoTokenizer.from_pretrained(checkpoint_local)
-            pretrained_model.eval()
+            checkpoint.eval()
 
             # Configurations for our decoder-only transformer
             tokenizer.padding_side = "left"
             tokenizer.pad_token = tokenizer.eos_token
-            pretrained_model.resize_token_embeddings(len(tokenizer))
-            pretrained_model.config.pad_token_id = pretrained_model.config.eos_token_id
+            checkpoint.resize_token_embeddings(len(tokenizer))
+            checkpoint.config.pad_token_id = checkpoint.config.eos_token_id
 
             return Trainer(
-                model=pretrained_model,
+                model=checkpoint,
                 tokenizer=tokenizer,
                 compute_metrics=self._task.compute_metrics
             )
@@ -83,18 +83,19 @@ class Testing(ModelExecution):
 
             ==== MAIN METRICS ====
 
+            Showing first {{ lines }} test case (total of {{ size }}) -------
             Ground Truth:
             {{ results[0]["ground_truth"] }}
 
             Predictions:
             {% for r in results %}
             - {{ r["predictions"] }}
-
+            {% endfor %}
+            -----------------------------------------------------------------
+            {% for r in results %}
             FP: {{ r["fp"] }}
             FN: {{ r["fn"] }}
-
             {% endfor %}
-            
 
             Final Score:
             {{ max_metric }}: {{ final_score }}
@@ -106,7 +107,7 @@ class Testing(ModelExecution):
             {% endfor %}
 
             """
-        )).render(results=results, max_metric=max_metric, 
+        )).render(results=results, max_metric=max_metric, lines=Testing.PRESENT_LINES.stop, size=self.test.num_rows,
                   final_score=np.mean(list(r["metrics"][f"test_{max_metric}"] for r in results)))
 
     def __repr__(self, **_) -> str:
