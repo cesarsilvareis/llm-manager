@@ -1,0 +1,7 @@
+execution,model,type,input,save_as_csv
+#1,edft_v1,Testing,preproc-dataset5,False
+#2,edft_v2,Testing,preproc-dataset5,False
+#3,edft_v3,Testing,preproc-dataset5,False
+#4,edft_v4,Testing,preproc-dataset5,False
+#5,edft_v5,Testing,preproc-dataset5,False
+6,edft_llm,Testing,preproc-dataset5,True

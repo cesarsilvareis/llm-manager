@@ -1,0 +1,7 @@
+execution,model,type,input,save_as_csv
+1,edft_v1,Testing,real_test,False
+2,edft_v2,Testing,real_test,False
+3,edft_v3,Testing,real_test,False
+4,edft_v4,Testing,real_test,False
+5,edft_v5,Testing,real_test,False
+6,edft_llm,Testing,real_test,True

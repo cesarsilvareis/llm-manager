@@ -16,9 +16,8 @@ class Testing(ModelExecution):
 
     TEST_DATA = "test"
     PRESENT_LINES = slice(14)
-    REPEAT = 1
 
-    def __init__(self, id: int, modelcfg: ModelConfig, task: Task|TaskType, data_local: Dataset|DatasetDict, output_filename: str):
+    def __init__(self, id: int, modelcfg: ModelConfig, task: Task|TaskType, data_local: Dataset|DatasetDict, output_filename: str, save_as_csv: bool=False):
         super().__init__(id, modelcfg, f"tests/{output_filename}")
 
         self._task = task
@@ -28,6 +27,8 @@ class Testing(ModelExecution):
         self._dataset = data_local
         if isinstance(self._dataset, DatasetDict):
             self._dataset = self._dataset[Testing.TEST_DATA]
+
+        self._save_as_cvs = save_as_csv
 
     @property
     def test(this) -> Dataset:
@@ -63,52 +64,45 @@ class Testing(ModelExecution):
         tokenized_dataset = self._task._trainer_scheme.tokenizing_data(self.test, self._task, trainer.tokenizer)
         test_outputs = trainer.predict(tokenized_dataset)
         predictions = np.argmax(test_outputs.predictions, axis=-1)
+        ground_truths = test_outputs.label_ids
+
+        if self._save_as_cvs:
+            self.test.add_column("predictions", predictions)\
+                     .to_csv(get_actual_path(f'{self.output_filename}.csv', "data"))
+            
+            print(get_actual_path(f'{self.output_filename}.csv', "data"))
+
         return {
             "predictions": predictions[Testing.PRESENT_LINES],
-            "ground_truth": test_outputs.label_ids[Testing.PRESENT_LINES],
+            "ground_truth": ground_truths[Testing.PRESENT_LINES],
             "fp": np.sum((predictions == 1) & (test_outputs.label_ids == 0)), # = 0, max precision --> complete
             "fn": np.sum((predictions == 0) & (test_outputs.label_ids == 1)), # = 0, max recall --> sound
             "metrics": test_outputs.metrics,
-
         }
     
     def execute(self, trainer: Trainer, **_) -> Any|list[Any]:
-        results = []
         logger.info(f"Testing a set of {self.test.num_rows} test cases (distr: {self.test.to_pandas()['label'].value_counts()})")
-        for _ in range(Testing.REPEAT):
-            results.append(self._execute(trainer))
 
-        max_metric = self._task.get_max_metric().name
+        result = self._execute(trainer)
+
         return Template(adapt_prompt("""
 
             ==== MAIN METRICS ====
 
             Showing first {{ lines }} test case (total of {{ size }}) -------
-            Ground Truth:
-            {{ results[0]["ground_truth"] }}
+            - Ground Truth: {{ result["ground_truth"] }}
+            - Predictions: {{ result["predictions"] }}
+-
+            Final Scores:
+            FP: {{ result["fp"] }}
+            FN: {{ result["fn"] }}
 
-            Predictions:
-            {% for r in results %}
-            - {{ r["predictions"] }}
+            Metrics:
+            {% for m in result["metrics"] %}                     
+            -{{ m }}: {{ result["metrics"][m] | round(2) }}
             {% endfor %}
-            -----------------------------------------------------------------
-            {% for r in results %}
-            FP: {{ r["fp"] }}
-            FN: {{ r["fn"] }}
-            {% endfor %}
-
-            Final Score:
-            {{ max_metric }}: {{ final_score }}
-            
-            ==== OTHER METRICS ====
-
-            {% for r in results %}
-            ; {{ r }}: {{ results[r] }}
-            {% endfor %}
-
             """
-        )).render(results=results, max_metric=max_metric, lines=Testing.PRESENT_LINES.stop, size=self.test.num_rows,
-                  final_score=np.mean(list(r["metrics"][f"test_{max_metric}"] for r in results)))
+        )).render(result=result, lines=Testing.PRESENT_LINES.stop, size=self.test.num_rows)
 
     def __repr__(self, **_) -> str:
         test_set = self.test

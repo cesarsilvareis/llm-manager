@@ -1,0 +1,33 @@
+Params:{'do_sample': True, 'early_stopping': True, 'length_penalty': -0.5, 'max_new_tokens': 512, 'min_new_tokens': 54, 'num_beams': 3, 'repetition_penalty': 1.2, 'temperature': 0.45, 'top_k': 100, 'top_p': 0.85}
+Result:"""
+
+
+==== MAIN METRICS ====
+
+Showing first 14 test case (total of 41) -------
+- Ground Truth: [0 0 0 1 0 0 0 1 1 1 1 1 0 0]
+- Predictions: [1 1 1 1 1 1 1 1 1 1 1 0 0 1]
+-
+Final Scores:
+FP: 16
+FN: 1
+
+Metrics:
+
+-test_loss: 0.88
+
+-test_precision: 0.16
+
+-test_recall: 0.95
+
+-test_accuracy: 0.58
+
+-test_f1: 0.26
+
+-test_runtime: 2.85
+
+-test_samples_per_second: 14.36
+
+-test_steps_per_second: 2.1
+
+"""

@@ -168,7 +168,7 @@ def load_executions(path: str|Path, output_filename: str|None=None, batched: boo
                         loaded_tests[row["input"]] = load_data_from_fs(row["input"])
                     execution = Testing(index, modelcfg=loaded_model,
                         data_local=loaded_tests[row["input"]], task=ED_MCQ(),
-                        output_filename=f"test_{basefilename}_{index}")
+                        output_filename=f"test_{basefilename}_{index}", save_as_csv=row["save_as_csv"])
                 case _:
                     raise ValueError(f"Unknown execution type '{row['type']}'.")
 
